@@ -1,8 +1,9 @@
 # 1. Configuración General
 NAME = libft.a
-ODIR = obj/
+#SRC_DIR = srcs
+#INC_DIR = includes
 SRC =	ft_putchar.c ft_putstr.c ft_strcmp.c ft_strlen.c ft_swap.c
-OBJ = $(addprefix $(ODIR), $(SRC:.c=.o))
+OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g 
 
@@ -10,15 +11,11 @@ CFLAGS = -Wall -Wextra -Werror -g
 all: $(NAME)
 
 # 3. Crear la librería estática
-$(NAME): $(ODIR) $(OBJ)
+$(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-# Regla para asegurar la existencia del directorio
-$(ODIR):
-	mkdir -p $(ODIR)
-
 # 4. Compilar cada archivo fuente
-$(ODIR)/%.o: %.c
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # 5. Limpiar archivos objeto

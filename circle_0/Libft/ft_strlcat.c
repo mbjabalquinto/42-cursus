@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 18:43:17 by mjabalqu          #+#    #+#             */
+/*   Updated: 2025/11/11 12:00:53 by mjabalqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	dst_len;
+	size_t	src_len;
+
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (dst_len >= dstsize)
+		return (dstsize + src_len);
+	i = 0;
+	while (dst_len < dstsize - 1 && src[i] != '\0')
+	{
+		dst[dst_len] = src[i];
+		i++;
+		dst_len++;
+	}
+	if (dstsize > 0)
+		dst[dst_len] = '\0';
+	return (src_len + dst_len);
+}
