@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 10:41:01 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/12 15:35:39 by mjabalqu         ###   ########.fr       */
+/*   Created: 2025/11/12 18:04:38 by mjabalqu          #+#    #+#             */
+/*   Updated: 2025/11/12 18:09:30 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	len;
-	char	*copy;
-
-	len = ft_strlen(s);
-	copy = malloc((len + 1) * sizeof(char));
-	if (!copy)
-		return (NULL);
-	ft_strlcpy(copy, s, len + 1);
-	return (copy);
+	
 }
