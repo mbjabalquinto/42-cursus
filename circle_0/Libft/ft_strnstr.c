@@ -6,11 +6,12 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:50:54 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/11 17:32:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:06:56 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-char	*strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;

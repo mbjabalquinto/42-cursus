@@ -6,11 +6,12 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:48:42 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/11 15:17:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:04:07 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-char	*strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 

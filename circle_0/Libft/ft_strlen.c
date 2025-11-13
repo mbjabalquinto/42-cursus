@@ -6,9 +6,10 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:03:58 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/10 16:46:15 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:07:41 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
 size_t	ft_strlen(const char *str)
 {

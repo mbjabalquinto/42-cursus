@@ -6,9 +6,10 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:40:13 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/11 16:18:32 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:08:04 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

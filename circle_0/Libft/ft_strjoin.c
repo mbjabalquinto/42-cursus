@@ -6,10 +6,9 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:46:36 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/12 17:25:42 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:43:48 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -27,3 +26,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strlcat(src, s2, buffer_len);
 	return (src);
 }
+/*
+int	main(void)
+{
+	printf("%s", ft_strjoin("hola ", "caracola"));
+	return (0);
+}*/
