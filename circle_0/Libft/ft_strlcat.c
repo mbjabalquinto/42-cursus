@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:43:17 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/11 12:00:53 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/13 18:31:50 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		dst[dst_len] = '\0';
 	return (src_len + dst_len);
 }
+/*
+int	main(void)
+{
+	printf("%zu", ft_strlcat("pqrs", "abcdefghi", 10));
+	return (0);
+}*/
