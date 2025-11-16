@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/16 10:37:34 by mjabalqu        ###   ########.fr        */
+/*   Updated: 2025/11/16 18:22:17 by mjabalqu        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -16,8 +16,6 @@ int	ft_count_words(char const *s, char const *init_pos, char c)
 	int	cont;
 	
 	cont = 0;
-	while (*s == c)
-		s++;
 	while (*s != '\0')
 	{		
 		if (*s != c && s == init_pos)
@@ -40,24 +38,30 @@ void	ft_separate_words(char const *init_pos, char const *s, char **words, char c
 	{		
 		if (*s != c && s == init_pos)
 		{
-			end_word = ft_strchr(s, (int)c) - 1;
+			end_word = ft_strchr(s, (int)c);
 			if (end_word)
 			{	
 				start_word = (char *)s;
-				*words = ft_substr(s, (unsigned int)(start_word - init_pos), (size_t)(end_word - start_word));
+				*words = ft_substr(s, 0, (size_t)(end_word - start_word));
 				words++;
 			}
 		}
-		else if (*s == c && *(s + 1) != c && *s != '\0')
+		else if (*s == c && *(s + 1) != c && *(s + 1) != '\0')
 			if (end_word)
 			{	
 				start_word = (char *)s;
-				*words = ft_substr(s, (unsigned int)(start_word - init_pos), (size_t)(end_word - start_word));
+				*words = ft_substr(s, 0, (size_t)(end_word - start_word));
 				words++;
 			}
 		s++;
 	}
-	*words = NULL;
+/*	if (*(end_word + 1) != '\0' && *(end_word + 1) != c)
+	{
+		end_word++;
+		*words = ft_substr(end_word, 0, (size_t)(s - end_word));
+		words++;
+	}	
+	*words = NULL;*/
 }
 
 char	**ft_split(char const *s, char c)
@@ -66,6 +70,8 @@ char	**ft_split(char const *s, char c)
 	char		**words;
 	int		cont;
 
+	while (*s == c)
+		s++;
 	init_pos = s;
 	cont = ft_count_words(s, init_pos, c);	
 	words = malloc((cont + 1) * sizeof(char *));
