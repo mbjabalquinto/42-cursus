@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/17 09:48:00 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:54:15 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -27,23 +27,38 @@ int	ft_count_words(char const *s, char const *init_pos, char c)
 	return (cont);
 }
 
+void	ft_first_word(char **end_word, char **start_word, char const *s, char c, char ***words)
+{
+	*end_word = ft_strchr(s, (int)c);
+	if (*end_word)
+	{	
+		*start_word = (char *)s;
+		**words = ft_substr(s, 0, (size_t)(*end_word - *start_word));
+		(*words)++;
+	}
+}
+
+void	ft_last_word(char *last_pos, char ***words, char c)
+{
+	size_t	len;
+	
+	while (*last_pos == c)
+		last_pos++;
+	len = ft_strlen(last_pos);
+	**words = ft_substr(last_pos, 0, len);
+	(*words)++;
+}
+
 void	ft_separate_words(char const *init_pos, char const *s, char **words, char c)
 {	
 	char	*start_word;
 	char	*end_word;
+	char	*last_pos;
 	
 	while (*s != '\0')
 	{		
 		if (*s != c && s == init_pos)
-		{
-			end_word = ft_strchr(s, (int)c);
-			if (end_word)
-			{	
-				start_word = (char *)s;
-				*words = ft_substr(s, 0, (size_t)(end_word - start_word));
-				words++;
-			}
-		}
+			ft_first_word(&end_word, &start_word, s, c, &words);
 		else if (*s == c && *(s + 1) != c && *(s + 1) != '\0')
 		{
 			s++;
@@ -53,10 +68,13 @@ void	ft_separate_words(char const *init_pos, char const *s, char **words, char c
 				start_word = (char *)s;
 				*words = ft_substr(s, 0, (size_t)(end_word - start_word));
 				words++;
+				last_pos = end_word;
 			}
 		}
 		s++;
 	}
+	if (s != last_pos + 1)
+		ft_last_word(last_pos, &words, c);
 	words = NULL;
 }
 
@@ -80,7 +98,7 @@ int	main(void)
 {
 	char **p;
 
-	p = ft_split(",,Hola,que,tal,como,estas,,creo,que,esto,funciona,,,,,o,,,,,,eso,,,,,parece", ',');
+	p = ft_split(",,Hola,que,tal,,,esto,parece,que,,,ya,,,funciona", ',');
 	while(*p != NULL)
 	{
 		printf("%s\n", *p);
