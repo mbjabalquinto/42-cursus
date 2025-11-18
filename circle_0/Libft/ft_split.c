@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/18 13:32:03 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:26:56 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -27,37 +27,37 @@ int	ft_count_words(char const *s, char const *init_pos, char c)
 	return (cont);
 }
 
-void	ft_first_word(char **end_word, char c, char const *s, char **cursor)
+void	ft_first_word(char **end_word, char c, char const *s, char ***cursor)
 {
 	size_t	len;
 	
 	*end_word = ft_strchr(s, (int)c);
 	if (*end_word)
 	{
-		*cursor = ft_substr(s, 0, (size_t)(*end_word - (char *)s));
-		cursor++;
+		**cursor = ft_substr(s, 0, (size_t)(*end_word - (char *)s));
+		(*cursor)++;
 	}
 	else
 	{
 		len = ft_strlen(s);
-		*cursor = ft_substr(s, 0, len);
-		cursor++;
+		**cursor = ft_substr(s, 0, len);
+		(*cursor)++;
 	}
 }
 
-void	ft_last_word(char *last_pos, char **cursor, char c)
+void	ft_last_word(char *last_pos, char ***cursor, char c)
 {
 	size_t	len;
 
 	while (*last_pos == c)
 		last_pos++;
 	len = ft_strlen(last_pos);
-	*cursor = ft_substr(last_pos, 0, len);
-	cursor++;
+	**cursor = ft_substr(last_pos, 0, len);
+	(*cursor)++;
 }
 
 void	ft_separate_words(char const *init_pos, char const *s
-		, char **cursor, char c)
+		, char ***cursor, char c)
 {
 	char	*start_word;
 	char	*end_word;
@@ -67,7 +67,7 @@ void	ft_separate_words(char const *init_pos, char const *s
 	{
 		if (*s != c && s == init_pos)
 		{
-			ft_first_word(&end_word, c, s, cursor);
+			ft_first_word(&end_word, c, s, &*cursor);
 			last_pos = end_word;
 		}
 		else if (*s == c && *(s + 1) != c && *(s + 1) != '\0')
@@ -77,12 +77,12 @@ void	ft_separate_words(char const *init_pos, char const *s
 			if (end_word)
 			{
 				start_word = (char *)s;
-				*cursor = ft_substr(s, 0, (size_t)(end_word - start_word));
-				cursor++;
+				**cursor = ft_substr(s, 0, (size_t)(end_word - start_word));
+				(*cursor)++;
 				last_pos = end_word;
 			}
-			else if (*end_word != '\0')
-				ft_last_word(last_pos, cursor, c);
+			else
+				ft_last_word(last_pos, &*cursor, c);
 		}
 		s++;
 	}
@@ -102,7 +102,7 @@ char	**ft_split(char const *s, char c)
 	words = malloc((cont + 1) * sizeof(char *));
 	cursor = words;
 	s = init_pos;
-	ft_separate_words(init_pos, s, cursor, c);
+	ft_separate_words(init_pos, s, &cursor, c);
 	*cursor = NULL;
 	return (words);
 }
@@ -111,7 +111,7 @@ int	main(void)
 {
 	char **p;
 
-	p = ft_split("Hello!", ',');
+	p = ft_split("      split       this for   me  !       ", ' ');
 	while(*p != NULL)
 	{
 		printf("%s\n", *p);
