@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:34:54 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/13 16:38:10 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:19:16 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	ft_bzero(void *s, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
+void    ft_free_matrix(char ***matrix, int i);
 
 #endif

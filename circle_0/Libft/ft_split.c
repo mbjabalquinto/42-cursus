@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/18 17:43:27 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:36:51 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -102,6 +102,11 @@ char	**ft_split(char const *s, char c)
 		s = init_pos;
 		ft_separate_words(init_pos, s, &cursor, c);
 		*cursor = NULL;
+	}
+	else
+	{
+		words[0] = NULL;
+		return (words);
 	}
 	return (words);
 }
