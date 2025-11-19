@@ -6,120 +6,155 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/19 12:36:51 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/19 19:26:41 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-int	ft_count_words(char const *s, char const *init_pos, char c);
+int	ft_count_words(char const *s, char c);
 
-void	ft_first_word(char **end_word, char c, char const *s, char ***cursor)
+char	*ft_get_word(char const *s, char c, int i)
 {
-	size_t	len;
-	char	*word;
+	size_t		len;
+	char		*word;
+	char		*end_word;
+	char const	*p;
 
-	*end_word = ft_strchr(s, (int)c);
-	if (*end_word)
+	p = &s[i];
+	end_word = ft_strchr(p, (int)c);
+	if (end_word)
 	{
 		
-		word = ft_substr(s, 0, (size_t)(*end_word - (char *)s));
+		word = ft_substr(p, 0, (size_t)(end_word - p));
 		if (word != NULL)
-		{
-			**cursor = word;
-			(*cursor)++;
-		}
-		else
-			return /* Tal vez esta función solo tendría que devolver el string o NULL y que separate_words se encarge del resto*/
+			return (word);
 	}
 	else
 	{
 		len = ft_strlen(s);
-		**cursor = ft_substr(s, 0, len);
-		(*cursor)++;
-		/* tal vez aquí pueda llamar a last_word ya que si no hay separadores es que es la primera y única palabra que es lo mismo que si fuera la última. */
+		word = ft_substr(s, 0, len);
+		if (word != NULL)
+			return (word);
+		
 	}
+	return (NULL);
 }
 
-void	ft_last_word(char *last_pos, char ***cursor, char c)
+char	*ft_get_last_word(char const *s, char c)
 {
 	size_t	len;
+	char	*word;
+	char	*end_word;
 
-	while (*last_pos == c)
-		last_pos++;
-	len = ft_strlen(last_pos);
-	**cursor = ft_substr(last_pos, 0, len);
-	(*cursor)++;
+	end_word = ft_strrchr(s, (int)c);
+	if (end_word)
+	{
+		if (*(end_word + 1) != '\0')
+		{
+			end_word++;
+			len = ft_strlen(end_word);
+			word = ft_substr(end_word, 0, len);
+			if (word == NULL)
+				return (NULL);
+			else
+				return (word);
+		}
+		else
+			return ("");
+	}
+	return ("");
 }
 
-void	ft_separate_words(char const *init_pos, char const *s
-		, char ***cursor, char c)
+int	ft_separate_words(char const *s , char **words, char c)
 {
-	char	*end_word;
-	char	*last_pos;
+	char	*str;
+	int	i;
+	int	j;
 
-	while (*s != '\0')
+	i = 0;
+	j = 0;
+	while (s[i] != '\0')
 	{
-		if (*s != c && s == init_pos)
+		if (s[i] != c && i == 0)
 		{
-			ft_first_word(&end_word, c, s, &*cursor);
-			last_pos = end_word;
-		}
-		else if (*s == c && *(s + 1) != c && *(s + 1) != '\0')
-		{
-			s++;
-			end_word = ft_strchr(s, (int)c);
-			if (end_word)
+			str = ft_get_word(s, c, i);
+			if (str != NULL)
 			{
-				**cursor = ft_substr(s, 0, (size_t)(end_word - (char *)s));
-				(*cursor)++;
-				last_pos = end_word;
+				words[j] = str;
+				j++;
 			}
 			else
-				ft_last_word(last_pos, &*cursor, c);
+			{
+				ft_free_matrix(&words, j);
+				return (0);
+			}
 		}
-		s++;
+		else if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
+		{
+			i++;
+			str = ft_get_word(s, c, i);
+			if (str != NULL)
+			{
+				words[j] = str;
+				j++;
+			}
+			else
+			{
+				ft_free_matrix(&words, j);
+				return (0);
+			}
+		}
+		i++;
 	}
+	str = ft_get_last_word(s, c);
+	if (str != NULL && str[0] != '\0')
+	{
+		words[j] = str;
+		j++;
+	}
+	else if (str == NULL)
+	{
+		ft_free_matrix(&words, j);
+		return (0);
+	}
+	words[j] = NULL;
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char const	*init_pos;
 	char		**words;
-	char		**cursor;
-	int			cont;
+	int			num_words;
 
 	if (s == NULL)
 		return (NULL);
 	while (*s == c)
 		s++;
-	init_pos = s;
-	cont = ft_count_words(s, init_pos, c);
-	words = malloc((cont + 1) * sizeof(char *));
+	num_words = ft_count_words(s, c);
+	words = malloc((num_words + 1) * sizeof(char *));
 	if (!words)
 		return (NULL);
-	if (cont > 0)
-	{
-		cursor = words;
-		s = init_pos;
-		ft_separate_words(init_pos, s, &cursor, c);
-		*cursor = NULL;
-	}
-	else
+	if (!(num_words > 0 && ft_separate_words(s, words, c)))
 	{
 		words[0] = NULL;
 		return (words);
 	}
 	return (words);
 }
-/*
-int	main(void)
+
+int	main(int argc, char *argv[])
 {
 	char	**p;
 
-	p = ft_split("      split       this for   me  !       ", ' ');
+	if (argc != 3)
+	{
+		printf("%s\n", "Error: not the right amount of arguments.");
+		return (1);
+	}
+	p = ft_split((char const *)argv[1], *argv[2]);
 	while (*p != NULL)
 	{
 		printf("%s\n", *p);
 		p++;
 	}
 	return (0);
-}*/
+}
