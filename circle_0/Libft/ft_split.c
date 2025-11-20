@@ -6,31 +6,30 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/20 14:27:02 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:53:49 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 char    **ft_get_complete_str(char const *s);
 int     ft_count_words(char const *s,  char c);
 
-char	*ft_get_word(char const *s, char c, int i, int first_word)
+char	*ft_get_word(char const **s, char c)
 {
-	char		*word;
-	char		*end_word;
-	char const	*p;
+	char	*word;
+	char	*end_word;
 
-	i++;
-	p = &s[i];
-	end_word = ft_strchr(p, (int)c);
-	if (end_word || first_word == 1)
+	end_word = ft_strchr(*s, (int)c);
+	if (end_word)
 	{
-		
-		word = ft_substr(p, 0, (size_t)(end_word - p));
+		word = ft_substr(*s, 0, (size_t)(end_word - *s));
 		if (word != NULL)
+		{
+			*s = end_word + 1;
+			while (*s == c)
+				(*s)++;
 			return (word);
+		}
 	}
-	else
-		return ("");
 	return (NULL);
 }
 
@@ -59,18 +58,18 @@ char	*ft_get_last_word(char const *s, char c)
 	return ("");
 }
 
-int	ft_split_words(char const *s , char **words, char c)
+int	ft_split_words(char const *s , char **words, char c, int num_words)
 {
 	char	*str;
-	int	i;
-	int	j;
-	int	first_word;
 
-	i = 0;
-	j = 0;
-	first_word = 1;
-	while (s[i] != '\0')
+	while (num_words > 0)
 	{
+		str = ft_get_word(&s, c, end_word);
+		if (!str) //si no he podido obtener la palabra.
+
+
+
+		
 		if (s[i] != c && i == 0)
 		{
 			str = ft_get_word(s, c, i, first_word);
@@ -116,7 +115,7 @@ char	**ft_split(char const *s, char c)
 	words = malloc((num_words + 1) * sizeof(char *));
 	if (!words)
 		return (NULL);
-	if (!(num_words > 0 && ft_split_words(s, words, c)))
+	if (!(num_words > 0 && ft_split_words(s, words, c, num_words)))
 	{
 		words[0] = NULL;
 		return (words);
