@@ -6,9 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:25:08 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/20 14:16:00 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/21 11:04:29 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stdlib.h>
+#include "libft.h"
 
 int	ft_count_words(char const *s,  char c)
 {
@@ -57,7 +59,7 @@ char	**ft_invalid_input()
 	words[0] = NULL;
 	return (words);
 }
-
+/*
 int	ft_first_word(char *str, char **words, int *j)
 {
 	if (str != NULL)
@@ -85,4 +87,4 @@ int	ft_other_words(char *str, char **words, int *j)
 		ft_free_matrix(&words, *j);
 		return (0);
 	}	
-}
+}*/
