@@ -44,5 +44,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
 void	ft_free_matrix(char ***matrix, int i);
+char	*ft_itoa(int n);
 
 #endif
