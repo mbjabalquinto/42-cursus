@@ -6,15 +6,17 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 17:50:47 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/21 11:37:56 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:54:36 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-char    **ft_get_complete_str(char const *s);
-int     ft_count_words(char const *s,  char c);
-char    **ft_invalid_input();
 
-int	ft_insert_word(char *str, char ***words, int *inserted_words, int *num_words)
+int		ft_count_words(char const *s, char c);
+char	**ft_get_complete_str(char const *s);
+char	**ft_invalid_input(void);
+
+int	ft_insert_word(char *str, char ***words,
+		int *inserted_words, int *num_words)
 {
 	if (!str)
 	{
@@ -27,7 +29,7 @@ int	ft_insert_word(char *str, char ***words, int *inserted_words, int *num_words
 		(*inserted_words)++;
 		(*num_words)--;
 	}
-	return (1);	
+	return (1);
 }
 
 char	*ft_get_word(char const **s, char c)
@@ -53,20 +55,17 @@ char	*ft_get_word(char const **s, char c)
 char	*ft_get_last_word(char const **s, char c)
 {
 	char	*word;
-	size_t	len;
 
-	len = ft_strlen(*s);
-	word = ft_substr(*s, 0, len);
+	word = ft_strtrim(*s, &c);
 	if (word == NULL)
 		return (NULL);
-	word = ft_strtrim(word, &c);
 	return (word);
 }
 
-int	ft_split_words(char const *s , char **words, char c, int num_words)
+int	ft_split_words(char const *s, char **words, char c, int num_words)
 {
 	char	*str;
-	int	inserted_words;
+	int		inserted_words;
 
 	inserted_words = 0;
 	while (num_words > 1)
@@ -78,6 +77,7 @@ int	ft_split_words(char const *s , char **words, char c, int num_words)
 	str = ft_get_last_word(&s, c);
 	if (!ft_insert_word(str, &words, &inserted_words, &num_words))
 		return (0);
+	words[inserted_words] = NULL;
 	return (1);
 }
 
@@ -114,7 +114,6 @@ int	main(void)
 		printf("%s\n", "Error: not the right amount of arguments.");
 		return (1);
 	}
-	p = ft_split("\0aa,bb", '\0');
 	p = ft_split((char const *)argv[1], *argv[2]);
 	if (p == NULL)
 		return (1);

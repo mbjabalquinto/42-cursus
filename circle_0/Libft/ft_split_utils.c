@@ -6,13 +6,13 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:25:08 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/21 11:04:29 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:56:18 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 #include "libft.h"
 
-int	ft_count_words(char const *s,  char c)
+int	ft_count_words(char const *s, char c)
 {
 	int	cont;
 	int	i;
@@ -42,14 +42,14 @@ char	**ft_get_complete_str(char const *s)
 	words[0] = ft_strdup(s);
 	if (!words[0])
 	{
-		free(words);	
+		free(words);
 		return (NULL);
 	}
 	words[1] = NULL;
 	return (words);
 }
 
-char	**ft_invalid_input()
+char	**ft_invalid_input(void)
 {
 	char	**words;
 
@@ -59,32 +59,3 @@ char	**ft_invalid_input()
 	words[0] = NULL;
 	return (words);
 }
-/*
-int	ft_first_word(char *str, char **words, int *j)
-{
-	if (str != NULL)
-	{
-		words[*j] = str;
-		(*j)++;
-	}
-	else
-	{
-		ft_free_matrix(&words, *j);
-		return (0);
-	}
-	return (1);
-}
-
-int	ft_other_words(char *str, char **words, int *j)
-{
-	if (str != NULL && str[0] != '\0')
-	{
-		words[*j] = str;
-		(*j)++;
-	}
-	else if (str[0] != '\0')
-	{
-		ft_free_matrix(&words, *j);
-		return (0);
-	}	
-}*/
