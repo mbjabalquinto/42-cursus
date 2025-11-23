@@ -1,8 +1,6 @@
 # 1. Configuración General
 NAME = libft.a
-#SRC_DIR = srcs
-#INC_DIR = includes
-SRC = ft_isalnum.c ft_isprint.c ft_memmove.c ft_strjoin.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c ft_memchr.c ft_memset.c ft_strlcat.c ft_strnstr.c ft_tolower.c ft_bzero.c ft_isascii.c ft_memcmp.c ft_strchr.c ft_strlcpy.c ft_strrchr.c ft_toupper.c ft_calloc.c ft_isdigit.c ft_memcpy.c ft_strdup.c ft_strlen.c ft_strtrim.c ft_split.c ft_split_utils.c ft_free_matrix.c ft_itoa.c ft_strmapi.c
+SRC = ft_isalnum.c ft_isprint.c ft_memmove.c ft_strjoin.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c ft_memchr.c ft_memset.c ft_strlcat.c ft_strnstr.c ft_tolower.c ft_bzero.c ft_isascii.c ft_memcmp.c ft_strchr.c ft_strlcpy.c ft_strrchr.c ft_toupper.c ft_calloc.c ft_isdigit.c ft_memcpy.c ft_strdup.c ft_strlen.c ft_strtrim.c ft_split.c ft_split_utils.c ft_free_matrix.c ft_itoa.c ft_strmapi.c ft_striteri.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
@@ -14,6 +12,16 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
+# 3.5. Regla para pruebas con main.
+TEST_FILE = main.c
+TEST_NAME = run_test
+
+test: $(NAME) $(TEST_FILE)
+	# 1. Compila el archivo de prueba (main.c)
+	# 2. Lo enlaza contra tu librería estática (-lft)
+	# 3. Crea el ejecutable 'run_test'
+	$(CC) $(CFLAGS) $(TEST_FILE) -L. -lft -o $(TEST_NAME)
+
 # 4. Compilar cada archivo fuente
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -24,10 +32,10 @@ clean:
 
 # 6. Limpiar todo
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(TEST_NAME)
 
 # 7. Recompilar todo
 re: fclean all
 
 # 8. Objetivos falsos
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
