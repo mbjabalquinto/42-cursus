@@ -6,15 +6,15 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 09:36:32 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/22 10:28:31 by mjabalqu        ###   ########.fr        */
+/*   Updated: 2025/11/23 11:36:28 by mjabalqu        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	*str;
 
 	len = ft_strlen(s);
@@ -22,7 +22,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (!str)
 		return (NULL);
 	i = 0;
-	while(s[i] != '\0')
+	while (s[i] != '\0')
 	{
 		str[i] = f(i, s[i]);
 		i++;
