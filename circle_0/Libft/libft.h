@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:34:54 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/19 12:19:16 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/24 10:15:34 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

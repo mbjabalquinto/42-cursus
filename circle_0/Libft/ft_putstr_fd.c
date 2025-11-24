@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
+/*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/23 12:30:03 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/24 10:23:19 by mjabalqu         ###   ########.fr       */
+/*   Created: 2025/11/24 10:11:51 by mjabalqu          #+#    #+#             */
+/*   Updated: 2025/11/24 10:26:24 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd);
-
-int	main(void)
+void ft_putstr_fd(char *s, int fd)
 {
-	char str[4] = "hola";
-	
-	ft_putstr_fd(str, 1);
-	printf("%s\n", str);
-	return (0);
+	int	len;
+
+	len = ft_strlen(s);
+	write(fd, s, len);
 }
