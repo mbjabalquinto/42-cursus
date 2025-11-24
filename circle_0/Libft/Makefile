@@ -12,7 +12,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-# 3.5. Regla para pruebas con main.
+# 3.1. Regla para pruebas con main.
 TEST_FILE = main.c
 TEST_NAME = run_test
 
@@ -22,13 +22,22 @@ test: $(NAME) $(TEST_FILE)
 	# 3. Crea el ejecutable 'run_test'
 	$(CC) $(CFLAGS) $(TEST_FILE) -L. -lft -o $(TEST_NAME)
 
+# 3.2. Regla para los bonus de libft.
+# Archivos bonus
+BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
+ft_lstiter.c ft_lstmap.c 
+BONUS_OBJ = $(BONUS:.c=.o)
+# Regla bonus
+bonus: $(OBJ) $(BONUS_OBJ)
+	ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
+
 # 4. Compilar cada archivo fuente
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # 5. Limpiar archivos objeto
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BONUS_OBJ)
 
 # 6. Limpiar todo
 fclean: clean
