@@ -6,17 +6,24 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 11:09:31 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/11/25 15:52:35 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:27:56 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+static t_list	*create_node()
+{
+	t_list	*node;
+
+	
+}
+
+t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*node;
 	t_list	*lst2;
 	void	*new_content;
-	
+
 	if (lst == NULL)
 		return (NULL);
 	new_content = f(lst -> content);
