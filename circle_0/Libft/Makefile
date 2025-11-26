@@ -1,50 +1,82 @@
-# 1. Configuración General
+# **************************************************************************** #
+#                                 1. VARIABLES                                 #
+# **************************************************************************** #
+
+# Nombre de la librería estática
 NAME = libft.a
-SRC = ft_isalnum.c ft_isprint.c ft_memmove.c ft_strjoin.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c ft_memchr.c ft_memset.c ft_strlcat.c ft_strnstr.c ft_tolower.c ft_bzero.c ft_isascii.c ft_memcmp.c ft_strchr.c ft_strlcpy.c ft_strrchr.c ft_toupper.c ft_calloc.c ft_isdigit.c ft_memcpy.c ft_strdup.c ft_strlen.c ft_strtrim.c ft_split.c ft_split_utils.c ft_free_matrix.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
-OBJ = $(SRC:.c=.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
 
-# 2. Regla principal
-all: $(NAME)
+# Flags de compilación: -I. para encontrar libft.h
+CFLAGS = -Wall -Wextra -Werror -g -I.
 
-# 3. Crear la librería estática
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
 
-# 3.1. Regla para pruebas con main.
+# ---------------------------------------------------------------------------- #
+#                              Parte Obligatoria (All)                         #
+# ---------------------------------------------------------------------------- #
+SRC = ft_isalnum.c ft_isprint.c ft_memmove.c ft_strjoin.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c ft_memchr.c ft_memset.c ft_strlcat.c ft_strnstr.c ft_tolower.c ft_bzero.c ft_isascii.c ft_memcmp.c ft_strchr.c ft_strlcpy.c ft_strrchr.c ft_toupper.c ft_calloc.c ft_isdigit.c ft_memcpy.c ft_strdup.c ft_strlen.c ft_strtrim.c ft_split.c ft_split_utils.c ft_free_matrix.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+OBJ = $(SRC:.c=.o)
+
+
+# ---------------------------------------------------------------------------- #
+#                               Parte Bonus (Listas)                           #
+# ---------------------------------------------------------------------------- #
+# Nota: Los archivos .c deben llamarse *_bonus.c para cumplir la Norma.
+BONUS_SRC = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
+
+# Conjunto total de objetos (Base + Bonus)
+ALL_OBJ = $(OBJ) $(BONUS_OBJ)
+
+
+# ---------------------------------------------------------------------------- #
+#                              Variables de Prueba                             #
+# ---------------------------------------------------------------------------- #
 TEST_FILE = main.c
 TEST_NAME = run_test
 
-test: $(NAME) $(TEST_FILE)
-	# 1. Compila el archivo de prueba (main.c)
-	# 2. Lo enlaza contra tu librería estática (-lft)
-	# 3. Crea el ejecutable 'run_test'
-	$(CC) $(CFLAGS) $(TEST_FILE) -L. -lft -o $(TEST_NAME)
 
-# 3.2. Regla para los bonus de libft.
-# Archivos bonus
-BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
-ft_lstiter.c ft_lstmap.c 
-BONUS_OBJ = $(BONUS:.c=.o)
-# Regla bonus
-bonus: $(OBJ) $(BONUS_OBJ)
-	ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
+# **************************************************************************** #
+#                                 2. REGLAS                                    #
+# **************************************************************************** #
 
-# 4. Compilar cada archivo fuente
+# Regla principal: Construye la librería solo con la parte obligatoria.
+all: $(NAME)
+
+# -------------------------- Construcción de la Librería ------------------------- #
+
+# Regla para el objetivo 'all' (Crea/Actualiza libft.a solo con OBJ base)
+$(NAME): $(OBJ)
+	ar rcs $@ $^
+
+# Regla bonus: Compila los bonus y enlaza la librería con todo.
+# Depende de todos los objetos (.o) y crea/actualiza la librería con ellos.
+bonus: $(ALL_OBJ)
+	ar rcs $(NAME) $^
+
+# ------------------------------ Regla de Compilación ---------------------------- #
+
+# Regla de sufijo (Implícita): Cómo compilar cualquier .c a su respectivo .o
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# 5. Limpiar archivos objeto
+# ----------------------------------- Regla Test --------------------------------- #
+
+test: $(NAME) $(TEST_FILE)
+	$(CC) $(CFLAGS) $(TEST_FILE) -L. -lft -o $(TEST_NAME)
+
+# ---------------------------------- Limpieza ------------------------------------ #
+
+# Limpia los objetos (.o) de la parte obligatoria y bonus.
 clean:
 	rm -f $(OBJ) $(BONUS_OBJ)
 
-# 6. Limpiar todo
+# Limpia todo: objetos y la librería final.
 fclean: clean
 	rm -f $(NAME) $(TEST_NAME)
 
-# 7. Recompilar todo
+# Recompila todo: Limpia y luego construye la parte obligatoria.
 re: fclean all
 
-# 8. Objetivos falsos
-.PHONY: all clean fclean re test
+# ------------------------------- Objetivos Falsos ------------------------------- #
+
+.PHONY: all clean fclean re test bonus
