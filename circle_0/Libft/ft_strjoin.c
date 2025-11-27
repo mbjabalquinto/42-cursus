@@ -26,9 +26,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strlcat(src, s2, buffer_len);
 	return (src);
 }
-/*
-int	main(void)
-{
-	printf("%s", ft_strjoin("hola ", "caracola"));
-	return (0);
-}*/

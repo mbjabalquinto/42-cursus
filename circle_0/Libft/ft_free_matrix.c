@@ -9,7 +9,7 @@
 /*   Updated: 2025/11/19 18:47:11 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+#include "libft.h"
 
 void	ft_free_matrix(char ***matrix, int i)
 {

@@ -9,7 +9,6 @@
 /*   Updated: 2025/11/21 12:56:18 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
 int	ft_count_words(char const *s, char c)

@@ -35,9 +35,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		dst[dst_index] = '\0';
 	return (src_len + dst_len);
 }
-/*
-int	main(void)
-{
-	printf("%zu", ft_strlcat("pqrs", "abcdefghi", 10));
-	return (0);
-}*/

@@ -9,11 +9,9 @@
 /*   Updated: 2025/11/21 19:10:47 by mjabalqu        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
 
-int	ft_check_negative(long *num)
+static int	ft_check_negative(long *num)
 {
 	if (*num < 0)
 	{
@@ -23,7 +21,7 @@ int	ft_check_negative(long *num)
 	return (0);
 }
 
-void	ft_insert_number(char **str, long num, int *index)
+static void	ft_insert_number(char **str, long num, int *index)
 {
 	if (num >= 10)
 		ft_insert_number(str, num / 10, index);
@@ -31,7 +29,7 @@ void	ft_insert_number(char **str, long num, int *index)
 	(*index)++;
 }
 
-char	*ft_get_memory(int len)
+static char	*ft_get_memory(int len)
 {
 	char	*str;
 
@@ -41,7 +39,7 @@ char	*ft_get_memory(int len)
 	return (str);
 }
 
-int	ft_intlen(long num)
+static int	ft_intlen(long num)
 {
 	int	i;
 
@@ -81,13 +79,3 @@ char	*ft_itoa(int n)
 	}
 	return (NULL);
 }
-/*
-int	main(int argc, char **argv)
-{
-	if (argc != 2)
-	{
-		printf("%s\n", "Param error.");
-		return (1);
-	}
-	printf("%s\n", ft_itoa(ft_atoi(argv[1])));	
-}*/
