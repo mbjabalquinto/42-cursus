@@ -33,8 +33,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*node;
 
 	head = NULL;
-	if (lst == NULL)
-		return (NULL);
 	while (lst != NULL)
 	{
 		node = create_node(lst, f, del);
