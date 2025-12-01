@@ -6,15 +6,25 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 12:30:03 by mjabalqu         #+#    #+#              */
-/*   Updated: 2025/11/24 11:20:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/01 19:15:30 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd);
+void	toupper_wrapper(unsigned int i, char *c)
+{
+	(void)i;
+	*c = ft_toupper(*c);
+}
 
-int	main(void)
+int	main(int argc, char **argv)
 {	
-	ft_putnbr_fd(-500, 1);
+	if (argc != 2)
+	{
+		printf("%s\n", "Argument error.");
+		return (1);
+	}
+	ft_striteri(argv[1], toupper_wrapper);
+	printf("%s\n", argv[1]);
 	return (0);
 }
