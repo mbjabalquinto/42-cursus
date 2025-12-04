@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:42:04 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/04 16:28:51 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:38:18 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -40,7 +40,8 @@ int ft_printf(const char *param, ...)
 				cont += ft_putnbr(va_arg(args, unsigned int));
 			else if (param[i] == 'p' || param[i] == 'x' || param[i] == 'X')
 			{
-				cont += ft_putstr("0x");
+				if (param[i] == 'p')
+					cont += ft_putstr("0x");
 				cont += ft_putnbr_base(va_arg(args, unsigned long));
 			}
 		}	
@@ -59,7 +60,7 @@ int	main()
 	int	p;
 
 	p = 5;
-	printf("%p la original\n", &p);
-	printf("%i\n", ft_printf("%p la mia\n", &p));
+	printf("%x la original\n", p);
+	printf("%i\n", ft_printf("%x la mia\n", p));
 	return (0);
 }
