@@ -9,7 +9,7 @@
 /*   Updated: 2025/09/25 09:55:51 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "ft_printf.h"
 
 int	ft_putnbr(unsigned int nb)
 {

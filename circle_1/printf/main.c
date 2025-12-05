@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjabalqu <mbjabalquinto@gmail.com>         +#+  +:+       +#+        */
+/*   By: mjabalqu <mjabalqu@student.42malaga.com>  +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 13:06:54 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/04 19:05:41 by mjabalqu         ###   ########.fr       */
+/*   Created: 2025/12/05 11:00:25 by mjabalqu         #+#    #+#              */
+/*   Updated: 2025/12/05 11:00:51 by mjabalqu        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
+int	main()
 {
-	return (write(1, &c, 1));
+	printf("%x Original\n", 255);
+	printf("%i\n", ft_printf("%x Copia\n", "255"));
+	return (0);
 }
-

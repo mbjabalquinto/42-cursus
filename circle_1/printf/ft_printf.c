@@ -6,10 +6,10 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:42:04 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/04 16:38:18 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:28:11 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "ft_printf.h"
 
 int ft_printf(const char *param, ...)
 {
@@ -21,6 +21,8 @@ int ft_printf(const char *param, ...)
 	va_start(args, param);
 	i = 0;
 	result = 0;
+	if (!param)
+		return (-1);
 	while (param[i] != '\0')
 	{
 		cont = 0;
@@ -28,6 +30,12 @@ int ft_printf(const char *param, ...)
 		{
 			write(1, &param[i], 1);
 			cont++;
+		}
+		else if (param[i] == '%' && param[i + 1] == '%')
+		{
+			write(1, &param[i], 1);
+			cont++;
+			i++;
 		}
 		else
 		{
@@ -42,7 +50,7 @@ int ft_printf(const char *param, ...)
 			{
 				if (param[i] == 'p')
 					cont += ft_putstr("0x");
-				cont += ft_putnbr_base(va_arg(args, unsigned long));
+				cont += ft_putnbr_base(va_arg(args, unsigned long), param[i]);
 			}
 		}	
 		if (cont != -1)
@@ -55,12 +63,3 @@ int ft_printf(const char *param, ...)
 	return (result);
 }
 
-int	main()
-{
-	int	p;
-
-	p = 5;
-	printf("%x la original\n", p);
-	printf("%i\n", ft_printf("%x la mia\n", p));
-	return (0);
-}

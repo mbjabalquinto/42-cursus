@@ -6,10 +6,10 @@
 /*   By: mjabalqu <mbjabalquinto@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:35:41 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/09/07 16:49:26 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:17:03 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "ft_printf.h"
 
 int	ft_putstr(char *str)
 {
@@ -17,10 +17,11 @@ int	ft_putstr(char *str)
 
 	i = 0;
 	if (!str)
-		return (-1);
+		str = "(null)";
 	while (str[i] != '\0')
 	{
-		write(1, &str[i], 1);
+		if (write(1, &str[i], 1) == -1)	
+			return (-1);
 		i++;
 	}
 	return (i);
