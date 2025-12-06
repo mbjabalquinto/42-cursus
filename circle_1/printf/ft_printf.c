@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:42:04 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/04 19:28:11 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/06 13:46:23 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,10 +14,10 @@
 static int	check_errors(int check, va_list *args)
 {
 	if (check == -1)
-		{
-			va_end(*args);
-			return (-1);
-		}
+	{
+		va_end(*args);
+		return (-1);
+	}
 	return (check);
 }
 
