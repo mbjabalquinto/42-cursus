@@ -20,10 +20,9 @@ int	ft_putstr(char *str)
 		str = "(null)";
 	while (str[i] != '\0')
 	{
-		if (write(1, &str[i], 1) == -1)	
+		if (write(1, &str[i], 1) == -1)
 			return (-1);
 		i++;
 	}
 	return (i);
 }
-

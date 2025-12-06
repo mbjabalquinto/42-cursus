@@ -11,9 +11,12 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	main()
+int	main(void)
 {
-	printf("%x Original\n", 255);
-	printf("%i\n", ft_printf("%x Copia\n", "255"));
+	char *trampa = "hola %d mundo";
+
+//	number = 5;
+	printf("%s Original\n", trampa);
+	printf("%i\n", ft_printf("%k Copia\n", "hola"));
 	return (0);
 }

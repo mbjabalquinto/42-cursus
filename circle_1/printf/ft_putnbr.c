@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_putnbr(unsigned int nb)
+int	ft_putnbr(int nb)
 {
 	long	num;
-	int	cont;
+	int		cont;
 	char	result;
 
 	num = nb;

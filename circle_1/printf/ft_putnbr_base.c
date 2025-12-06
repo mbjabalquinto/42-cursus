@@ -11,23 +11,46 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_putnbr_base(unsigned long num, char c)
+static int	ft_strlen(char *str)
 {
-	char	*sbase;
-	int		cont;
+	int	i;
 
-	if (c == 'x')
-		sbase = "0123456789abcdef";
-	else
-		sbase = "0123456789ABCDEF";
-	cont = 1;
-	if (!num)
-		return (-1);
-	if (num >= 16)
-	{
-		cont += ft_putnbr_base(num / 16, c);
-	}
-	write(1, &sbase[num % 16], 1);
-	return (cont);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
 
+static char	*check_base(char c)
+{
+	if (c == 'x' || c == 'p')
+		return ("0123456789abcdef");
+	else if (c == 'X')
+		return ("0123456789ABCDEF");
+	else if (c == 'u')
+		return ("0123456789");
+	return (NULL);
+}
+
+int	ft_putnbr_base(unsigned long long num, char c)
+{
+	char				*sbase;
+	int					cont;
+	int					check;
+	unsigned long long	len;
+
+	sbase = check_base(c);
+	len = (unsigned long long)ft_strlen(sbase);
+	check = 0;
+	cont = 0;
+	if (num >= len)
+	{
+		check = ft_putnbr_base(num / len, c);
+		if (check == -1)
+			return (-1);
+		cont += check;
+	}
+	if (write(1, &sbase[num % len], 1) == -1)
+		return (-1);
+	return (++cont);
+}

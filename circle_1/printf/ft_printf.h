@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdarg.h>
 
-int	ft_printf(const char *, ...);
+int ft_printf(const char *param, ...);
 int	ft_putchar(char c);
 int	ft_putstr(char *str);
-int	ft_putnbr(unsigned int num);
-int	ft_putnbr_base(unsigned long num, char c);
+int	ft_putnbr(int nb);
+int	ft_putnbr_base(unsigned long long num, char c);
 
 #endif
