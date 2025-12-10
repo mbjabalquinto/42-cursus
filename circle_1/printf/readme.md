@@ -20,7 +20,7 @@ Se implementan diferentes especificadores de formato y se garantiza un comportam
 
 ## 📂 Estructura del proyecto
 
-ft_printf/ 
+ft_printf/ <br>
 ├── Makefile <br>
 ├── ft_printf.c  <br>
 ├── ft_printf.h <br>
