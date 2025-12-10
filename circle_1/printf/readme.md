@@ -21,14 +21,14 @@ Se implementan diferentes especificadores de formato y se garantiza un comportam
 ## 📂 Estructura del proyecto
 
 ft_printf/ 
-├── Makefile 
-├── ft_printf.c 
-├── ft_printf.h 
-├── ft_putchar.c 
-└── ft_putnbr_base.c
-├── ft_putnbr.c
-└── ft_putstr.c
-├── Makefile
+├── Makefile <br>
+├── ft_printf.c  <br>
+├── ft_printf.h <br>
+├── ft_putchar.c <br>
+├── ft_putnbr_base.c <br>
+├── ft_putnbr.c <br>
+├── ft_putstr.c <br>
+└── Makefile
 
 
 Code
