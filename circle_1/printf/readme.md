@@ -74,5 +74,4 @@ Especificadores de formato
 
 Norminette y estilo de código
 
-👨💻 Autor
-mjablqu
+👨💻 Autor: mjablqu
