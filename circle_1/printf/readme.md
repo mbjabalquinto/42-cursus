@@ -42,7 +42,7 @@ make
 
 Esto generará el archivo libftprintf.a que puede enlazarse en otros proyectos.
 
-🧪 Uso
+## 🧪 Uso
 Ejemplo básico:
 
 c
@@ -53,7 +53,7 @@ int main(void)
     ft_printf("Hola %s, el número es %d y en hex es %x\n", "mundo", 42, 42);
     return (0);
 }
-✅ Normas y requisitos
+## ✅ Normas y requisitos
 Cumplir con la Norminette.
 
 No usar funciones prohibidas (ej. printf, malloc fuera de lo permitido).
@@ -62,14 +62,14 @@ Gestionar correctamente la memoria.
 
 El código debe ser claro, modular y reutilizable.
 
-🧩 Tests recomendados
+## 🧩 Tests recomendados
 Comparar salida con printf estándar.
 
 Probar casos límite: NULL, enteros máximos/mínimos, punteros nulos.
 
 Validar formatos combinados y cadenas largas.
 
-📖 Recursos útiles
+## 📖 Recursos útiles
 Variadic functions en C
 
 Especificadores de formato
