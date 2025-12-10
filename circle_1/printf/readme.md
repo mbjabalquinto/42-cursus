@@ -1,5 +1,7 @@
 # ft_printf
 
+_Este proyecto ha sido creado como parte del currículo de 42 por mjabalqu_
+
 Proyecto de la escuela 42 que consiste en recrear la función `printf` de la librería estándar de C.  
 El objetivo es profundizar en el manejo de **variadic functions**, formateo de cadenas y gestión de memoria.
 
