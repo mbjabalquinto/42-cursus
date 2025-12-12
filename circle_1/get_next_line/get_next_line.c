@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:36:23 by marcos            #+#    #+#             */
-/*   Updated: 2025/12/11 13:05:31 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/12 10:30:04 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_next_line(int fd)
 	int				bytes_read;
 
 	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
+	if (!buffer || fd < 0)
 		return (NULL);
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	if (bytes_read > 0)
@@ -32,7 +32,10 @@ char	*get_next_line(int fd)
 			free(buffer);
 			return (NULL);
 		}
+		pos = ft_strchr(backup[fd], '\n');
 	}
-	pos = ft_strchr(buffer, '\n');
+	else
+		return (NULL);
+	
 
 }
