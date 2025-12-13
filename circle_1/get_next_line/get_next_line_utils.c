@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 12:09:17 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/13 12:18:32 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/13 19:22:42 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,27 @@ char	*ft_strchr(const char *s, int c)
 
 char	*ft_strjoin(char *s1, char const *s2)
 {
-	size_t	buffer_len;
 	char	*src;
-	size_t	len_s1;
+	size_t	i;
+	size_t	j;
 
-	if (!s2)
-		return (NULL);
-	if (!s1)
-		len_s1 = 0;
-	else
-		len_s1 = ft_strlen(s1);
-	buffer_len = len_s1 + ft_strlen(s2) + 1;
-	src = malloc((buffer_len) * sizeof(char));
+	i = 0;
+	if (s1)
+		i = ft_strlen(s1);
+	src = malloc((i + ft_strlen(s2) + 1) * sizeof(char));
 	if (!src)
-		return (NULL);
-	if (s1)
-		ft_strlcpy(src, s1, buffer_len);
-	else
-		src[0] = '\0';
-	ft_strlcat(src, s2, buffer_len);
-	if (s1)
-		free(s1);
-	return (src);
+		return (free(s1), NULL);
+	j = 0;
+	while (j < i)
+	{
+		src[j] = s1[j];
+		j++;
+	}
+	j = 0;
+	while (s2[j])
+		src[i++] = s2[j++];
+	src[i] = '\0';
+	return (free(s1), src);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -62,21 +61,17 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	i = 0;
 	len_s = ft_strlen(s);
 	if (start >= len_s)
-		return (ft_strdup(""));
-	if (len > len_s - start)
+		len = 0;
+	else if (len > len_s - start)
 		len = len_s - start;
 	sub_s = malloc((len + 1) * sizeof(char));
 	if (!sub_s)
 		return (NULL);
-	while (i < len && s[start] != '\0')
-	{
-		sub_s[i] = s[start];
-		start++;
-		i++;
-	}
+	i = 0;
+	while (i < len)
+		sub_s[i++] = s[start++];
 	sub_s[i] = '\0';
 	return (sub_s);
 }
