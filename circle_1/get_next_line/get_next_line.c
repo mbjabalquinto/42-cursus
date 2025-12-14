@@ -6,11 +6,44 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:36:23 by marcos            #+#    #+#             */
-/*   Updated: 2025/12/13 15:48:27 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:03:20 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static char	*manage_backup(char **backup)
+{
+	char	*final_string;
+	
+	if (ft_strlen(*backup) > 0)
+	{
+		final_string = *backup;
+		*backup = NULL;
+	}
+	else
+	{
+		free(*backup);
+		*backup = NULL;
+		return (NULL);
+	}
+	return (final_string);
+}
+
+static	char *extract_line(char **buffer, char *pos, char **backup)
+{
+	char	*final_string;
+	
+	final_string = ft_substr(*backup, 0, (size_t)(pos - *backup + 1));
+	free (*buffer);
+	*buffer = ft_substr(*backup, (unsigned int)(pos - *backup) + 1, ft_strlen(pos + 1));
+	if (*buffer)
+	{
+		free(*backup);
+		*backup = *buffer;
+	}
+	return (final_string);
+}
 
 static int	read_file(int fd, char **buffer, char **backup)
 {
@@ -39,6 +72,7 @@ char	*get_next_line(int fd)
 	int				bytes_read;
 
 	pos = NULL;
+	final_string = NULL;
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer || fd < 0)
 		return (NULL);
@@ -47,34 +81,13 @@ char	*get_next_line(int fd)
 	{
 		pos = ft_strchr(backup[fd], '\n');
 		if (pos != NULL)
-		{
-			final_string = ft_substr(backup[fd], 0, (size_t)(pos - backup[fd] + 1));
-			free (buffer);
-			buffer = ft_substr(backup[fd], (unsigned int)(pos - backup[fd]) + 1, ft_strlen(pos + 1));
-			if (buffer)
-			{
-				free(backup[fd]);
-				backup[fd] = buffer;
-			}
-		}
+			final_string = extract_line(&buffer, pos, &backup[fd]);
 		else
 			bytes_read = read_file(fd, &buffer, &backup[fd]);
 	}
 	if (bytes_read == -1 || !(final_string) || !(backup[fd]))
 		return (NULL);
 	if (pos == NULL && bytes_read == 0 && final_string == NULL && backup[fd] != NULL)
-	{
-		if (ft_strlen(backup[fd]) > 0)
-		{
-			final_string = backup[fd];
-			backup[fd] = NULL;
-		}
-		else
-		{
-			free(backup[fd]);
-			backup[fd] = NULL;
-			return (NULL);
-		}
-	}
+		final_string = manage_backup(&backup[fd]);
 	return (final_string);
 }
