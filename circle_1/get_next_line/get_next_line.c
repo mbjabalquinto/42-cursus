@@ -66,6 +66,11 @@ static int	read_file(int fd, char **buffer, char **backup)
 			return (-1);
 		}
 	}
+	else
+	{
+		free(*buffer);
+		*buffer = NULL;
+	}
 	return (bytes_read);
 }
 
@@ -80,9 +85,9 @@ char	*get_next_line(int fd)
 	pos = NULL;
 	final_string = NULL;
 	buffer = NULL;
-	buffer = malloc(BUFFER_SIZE + 1); //valgrind apunta a esta línea. investigar la fuga.
-	if (!buffer || fd < 0)
-		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer || fd < 0 || BUFFER_SIZE <= 0)
+		return (free(buffer), NULL);
 	bytes_read = read_file(fd, &buffer, &backup[fd]);
 	while (pos == NULL && bytes_read > 0)
 	{
@@ -92,7 +97,7 @@ char	*get_next_line(int fd)
 		else
 			bytes_read = read_file(fd, &buffer, &backup[fd]);
 	}
-	if (bytes_read == -1 || !(backup[fd])) //revisar. se va por aquí en la segunda vuelta. Ya no hay nada que leer pero en el backup hay datos. revisar !(final_string)
+	if (bytes_read == -1 || !(backup[fd]))
 		return (NULL);
 	if (pos == NULL && bytes_read == 0 && final_string == NULL
 		&& backup[fd] != NULL)
