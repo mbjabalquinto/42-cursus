@@ -15,7 +15,7 @@
 static char	*manage_backup(char **backup)
 {
 	char	*final_string;
-	
+
 	if (ft_strlen(*backup) > 0)
 	{
 		final_string = *backup;
@@ -30,25 +30,31 @@ static char	*manage_backup(char **backup)
 	return (final_string);
 }
 
-static	char *extract_line(char **buffer, char *pos, char **backup)
+static char	*extract_line(char **buffer, char *pos, char **backup)
 {
 	char	*final_string;
-	
+
 	final_string = ft_substr(*backup, 0, (size_t)(pos - *backup + 1));
+	if (!final_string)
+		return (NULL);
 	free (*buffer);
-	*buffer = ft_substr(*backup, (unsigned int)(pos - *backup) + 1, ft_strlen(pos + 1));
+	*buffer = NULL;
+	*buffer = ft_substr(*backup, (unsigned int)(pos - *backup) + 1,
+			ft_strlen(pos + 1));
 	if (*buffer)
 	{
 		free(*backup);
 		*backup = *buffer;
 	}
+	else
+		return (NULL);
 	return (final_string);
 }
 
 static int	read_file(int fd, char **buffer, char **backup)
 {
 	int	bytes_read;
-	
+
 	bytes_read = read(fd, *buffer, BUFFER_SIZE);
 	if (bytes_read > 0)
 	{
@@ -73,7 +79,8 @@ char	*get_next_line(int fd)
 
 	pos = NULL;
 	final_string = NULL;
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = NULL;
+	buffer = malloc(BUFFER_SIZE + 1); //valgrind apunta a esta línea. investigar la fuga.
 	if (!buffer || fd < 0)
 		return (NULL);
 	bytes_read = read_file(fd, &buffer, &backup[fd]);
@@ -85,9 +92,10 @@ char	*get_next_line(int fd)
 		else
 			bytes_read = read_file(fd, &buffer, &backup[fd]);
 	}
-	if (bytes_read == -1 || !(final_string) || !(backup[fd]))
+	if (bytes_read == -1 || !(backup[fd])) //revisar. se va por aquí en la segunda vuelta. Ya no hay nada que leer pero en el backup hay datos. revisar !(final_string)
 		return (NULL);
-	if (pos == NULL && bytes_read == 0 && final_string == NULL && backup[fd] != NULL)
+	if (pos == NULL && bytes_read == 0 && final_string == NULL
+		&& backup[fd] != NULL)
 		final_string = manage_backup(&backup[fd]);
 	return (final_string);
 }
