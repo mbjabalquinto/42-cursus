@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:36:23 by marcos            #+#    #+#             */
-/*   Updated: 2025/12/16 15:44:18 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:37:24 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static char	*manage_backup(char **backup)
 {
-	char	*final_string;
+	char	*line;
 
 	if (ft_strlen(*backup) > 0)
 	{
-		final_string = *backup;
+		line = *backup;
 		*backup = NULL;
 	}
 	else
@@ -27,22 +27,22 @@ static char	*manage_backup(char **backup)
 		*backup = NULL;
 		return (NULL);
 	}
-	return (final_string);
+	return (line);
 }
 
 static char	*extract_line(char **buffer, char *pos, char **backup)
 {
-	char	*final_string;
+	char	*line;
 	char	*temp;
 
-	final_string = ft_substr(*backup, 0, (size_t)(pos - *backup + 1));
-	if (!final_string)
+	line = ft_substr(*backup, 0, (size_t)(pos - *backup + 1));
+	if (!line)
 		return (free(*buffer), NULL);
 	temp = ft_substr(*backup, (unsigned int)(pos - *backup + 1),// HAGO EL LEN DE POS + 1 PARA QUE NO CUENTE EL SALTO DE LINEA.
 			ft_strlen(pos + 1));
 	if (!temp)
 	{
-		free(final_string);
+		free(line);
 		free(*buffer);
 		return (NULL);	
 	}
@@ -50,7 +50,7 @@ static char	*extract_line(char **buffer, char *pos, char **backup)
 	*backup = temp;
 	free (*buffer);
 	*buffer = NULL;
-	return (final_string);
+	return (line);
 }
 
 static int	read_file(int fd, char **buffer, char **backup)
@@ -80,11 +80,11 @@ char	*get_next_line(int fd)
 {
 	static char		*backup[1024];
 	char			*buffer;
-	char			*final_string;
+	char			*line;
 	char			*pos;
 	int				bytes_read;
 
-	final_string = NULL;
+	line = NULL;
 	pos = NULL;
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer || fd < 0 || BUFFER_SIZE <= 0)
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 		if (backup[fd] != NULL)
 			pos = ft_strchr(backup[fd], '\n');
 		if (pos != NULL)
-			return (final_string = extract_line(&buffer, pos, &backup[fd]));
+			return (line = extract_line(&buffer, pos, &backup[fd]));
 		else
 			bytes_read = read_file(fd, &buffer, &backup[fd]);
 	}
@@ -108,8 +108,8 @@ char	*get_next_line(int fd)
 		}
 		return (NULL);
 	}
-	if (pos == NULL && bytes_read == 0 && final_string == NULL
+	if (pos == NULL && bytes_read == 0 && line == NULL
 		&& backup[fd] != NULL)
-		final_string = manage_backup(&backup[fd]);
-	return (final_string);
+		line = manage_backup(&backup[fd]);
+	return (line);
 }
