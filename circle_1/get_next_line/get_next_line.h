@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 11:39:43 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/14 12:05:15 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/16 20:25:23 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
-#endif
-
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
