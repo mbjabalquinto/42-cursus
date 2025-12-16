@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:36:23 by marcos            #+#    #+#             */
-/*   Updated: 2025/12/16 15:14:40 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/16 15:44:18 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ static char	*extract_line(char **buffer, char *pos, char **backup)
 	final_string = ft_substr(*backup, 0, (size_t)(pos - *backup + 1));
 	if (!final_string)
 		return (free(*buffer), NULL);
-	
-	temp = ft_substr(*backup, (unsigned int)(pos - *backup + 1),
-			ft_strlen(pos));
+	temp = ft_substr(*backup, (unsigned int)(pos - *backup + 1),// HAGO EL LEN DE POS + 1 PARA QUE NO CUENTE EL SALTO DE LINEA.
+			ft_strlen(pos + 1));
 	if (!temp)
 	{
 		free(final_string);
@@ -86,6 +85,7 @@ char	*get_next_line(int fd)
 	int				bytes_read;
 
 	final_string = NULL;
+	pos = NULL;
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer || fd < 0 || BUFFER_SIZE <= 0)
 		return (free(buffer), NULL);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 12:09:17 by mjabalqu          #+#    #+#             */
-/*   Updated: 2025/12/16 13:12:49 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/16 15:33:26 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	*ft_strjoin(char *s1, char const *s2)
 	while (s2[j])
 		src[i++] = s2[j++];
 	src[i] = '\0';
-	return (free(s1), src);
+	if (s1)
+		free(s1);
+	return (src);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
