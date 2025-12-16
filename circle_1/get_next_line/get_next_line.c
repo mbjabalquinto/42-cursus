@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:36:23 by marcos            #+#    #+#             */
-/*   Updated: 2025/12/16 12:35:21 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:04:30 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*extract_line(char **buffer, char *pos, char **backup)
 	free (*buffer);
 	*buffer = NULL;
 	*buffer = ft_substr(*backup, (unsigned int)(pos - *backup + 1),
-			ft_strlen(pos + 1));
+			ft_strlen(pos));
 	if (*buffer)
 	{
 		free(*backup);
