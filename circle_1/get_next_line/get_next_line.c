@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:36:23 by marcos            #+#    #+#             */
-/*   Updated: 2025/12/16 12:21:44 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2025/12/16 12:33:34 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static char	*extract_line(char **buffer, char *pos, char **backup)
 {
 	char	*final_string;
 
-	final_string = ft_substr(*backup, 0, (size_t)(pos - *backup + 1));
+	final_string = ft_substr(*backup, 0, (size_t)(pos - *backup));
 	if (!final_string)
 		return (NULL);
 	free (*buffer);
 	*buffer = NULL;
-	*buffer = ft_substr(*backup, (unsigned int)(pos - *backup) + 1,
-			ft_strlen(pos + 1));
+	*buffer = ft_substr(*backup, (unsigned int)(pos - *backup),
+			ft_strlen(pos));
 	if (*buffer)
 	{
 		free(*backup);
