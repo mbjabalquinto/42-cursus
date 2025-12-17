@@ -70,17 +70,17 @@ He usado el mismo para la parte de bonus ya que es el mismo ejercicio pero con e
 SÍ    NO                    |                  |
 |      \                    |                  |
 |       `---- [ GUARDO EN BACKUP ] ------------+
-|			    |	
-v			    |
+|			    			|	
+v			    			|
 ¿Queda algo en Backup?      |
-   /            \	    |
-  SÍ             NO	    |	
-  |              |	    |	
-  v              v	    |
+   /            \	    	|
+  SÍ             NO	    	|	
+  |              |	    	|	
+  v              v	    	|
 [ LO DEVUELVO ] [ NULL ]    |	
-  \              /	    |	
-   \            /	    |
-    v          v	    |	
+  \              /	    	|	
+   \            /	    	|
+    v          v	    	|	
       ( FIN ) <-------------+
 ```
 ### Descripción del proceso: 
