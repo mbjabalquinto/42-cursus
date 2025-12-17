@@ -1,0 +1,29 @@
+       [ INICIO ]
+           |
+           v
+   [ BUSCO EN BACKUP ] <-----------------------+
+           |                                   |
+      ¿Hay '\n'?                               |
+     /          \                              |
+   NO            SÍ                            |
+   |              |                            |
+   v              v                            |
+[ LEO FICHERO ] [ EXTRAER LÍNEA ]              |
+   |              |                            |
+ ¿EOF?            v                            |
+ /   \          [ DEVOLVER LÍNEA ]             |
+SÍ    NO          |                            |
+|      \          v                            |
+|       `---- [ GUARDO EN BACKUP ] ------------+
+|
+v
+¿Queda algo en Backup?
+   /            \
+  SÍ             NO
+  |              |
+  v              v
+[ LO DEVUELVO ] [ NULL ]
+  \              /
+   \            /
+    v          v
+      ( FIN )
