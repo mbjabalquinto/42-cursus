@@ -71,19 +71,19 @@ disk_use=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} END {pri
 disk_percent=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} {disk_t+= $2} END {printf("%d"), disk_u/disk_t*100}')
 
 
-df -m: uso de disco en MB
+df -m: uso de disco en MB.
 
-grep "/dev/": solo discos reales
+grep "/dev/": busca las filas que contienen "/dev/" . Son todos los discos reales.
 
-grep -v "/boot": excluye /boot
+grep -v "/boot": excluye /boot. Se queda con el resto de discos.
 
-$2: tamaño total
+$2: tamaño total. Es la segunda columna.
 
-$3: usado
+$3: usado. Es la tercera columna.
 
-Suma todas las particiones
+{disk_t += $2} Suma todas las particiones.
 
-Convierte a GB
+disk_t/1024} Convierte a GB.
 
 📌 Evalúa todo el sistema, no una sola partición
 
@@ -93,15 +93,17 @@ cpu_op=$(expr 100 - $cpul)
 cpu_fin=$(printf "%.1f" $cpu_op)
 
 
-vmstat 1 2: dos muestras, 1 segundo
+vmstat 1 2: dos muestras, 1 segundo.
 
-tail -1: usa la última (más precisa)
+tail -1: usa la última (más precisa).
 
-$15: porcentaje de CPU idle
+awk '{printf $15}' Extrae la columna 15 y la imprime.
 
-100 - idle = CPU en uso
+$15: porcentaje de CPU idle.
 
-Formateo a 1 decimal
+100 - idle = CPU en uso.
+
+%.1f Formateo a 1 decimal.
 
 📌 Resultado: CPU load real
 
