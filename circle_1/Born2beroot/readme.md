@@ -114,18 +114,28 @@ El sitio WordPress es accesible a través del navegador y totalmente funcional.
 
 #### Servicio Extra: OpenLiteSpeed
 
-Se ha instalado **OpenLiteSpeed** como servicio adicional debido a:
-- Alto rendimiento
-- Gestión mediante interfaz web
-- Soporte para PHP
-- Alternativa moderna a servidores tradicionales
+Se ha instalado **OpenLiteSpeed** como servicio adicional a requerimento de la parte BONUS.
 
-Su utilidad se justifica por ser un servidor web optimizado.
+¿Qué aporta OpenLiteSpeed concretamente?
+
+  1. Administración mediante interfaz web
+
+      OpenLiteSpeed ofrece un panel de administración web que permite:
+      - Gestión de virtual hosts
+      - Logs
+      - Configuración de PHP
+      - Esto no lo ofrece Lighttpd por defecto
+
+  2. Rendimiento y escalabilidad
+
+      Diseñado para:
+      - Alta concurrencia
+      - Bajo consumo de recursos
+      - Usado en entornos reales de producción
 
 ## Instrucciones
 
 ### Acceso a la máquina
-```bash
 ssh usuario@ip_maquina -p 4242
 sudo systemctl status ufw
 sudo systemctl status ssh
@@ -154,7 +164,7 @@ Resolver dudas puntuales durante la configuración
 
 Todas las decisiones finales, configuraciones y validaciones han sido realizadas manualmente por el autor del proyecto.
 
-Estado del Proyecto
-✅ Parte obligatoria completada
-✅ Parte bonus completada
-✅ Sistema funcional y securizado
+#### Estado del Proyecto<br>
+✅ Parte obligatoria completada<br>
+✅ Parte bonus completada<br>
+✅ Sistema funcional y securizado<br>
