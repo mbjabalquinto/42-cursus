@@ -1,42 +1,160 @@
 *This project has been created as part of the 42 curriculum by mjabalqu.*
 
-# Born2beroot
+# Born2beRoot
 
-## Description
-This project aims to introduce the fundamental concepts of system administration and virtualization. The goal is to create a virtual machine using specific strict rules, configuring the operating system, partitions, security policies, and user management.
+## Descripción
 
-## Instructions
-1.  **Installation:** This project consists of a Virtual Machine image (`.vdi` or `.iso` with configuration).
-2.  **Usage:** Open VirtualBox, import the machine or create a new one using the provided disk signature.
-3.  **Login:** Connect via SSH on port 4242 or directly in the VM terminal.
+Born2beRoot es un proyecto del currículo de 42 cuyo objetivo es introducir al estudiante en la **administración de sistemas Linux**, centrándose en la instalación, configuración y securización de una máquina virtual.
 
-## Design Choices & Comparisons
+Durante el proyecto se configura un sistema operativo Debian siguiendo estrictas políticas de seguridad, gestión de usuarios, firewall, servicios y particionado de discos.  
+Además, se ha completado la **parte bonus**, que incluye la instalación de un sitio web funcional con WordPress y servicios adicionales.
 
-### Operating System: Debian vs Rocky
-I have chosen **[Debian / Rocky]** for this project.
-* **Debian:** [Escribe aquí 1 frase sobre por qué elegiste Debian. Ej: Es más estable y fácil para principiantes, usa `apt` y tiene una gran comunidad].
-* **Rocky Linux:** It is a downstream binary compatible with RHEL (Red Hat Enterprise Linux). It uses `dnf`/`yum` and is more complex regarding SELinux configuration.
-* **Choice Justification:** [Tu razón. Ej: Preferí Debian por la recomendación del subject para principiantes].
+## Sistema Operativo
 
-### Security: AppArmor vs SELinux
-* **AppArmor (Debian):** It is a Linux kernel security module that allows the system administrator to restrict programs' capabilities with per-program profiles. It is path-based and generally considered easier to configure.
-* **SELinux (Rocky):** Security-Enhanced Linux is a security architecture for Linux systems that allows administrators to have more control over who can access the system. It uses a labeling system (inode-based) and is more complex/strict.
+### Elección: Debian GNU/Linux
 
-### Firewall: UFW vs Firewalld
-* **UFW (Uncomplicated Firewall):** It is a frontend for `iptables` designed to be easy to use. It is the default in Debian/Ubuntu.
-* **Firewalld:** It provides a dynamically managed firewall with support for network/firewall zones. It is the default in RHEL/Rocky.
+Se ha elegido **Debian** como sistema operativo por las siguientes razones:
 
-### Virtualization: VirtualBox vs UTM
-* **VirtualBox:** It is a free and open-source hosted hypervisor for x86 virtualization. It is widely used and mandatory for this project (unless on Apple Silicon).
-* **UTM:** It is a virtualization software for macOS (specifically optimized for Apple Silicon M1/M2/M3 chips) that uses QEMU under the hood.
+**Ventajas:**
+- Gran estabilidad y fiabilidad
+- Amplia documentación
+- Gestión de paquetes sencilla mediante `apt`
+- Ideal para servidores
 
-## Resources & AI Usage
-* **Resources:**
-    * 42 Subject "Born2beroot".
-    * Official Debian Documentation.
-    * Man pages (`man sudo`, `man ufw`, etc.).
+**Desventajas:**
+- Paquetes más conservadores (no siempre las versiones más recientes)
+- Menos orientado al entorno empresarial que Rocky Linux
 
-* **AI Usage:**
-    * **Tools used:** Gemini.
-    * **Context:** I used AI as a "thought partner" to understand the concepts of LVM partitioning, the difference between TTY and PTY, and to clarify the syntax of the bash script commands (`awk`, `grep`).
-    * **Disclaimer:** No code was directly copy-pasted without understanding; the AI was used to explain the logic behind the commands.
+### Comparativa: Debian vs Rocky Linux
+
+| Debian | Rocky Linux |
+|------|-------------|
+| Comunidad amplia | Orientado a entornos empresariales |
+| Más flexible | Mayor integración con SELinux |
+| Ideal para aprendizaje | Ideal para producción |
+
+## Seguridad
+
+### AppArmor vs SELinux
+
+- **AppArmor (usado)**  
+  - Más sencillo de configurar
+  - Basado en perfiles
+  - Ideal para proyectos educativos
+
+- **SELinux**  
+  - Más potente
+  - Mayor complejidad
+  - Usado en entornos empresariales
+
+### Firewall: UFW vs firewalld
+
+- **UFW (usado)**  
+  - Configuración simple
+  - Basado en iptables
+  - Perfecto para servidores pequeños
+
+- **firewalld**  
+  - Más dinámico
+  - Mayor complejidad
+  - Integración avanzada con servicios
+
+## Virtualización
+
+### VirtualBox vs UTM
+
+- **VirtualBox (usado)**  
+  - Multiplataforma
+  - Fácil de usar
+  - Muy documentado
+
+- **UTM**  
+  - Optimizado para macOS (Apple Silicon)
+  - Menos extendido en Linux/Windows
+
+## Particionado del Disco (Bonus)
+
+Se ha configurado un esquema de particiones personalizado para mejorar la seguridad y la organización del sistema:
+
+- `/` (root)
+- `/home`
+- `/var`
+- `/var/log`
+- `/tmp`
+- `/srv`
+- `swap`
+
+Este esquema permite:
+- Aislar logs y datos del sistema
+- Evitar que una partición llene todo el disco
+- Mejorar la estabilidad y seguridad
+
+## Gestión de Usuarios
+
+- Usuario principal sin privilegios de root
+- Uso de `sudo` para tareas administrativas
+- Políticas de contraseñas estrictas
+- Caducidad y complejidad configuradas
+
+## Servicios Instalados
+
+### Servicios Obligatorios
+- SSH
+- UFW
+- AppArmor
+
+### Servicios Bonus
+
+#### WordPress (sitio web funcional)
+- **Servidor web:** lighttpd  
+- **Base de datos:** MariaDB  
+- **Lenguaje:** PHP  
+
+El sitio WordPress es accesible a través del navegador y totalmente funcional.
+
+#### Servicio Extra: OpenLiteSpeed
+
+Se ha instalado **OpenLiteSpeed** como servicio adicional debido a:
+- Alto rendimiento
+- Gestión mediante interfaz web
+- Soporte para PHP
+- Alternativa moderna a servidores tradicionales
+
+Su utilidad se justifica por ser un servidor web optimizado.
+
+## Instrucciones
+
+### Acceso a la máquina
+```bash
+ssh usuario@ip_maquina -p 4242
+sudo systemctl status ufw
+sudo systemctl status ssh
+sudo systemctl status mariadb
+Firewall
+Los puertos abiertos han sido configurados según los servicios activos (SSH, HTTP, HTTPS, OpenLiteSpeed).
+
+Recursos
+Documentación y referencias
+Documentación oficial de Debian
+
+Manual de AppArmor
+
+Guía oficial de UFW
+
+WordPress Documentation
+
+OpenLiteSpeed Documentation
+
+Uso de Inteligencia Artificial
+La inteligencia artificial se ha utilizado como herramienta de apoyo para:
+
+Aclarar conceptos teóricos (Linux, seguridad, servicios)
+
+Resolver dudas puntuales durante la configuración
+
+Todas las decisiones finales, configuraciones y validaciones han sido realizadas manualmente por el autor del proyecto.
+
+Estado del Proyecto
+✅ Parte obligatoria completada
+✅ Parte bonus completada
+✅ Sistema funcional y securizado
