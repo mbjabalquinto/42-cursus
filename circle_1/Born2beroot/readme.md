@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by [TU_LOGIN_AQUI].*
+*This project has been created as part of the 42 curriculum by mjabalqu.*
 
 # Born2beroot
 
