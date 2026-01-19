@@ -20,7 +20,7 @@ int	check_char(char c, int n)
 	i = 0;
 	if (c >= 'A' && c <= 'F')
 		c = c + 32;
-	while(i < n)
+	while (i < n)
 	{
 		if (c == base[i])
 			return (i);
@@ -52,6 +52,7 @@ int	ft_atoi_base(const char *str, int str_base)
 	{
 		num = (num * str_base) + value;
 		i++;
+		value = check_char(str[i], str_base);
 	}
 	if (is_negative)
 		num = -num;
