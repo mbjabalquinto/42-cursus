@@ -23,10 +23,10 @@ int	check_char(char c, int n)
 	while(i < n)
 	{
 		if (c == base[i])
-			return (1);
+			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 int	ft_atoi_base(const char *str, int str_base)
@@ -34,6 +34,7 @@ int	ft_atoi_base(const char *str, int str_base)
 	int	i;
 	int	is_negative;
 	int	num;
+	int	value;
 
 	i = 0;
 	num = 0;
@@ -46,9 +47,10 @@ int	ft_atoi_base(const char *str, int str_base)
 			is_negative = 1;
 		i++;
 	}
-	while (check_char(str[i], str_base))
+	value = check_char(str[i], str_base);
+	while ( value >= 0)
 	{
-		num = (num * str_base) + str[i] - '0';
+		num = (num * str_base) + value;
 		i++;
 	}
 	if (is_negative)
