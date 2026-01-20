@@ -9,6 +9,7 @@
 /*   Updated: 2026/01/19 11:55:07 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+# include <stdbool.h>
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H

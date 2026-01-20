@@ -12,9 +12,32 @@
 
 #include "push_swap.h"
 
-void	add_node(int nbr)
+void	free_split(char **num)
 {
-	
+	int	i;
+
+	i = 0;
+	while (num[i])
+	{
+		free(num[i]);
+		i++;
+	}
+	free(num);
+}
+
+void	add_node(t_stack_node **stack_a, int nbr)
+{
+	t_stack_node *new;
+	t_stack_node *temp;
+
+	new = malloc(1 * (sizeof(t_stack_node)));
+	if (!new)
+		return (NULL);
+	new -> nbr = nbr;
+	new -> next = NULL;
+	new -> prev = NULL;
+	if (!stack_a)
+		stack_a = new;
 }
 
 int	check_limits(char *num)
@@ -46,37 +69,40 @@ int	check_errors(char *num)
 	return (1);
 }
 
-int	init_stack(char *arg)
+int	init_stack(t_stack_node **stack_a, char *arg)
 {
 	int		i;
 	char	**num;
 	int		nbr;
 
+	stack_a = NULL;
 	i = 0;
-	num = ft_split(arg);
+	num = ft_split(arg, ' ');
 	while (num[i])
 	{
-		if (!check_errors(num));
+		if (!check_errors(num[i]))
 			return (0);
-		if (!check_limits(num))
+		if (!check_limits(num[i]))
 			return (0);
-		nbr = ft_atoi(num);
-		add_node(nbr);
-		num++;
+		nbr = ft_atoi(num[i]);
+		add_node(stack_a, nbr);
+		i++;
 	}
+	free_split(num);
 	return (1);
 }
 
 int	main	(int argc, char **argv)
 {
 	int i;
+	t_stack_node *stack_a;
 
 	i = 1;
 	if (argc == 1)
 		return (1);
 	while (argc > 1)
 	{
-		if (!init_stack(argv[i]))
+		if (!init_stack(&stack_a, argv[i]))
 		{
 			write(2, "Error\n", 6);
 			return (0);
