@@ -30,4 +30,13 @@ typedef struct s_stack_node
 	struct s_stack_node	*prev; // pointer to the prev node.
 }	t_stack_node;
 
+int				init_stack(t_stack_node **stack_a, char *arg);
+int				check_errors(char *num);
+int				add_node(t_stack_node **stack_a, int nbr);
+void			free_split(char **num);
+int				check_nbr(t_stack_node *stack_a, int nbr);
+t_stack_node	*find_last_node(t_stack_node *head);
+void			free_stack(t_stack_node **stack);
+int				stack_len(t_stack_node	*stack);
+
 #endif
