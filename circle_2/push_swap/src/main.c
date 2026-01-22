@@ -99,6 +99,8 @@ int	check_errors(char *num)
 	i = 0;
 	if (num[i] == '+' || num[i] == '-')
 		i++;
+	if (!num[i])
+		return (0);
 	while (num[i])
 	{
 		if (!(num[i] >= '0' && num[i] <= '9'))
@@ -112,7 +114,7 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 {
 	int		i;
 	char	**num;
-	int		nbr;
+	long	nbr;
 
 	i = 0;
 	num = ft_split(arg, ' ');
