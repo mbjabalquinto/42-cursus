@@ -12,15 +12,28 @@
 
 #include "push_swap.h"
 
+int	stack_len(t_stack_node	*stack)
+{
+	int	i;
+
+	i = 0;
+	while(stack)
+	{
+		stack = stack -> next;
+		i++;
+	}
+	return (i);
+}
+
 void	free_stack(t_stack_node **stack)
 {
 	t_stack_node *temp;
 
-	temp = *stack;
-	while ((*stack) -> next)
+	while (*stack)
 	{
+		temp = (*stack) -> next;
 		free(*stack);
-		temp = temp -> next;
+		*stack = temp;
 	}
 }
 
@@ -65,15 +78,16 @@ int	add_node(t_stack_node **stack_a, int nbr)
 	if (!stack_a)
 		return (0);
 	new = malloc(1 * (sizeof(t_stack_node)));
-	last = find_last_node(*stack_a);
 	if (!new)
 	{
 		free_stack(stack_a);
 		return (0);
 	}
+	last = find_last_node(*stack_a);
 	new -> nbr = nbr;
 	new -> next = NULL;
 	new -> prev = last;
+	new -> index = stack_len(*stack_a);
 	if (!*stack_a)
 		*stack_a = new;
 	else
@@ -121,14 +135,26 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	while (num[i])
 	{
 		if (!check_errors(num[i]))
+		{
+			free_split(num);
 			return (0);
+		}
 		if (!check_limits(num[i]))
+		{	
+			free_split(num);
 			return (0);
+		}
 		nbr = ft_atoi(num[i]);
 		if (!check_nbr(*stack_a, nbr)) // Le paso una copia.
+		{	
+			free_split(num);
 			return (0);
+		}
 		if (!add_node(stack_a, nbr))
+		{	
+			free_split(num);
 			return (0);
+		}
 		i++;
 	}
 	free_split(num);
@@ -139,8 +165,10 @@ int	main	(int argc, char **argv)
 {
 	int i;
 	t_stack_node *stack_a;
+	t_stack_node *stack_b;
 
 	stack_a = NULL;
+	stack_b = NULL;
 	i = 1;
 	if (argc == 1)
 		return (1);
@@ -154,5 +182,6 @@ int	main	(int argc, char **argv)
 		i++;
 		argc--;
 	}
+	free_stack(&stack_a);
 	return (0);
 }
