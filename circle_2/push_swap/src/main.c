@@ -79,10 +79,7 @@ int	add_node(t_stack_node **stack_a, int nbr)
 		return (0);
 	new = malloc(1 * (sizeof(t_stack_node)));
 	if (!new)
-	{
-		free_stack(stack_a);
 		return (0);
-	}
 	last = find_last_node(*stack_a);
 	new -> nbr = nbr;
 	new -> next = NULL;
@@ -114,7 +111,7 @@ int	check_errors(char *num)
 	{
 		if (num[i] == '+' || num[i] == '-')
 		{
-			if (i != 0)
+			if (num[i + 1] && !(num[i + 1] >= '0' && num[i] <= '9'))
 				return (0);
 		}
 		else if (!(num[i] >= '0' && num[i] <= '9'))
@@ -134,25 +131,16 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	num = ft_split(arg, ' ');
 	while (num[i])
 	{
-		if (!check_errors(num[i]))
-		{
-			free_split(num);
-			return (0);
-		}
-		if (!check_limits(num[i]))
-		{	
-			free_split(num);
-			return (0);
-		}
 		nbr = ft_atoi(num[i]);
-		if (!check_nbr(*stack_a, nbr)) // Le paso una copia.
-		{	
+		if (!check_errors(num[i]) || !check_limits(num[i]) || !check_nbr(*stack_a, nbr))
+		{
 			free_split(num);
 			return (0);
 		}
 		if (!add_node(stack_a, nbr))
 		{	
 			free_split(num);
+			free_stack(stack_a);
 			return (0);
 		}
 		i++;
