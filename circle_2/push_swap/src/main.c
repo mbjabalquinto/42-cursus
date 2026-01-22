@@ -92,29 +92,16 @@ int	add_node(t_stack_node **stack_a, int nbr)
 	return (1);
 }
 
-int	check_limits(char *num)
-{
-	long number;
-
-	number = ft_atol(num);
-	if (number > 2147483647 || number < -2147483648)
-		return (0);
-	return (1);
-}
-
 int	check_errors(char *num)
 {
 	int	i;
 	
 	i = 0;
+	if (num[i] == '+' || num[i] == '-')
+		i++;
 	while (num[i])
 	{
-		if (num[i] == '+' || num[i] == '-')
-		{
-			if (num[i + 1] && !(num[i + 1] >= '0' && num[i] <= '9'))
-				return (0);
-		}
-		else if (!(num[i] >= '0' && num[i] <= '9'))
+		if (!(num[i] >= '0' && num[i] <= '9'))
 			return (0);
 		i++;
 	}
@@ -131,18 +118,15 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	num = ft_split(arg, ' ');
 	while (num[i])
 	{
-		nbr = ft_atoi(num[i]);
-		if (!check_errors(num[i]) || !check_limits(num[i]) || !check_nbr(*stack_a, nbr))
-		{
-			free_split(num);
-			return (0);
-		}
+		if (!check_errors(num[i]))
+			return (free_split(num), free_stack(stack_a), 0); 
+		nbr = ft_atol(num[i]);
+		if (nbr > 2147483647 || nbr < -2147483648) 
+			return (free_split(num), free_stack(stack_a), 0);
+		if (!check_nbr(*stack_a, nbr))
+			return (free_split(num), free_stack(stack_a), 0);
 		if (!add_node(stack_a, nbr))
-		{	
-			free_split(num);
-			free_stack(stack_a);
-			return (0);
-		}
+			return (free_split(num), free_stack(stack_a), 0);
 		i++;
 	}
 	free_split(num);
