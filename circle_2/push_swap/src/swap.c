@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/22 11:55:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:18:25 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,30 @@
 
 void    swap(t_stack_node **stack)
 {
-    t_stack_node    *temp;
+    t_stack_node    *node1;
+	t_stack_node	*node2;
+	t_stack_node	*node3;
+	int				len;
 
-    temp = *stack;
+	len = stack_len(*stack);
+	if (len < 2)
+		return ;
+	node1 = *stack;
     *stack = (*stack) -> next;
-    (*stack) -> next = temp;
+	node2 = *stack;
+	if (len > 2)
+	{	
+		*stack = (*stack) -> next;
+		node3 = *stack;
+		node3 -> prev = node1;
+		node1 -> next = node3;
+	}
+	else
+		node1 -> next = NULL;
+	node2 -> prev = NULL;
+	node2 -> next = node1;
+	node1 -> prev = node2;
+	*stack = node2;
 }
 
 void    push(t_stack_node **target, t_stack_node **source)
