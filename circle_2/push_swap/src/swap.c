@@ -6,13 +6,13 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/26 12:53:24 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/26 15:59:28 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    swap(t_stack_node **stack)
+void	swap(t_stack_node **stack)
 {
     t_stack_node    *node1;
 	t_stack_node	*node2;
@@ -40,12 +40,12 @@ void    swap(t_stack_node **stack)
 	*stack = node2;
 }
 
-void    push(t_stack_node **target, t_stack_node **source)
+void	push(t_stack_node **target, t_stack_node **source)
 {
 
 }
 // first node become the last one.
-void    rotate(t_stack_node **stack)
+void	rotate(t_stack_node **stack)
 {
     t_stack_node    *head;
     t_stack_node    *temp;
@@ -63,7 +63,7 @@ void    rotate(t_stack_node **stack)
 	*stack = head;
 }
 
-void    rrotate(t_stack_node **stack)
+void	rrotate(t_stack_node **stack)
 {
 	t_stack_node    *head;
     t_stack_node    *temp;

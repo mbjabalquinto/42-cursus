@@ -6,17 +6,16 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/19 11:55:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:02:25 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# include <stdbool.h>
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 typedef struct s_stack_node
 {
@@ -38,5 +37,11 @@ int				check_nbr(t_stack_node *stack_a, int nbr);
 t_stack_node	*find_last_node(t_stack_node *head);
 void			free_stack(t_stack_node **stack);
 int				stack_len(t_stack_node	*stack);
+long			ft_atol(const char *str);
+void			swap(t_stack_node **stack);
+void			swap(t_stack_node **stack);
+void			push(t_stack_node **target, t_stack_node **source);
+void			rotate(t_stack_node **stack);
+void			rrotate(t_stack_node **stack);
 
 #endif
