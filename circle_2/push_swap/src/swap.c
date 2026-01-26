@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/23 12:18:25 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/26 12:53:24 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,32 @@ void    rotate(t_stack_node **stack)
     t_stack_node    *temp;
     t_stack_node    *tale;
 
-    head = *stack;
+    if (!*stack || !(*stack) -> next)
+		return ;
+	temp = *stack;
+	head = (*stack) -> next;
+	head -> prev = NULL;
     tale = find_last_node(*stack);
-    while (*stack)
-    {
-
-    }
+	temp -> prev = tale;
+	temp -> next = NULL;
+	tale -> next = temp;
+	*stack = head;
 }
 
 void    rrotate(t_stack_node **stack)
 {
+	t_stack_node    *head;
+    t_stack_node    *temp;
+    t_stack_node    *tale;
 
+    if (!*stack || !(*stack) -> next)
+		return ;
+	temp = *stack;
+	head = find_last_node(temp);
+	tale = head -> prev;
+	head -> prev = NULL;
+	head -> next = temp;
+	tale -> next = NULL;
+	temp -> prev = head;
+	*stack = head; 
 }
