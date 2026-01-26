@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/19 11:42:49 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:51:27 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 		if (!check_errors(num[i]))
 			return (free_split(num), free_stack(stack_a), 0); 
 		nbr = ft_atol(num[i]);
-		if (nbr > 2147483647 || nbr < -2147483648) 
+		if (nbr > 2147483647 || nbr < -2147483648)
 			return (free_split(num), free_stack(stack_a), 0);
 		if (!check_nbr(*stack_a, nbr))
 			return (free_split(num), free_stack(stack_a), 0);
