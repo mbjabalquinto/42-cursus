@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/26 16:02:25 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:19:02 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdbool.h>
+
+typedef int bool;
+# define true 1
+# define false 0
 
 typedef struct s_stack_node
 {
@@ -43,5 +46,6 @@ void			swap(t_stack_node **stack);
 void			push(t_stack_node **target, t_stack_node **source);
 void			rotate(t_stack_node **stack);
 void			rrotate(t_stack_node **stack);
+int				push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg);
 
 #endif

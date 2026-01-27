@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:27:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/21 19:17:55 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/27 12:56:56 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main	(int argc, char **argv)
 		return (1);
 	while (argc > 1)
 	{
-		if (!init_stack(&stack_a, argv[i]))
+		if (!push_swap(&stack_a, &stack_b, argv[i]))
 		{
 			write(2, "Error\n", 6);
 			return (0);

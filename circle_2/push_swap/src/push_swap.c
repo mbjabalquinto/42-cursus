@@ -6,11 +6,32 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/27 12:54:12 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:20:15 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	set_current_position(t_stack_node *stack_a)
+{
+	int	i;
+	int	center;
+
+	i = 0;
+	if (!stack_a)
+		return ;
+	center = stack_len(stack_a) / 2;
+	while (stack_a)
+	{
+		stack_a -> index = i;
+		if (i > center)
+			stack_a -> above_median = false;
+		else
+			stack_a -> above_median = true;
+		i++;
+		stack_a = stack_a -> next;
+	}
+}
 
 int	stack_len(t_stack_node	*stack)
 {
@@ -134,8 +155,9 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	free_split(num);
 	return (1);
 }
-int	push_swap(t_stack_node **stack_a, char *arg)
+int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg)
 {
 	if (!init_stack(stack_a, arg))
 		return (0);
+	set_current_position(*stack_a);
 }
