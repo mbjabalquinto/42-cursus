@@ -6,20 +6,50 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/27 13:20:15 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/27 14:19:28 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	set_current_position(t_stack_node *stack_a)
+
+
+int	stack_sorted(t_stack_node *stack_a)
+{
+	t_stack_node *next;
+	
+	if (!stack_a)
+		return (true);
+	while (stack_a -> next)
+	{
+		next = stack_a -> next;
+		if (stack_a -> nbr > next -> nbr)
+			return (false);
+		stack_a = stack_a -> next;
+	}
+	return (true);
+}
+
+int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
+{
+	int	len_a;
+
+	len_a = stack_len(*stack_a);
+	if (len_a-- > 3 && !stack_sorted(*stack_a))
+		pb(stack_b, stack_a);
+	if (len_a-- > 3 && !stack_sorted(*stack_a))
+		pb(stack_b, stack_a);
+	return (true);
+}
+
+int	set_current_position(t_stack_node *stack_a)
 {
 	int	i;
 	int	center;
 
 	i = 0;
 	if (!stack_a)
-		return ;
+		return (false);
 	center = stack_len(stack_a) / 2;
 	while (stack_a)
 	{
@@ -31,6 +61,7 @@ void	set_current_position(t_stack_node *stack_a)
 		i++;
 		stack_a = stack_a -> next;
 	}
+	return (true);
 }
 
 int	stack_len(t_stack_node	*stack)
@@ -72,10 +103,10 @@ int	check_nbr(t_stack_node *stack_a, int nbr)
 	while (stack_a != NULL)
 	{
 		if (stack_a -> nbr == nbr)
-			return (0);
+			return (false);
 		stack_a = stack_a -> next;
 	}
-	return (1);
+	return (true);
 }
 
 void	free_split(char **num)
@@ -97,10 +128,10 @@ int	add_node(t_stack_node **stack_a, int nbr)
 	t_stack_node *last;
 
 	if (!stack_a)
-		return (0);
+		return (false);
 	new = malloc(1 * (sizeof(t_stack_node)));
 	if (!new)
-		return (0);
+		return (false);
 	last = find_last_node(*stack_a);
 	new -> nbr = nbr;
 	new -> next = NULL;
@@ -110,7 +141,7 @@ int	add_node(t_stack_node **stack_a, int nbr)
 		*stack_a = new;
 	else
 		last -> next = new;
-	return (1);
+	return (true);
 }
 
 int	check_errors(char *num)
@@ -121,14 +152,14 @@ int	check_errors(char *num)
 	if (num[i] == '+' || num[i] == '-')
 		i++;
 	if (!num[i])
-		return (0);
+		return (false);
 	while (num[i])
 	{
 		if (!(num[i] >= '0' && num[i] <= '9'))
-			return (0);
+			return (false);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
 int	init_stack(t_stack_node **stack_a, char *arg)
@@ -142,22 +173,25 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	while (num[i])
 	{
 		if (!check_errors(num[i]))
-			return (free_split(num), free_stack(stack_a), 0); 
+			return (free_split(num), free_stack(stack_a), false); 
 		nbr = ft_atol(num[i]);
 		if (nbr > 2147483647 || nbr < -2147483648)
-			return (free_split(num), free_stack(stack_a), 0);
+			return (free_split(num), free_stack(stack_a), false);
 		if (!check_nbr(*stack_a, nbr))
-			return (free_split(num), free_stack(stack_a), 0);
+			return (free_split(num), free_stack(stack_a), false);
 		if (!add_node(stack_a, nbr))
-			return (free_split(num), free_stack(stack_a), 0);
+			return (free_split(num), free_stack(stack_a), false);
 		i++;
 	}
 	free_split(num);
-	return (1);
+	return (true);
 }
 int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg)
 {
 	if (!init_stack(stack_a, arg))
-		return (0);
-	set_current_position(*stack_a);
+		return (false);
+	if (!set_current_position(*stack_a))
+		return (false);
+	if (!sort_stacks(stack_a, stack_b))
+		return (false);
 }

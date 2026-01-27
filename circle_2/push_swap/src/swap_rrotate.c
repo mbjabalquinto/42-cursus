@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   swap_rrotate.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/19 12:27:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/27 13:26:07 by mjabalqu         ###   ########.fr       */
+/*   Created: 2026/01/27 14:24:49 by mjabalqu          #+#    #+#             */
+/*   Updated: 2026/01/27 14:31:09 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main	(int argc, char **argv)
+void	rra(t_stack_node **stack_a)
 {
-	int i;
-	t_stack_node *stack_a;
-	t_stack_node *stack_b;
+	rrotate(stack_a);
+	write(1, "rra\n", 4);
+}
 
-	stack_a = NULL;
-	stack_b = NULL;
-	i = 1;
-	if (argc == 1)
-		return (1);
-	while (argc > 1)
-	{
-		if (!push_swap(&stack_a, &stack_b, argv[i]))
-		{
-			write(2, "Error\n", 6);
-			return (0);
-		}
-		i++;
-		argc--;
-	}
-	free_stack(&stack_a);
-	return (0);
+void	rrb(t_stack_node **stack_b)
+{
+	rrotate(stack_b);
+	write(1, "rrb\n", 4);
+}
+
+void	rrr(t_stack_node **stack_a, t_stack_node **stack_b)
+{
+	rrotate(stack_a);
+	rrotate(stack_b);
+	write(1, "rrr\n", 4);
 }
