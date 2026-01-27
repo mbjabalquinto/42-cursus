@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/26 15:59:28 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/27 11:03:12 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,29 @@ void	swap(t_stack_node **stack)
 
 void	push(t_stack_node **target, t_stack_node **source)
 {
+	t_stack_node	*node_to_push;
 
+	if (!*source)
+		return ;
+	node_to_push = *source;
+	if ((*source) -> next)
+	{
+		*source = node_to_push -> next;
+		(*source) -> prev = NULL;
+	}
+	else
+		*source = NULL;
+	if (*target)
+	{
+		(*target) -> prev = node_to_push;
+		node_to_push -> next = *target;
+	}
+	else
+	{
+		node_to_push -> prev = NULL;
+		node_to_push -> next = NULL;
+	}
+	*target = node_to_push;
 }
 // first node become the last one.
 void	rotate(t_stack_node **stack)
