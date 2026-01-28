@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/27 13:19:02 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:28:13 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef int bool;
 # define true 1

@@ -6,14 +6,53 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/27 14:43:33 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:13:06 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// Looking for the next smaller number or the bigest.
+// Its necessary to use LONG because we have to initialise the variable with a number smaller than INT_MIN. 
+void	set_target(t_stack_node *stack_a, t_stack_node *stack_b)
+{
+	long			best_match_index;
+	long			max;
+	t_stack_node	*node_max;
+	t_stack_node	*current_b;
+	
+	while (stack_a)
+	{
+		best_match_index = LONG_MIN;
+		max = LONG_MIN;
+		current_b = stack_b;
+		while (current_b)
+		{
+			if (current_b -> nbr > best_match_index && current_b -> nbr < stack_a -> nbr)
+			{	
+				best_match_index = current_b -> nbr;
+				stack_a -> target_node = current_b;
+			}
+			if(current_b -> nbr > max)
+			{
+				max = current_b -> nbr;
+				node_max = current_b;
+			}
+			current_b = current_b -> next;
+		}
+		if (best_match_index == LONG_MIN) // If they are the same its means that there isnt a smaller number. So we take the max.
+			stack_a -> target_node = node_max;
+		stack_a = stack_a -> next;
+	}
+}
 
+void	calculate_cost(t_stack_node *stack_a, t_stack_node *stack_b)
+{
+	set_target(stack_a, stack_b);
+	//TODO calcular coste
+}
 
+// return true if stack A is ordered.
 int	stack_sorted(t_stack_node *stack_a)
 {
 	t_stack_node *next;
@@ -39,10 +78,16 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 		pb(stack_b, stack_a);
 	if (len_a-- > 3 && !stack_sorted(*stack_a))
 		pb(stack_b, stack_a);
-	
+	calculate_cost(*stack_a, *stack_b);
+	while (len_a > 3)
+	{
+		move_cheapest();
+		len_a--;
+		*stack_a = (*stack_a) -> next;
+	}
 	return (true);
 }
-
+// set the current position of the node.
 int	set_current_position(t_stack_node *stack_a)
 {
 	int	i;
