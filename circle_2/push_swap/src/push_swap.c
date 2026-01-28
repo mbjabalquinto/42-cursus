@@ -6,15 +6,41 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/28 14:48:27 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:31:54 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	calculate_cost()
+void	set_cheapest(t_stack_node **stack_a)
 {
 	
+}
+
+void	calculate_cost(t_stack_node **stack_a, t_stack_node **stack_b)
+{
+	t_stack_node	*target_node;
+	t_stack_node	*current_node;
+	int				len_a;
+	int				len_b;
+	int				cost;
+
+	current_node = *stack_a;
+	len_a = stack_len(*stack_a);
+	len_b = stack_len(*stack_b);
+	cost = 0;
+
+	while (current_node)
+	{
+		target_node = current_node -> target_node;
+		if (current_node -> above_median)
+			cost = current_node -> index;
+		else
+			cost = len_a - current_node -> index;
+		
+		current_node -> push_cost = current_node -> ;
+		current_node = current_node -> next;
+	}
 }
 
 // To find the max value in stack B.
@@ -39,34 +65,37 @@ t_stack_node	*find_node_max(t_stack_node *stack_b)
 
 // Looking for the next smaller number or the bigest.
 // Its necessary to use LONG because we have to initialise the variable with a number smaller than INT_MIN. 
-void	set_target(t_stack_node *stack_a, t_stack_node *stack_b)
+void	set_target(t_stack_node **stack_a, t_stack_node **stack_b)
 {
 	long			best_match_index;
 	t_stack_node	*current_b;
 	
-	while (stack_a)
+	while (*stack_a)
 	{
 		best_match_index = LONG_MIN;
-		current_b = stack_b;
+		current_b = *stack_b;
 		while (current_b)
 		{
-			if (current_b -> nbr > best_match_index && current_b -> nbr < stack_a -> nbr)
+			if (current_b -> nbr > best_match_index && current_b -> nbr < (*stack_a) -> nbr)
 			{	
 				best_match_index = current_b -> nbr;
-				stack_a -> target_node = current_b;
+				(*stack_a) -> target_node = current_b;
 			}
 			current_b = current_b -> next;
 		}
 		if (best_match_index == LONG_MIN) // If they are the same its means that there isnt a smaller number. So we take the max.
-			stack_a -> target_node = find_node_max(stack_b);
-		stack_a = stack_a -> next;
+			(*stack_a) -> target_node = find_node_max(stack_b);
+		stack_a = (*stack_a) -> next;
 	}
 }
 
-void	set_nodes(t_stack_node *stack_a, t_stack_node *stack_b)
+void	set_nodes(t_stack_node **stack_a, t_stack_node **stack_b)
 {
+	set_current_position(*stack_a);
+	set_current_position(*stack_b);
 	set_target(stack_a, stack_b);
-	calculate_cost();
+	calculate_cost(stack_a, stack_b);
+	set_cheapest(stack_a);
 }
 
 // return true if stack A is ordered.
@@ -95,8 +124,8 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 		pb(stack_b, stack_a);
 	if (len_a-- > 3 && !stack_sorted(*stack_a))
 		pb(stack_b, stack_a);
-	set_nodes(*stack_a, *stack_b);
-	while (len_a > 3)
+	set_nodes(stack_a, stack_b);
+	while (len_a > 3)//Actions to do when nodes are more than 3.
 	{
 		move_cheapest();
 		len_a--;
@@ -105,24 +134,24 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 	return (true);
 }
 // set the current position of the node.
-void	set_current_position(t_stack_node *stack_a)
+void	set_current_position(t_stack_node *stack)
 {
 	int	i;
 	int	center;
 
 	i = 0;
-	if (!stack_a)
+	if (!stack)
 		return ;
-	center = stack_len(stack_a) / 2;
-	while (stack_a)
+	center = stack_len(stack) / 2;
+	while (stack)
 	{
-		stack_a -> index = i;
+		stack -> index = i;
 		if (i > center)
-			stack_a -> above_median = false;
+			stack -> above_median = false;
 		else
-			stack_a -> above_median = true;
+			stack -> above_median = true;
 		i++;
-		stack_a = stack_a -> next;
+		stack = stack -> next;
 	}
 }
 
@@ -252,7 +281,6 @@ int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg)
 {
 	if (!init_stack(stack_a, arg))
 		return (false);
-	set_current_position(*stack_a);
 	if (!sort_stacks(stack_a, stack_b))
 		return (false);
 }
