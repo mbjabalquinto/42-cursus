@@ -6,11 +6,17 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/28 14:27:48 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:48:27 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	calculate_cost()
+{
+	
+}
+
 // To find the max value in stack B.
 t_stack_node	*find_node_max(t_stack_node *stack_b)
 {
@@ -57,10 +63,10 @@ void	set_target(t_stack_node *stack_a, t_stack_node *stack_b)
 	}
 }
 
-void	calculate_cost(t_stack_node *stack_a, t_stack_node *stack_b)
+void	set_nodes(t_stack_node *stack_a, t_stack_node *stack_b)
 {
 	set_target(stack_a, stack_b);
-	//TODO calcular coste
+	calculate_cost();
 }
 
 // return true if stack A is ordered.
@@ -89,7 +95,7 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 		pb(stack_b, stack_a);
 	if (len_a-- > 3 && !stack_sorted(*stack_a))
 		pb(stack_b, stack_a);
-	calculate_cost(*stack_a, *stack_b);
+	set_nodes(*stack_a, *stack_b);
 	while (len_a > 3)
 	{
 		move_cheapest();
@@ -99,14 +105,14 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 	return (true);
 }
 // set the current position of the node.
-int	set_current_position(t_stack_node *stack_a)
+void	set_current_position(t_stack_node *stack_a)
 {
 	int	i;
 	int	center;
 
 	i = 0;
 	if (!stack_a)
-		return (false);
+		return ;
 	center = stack_len(stack_a) / 2;
 	while (stack_a)
 	{
@@ -118,7 +124,6 @@ int	set_current_position(t_stack_node *stack_a)
 		i++;
 		stack_a = stack_a -> next;
 	}
-	return (true);
 }
 
 int	stack_len(t_stack_node	*stack)
@@ -247,8 +252,7 @@ int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg)
 {
 	if (!init_stack(stack_a, arg))
 		return (false);
-	if (!set_current_position(*stack_a))
-		return (false);
+	set_current_position(*stack_a);
 	if (!sort_stacks(stack_a, stack_b))
 		return (false);
 }
