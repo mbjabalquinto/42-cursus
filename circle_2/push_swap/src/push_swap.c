@@ -6,25 +6,41 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/28 14:13:06 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:27:48 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+// To find the max value in stack B.
+t_stack_node	*find_node_max(t_stack_node *stack_b)
+{
+	long	max;
+	t_stack_node	*node_max;
+
+	node_max = NULL;
+	max = LONG_MIN;
+	while (stack_b)
+	{
+		if (stack_b -> nbr > max)
+		{	
+			node_max = stack_b;
+			max = stack_b -> nbr;
+		}
+		stack_b = stack_b -> next;
+	}
+	return (node_max);
+}
 
 // Looking for the next smaller number or the bigest.
 // Its necessary to use LONG because we have to initialise the variable with a number smaller than INT_MIN. 
 void	set_target(t_stack_node *stack_a, t_stack_node *stack_b)
 {
 	long			best_match_index;
-	long			max;
-	t_stack_node	*node_max;
 	t_stack_node	*current_b;
 	
 	while (stack_a)
 	{
 		best_match_index = LONG_MIN;
-		max = LONG_MIN;
 		current_b = stack_b;
 		while (current_b)
 		{
@@ -33,15 +49,10 @@ void	set_target(t_stack_node *stack_a, t_stack_node *stack_b)
 				best_match_index = current_b -> nbr;
 				stack_a -> target_node = current_b;
 			}
-			if(current_b -> nbr > max)
-			{
-				max = current_b -> nbr;
-				node_max = current_b;
-			}
 			current_b = current_b -> next;
 		}
 		if (best_match_index == LONG_MIN) // If they are the same its means that there isnt a smaller number. So we take the max.
-			stack_a -> target_node = node_max;
+			stack_a -> target_node = find_node_max(stack_b);
 		stack_a = stack_a -> next;
 	}
 }
