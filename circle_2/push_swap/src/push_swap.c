@@ -6,11 +6,48 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 09:47:51 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 12:38:33 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	prep_for_push()
+{
+	
+}
+
+t_stack_node	*return_cheapest(t_stack_node *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (!stack -> cheapest)
+		stack = stack -> next;
+	return (stack);
+}
+
+void	move_cheapest(t_stack_node **stack_a, t_stack_node **stack_b)
+{
+	t_stack_node	*cheapest_node;
+	t_stack_node	*target_node;
+
+	target_node = NULL;
+	cheapest_node = return_cheapest(*stack_a);
+	if (!cheapest_node)
+		return ;
+	target_node = cheapest_node -> target_node;
+	if (cheapest_node -> above_median && target_node -> above_median)//If both nodes are above median.
+	{
+		while (cheapest_node != *stack_a && target_node != *stack_b)//While none of them are at the top.
+			rr(stack_a, stack_b);
+	}
+	else if (!cheapest_node -> above_median && !target_node -> above_median)//If both nodes are not above median.
+	{		
+		while (cheapest_node != *stack_a && target_node != *stack_b)//While none of them are at the top.
+			rrr(stack_a, stack_b);
+	}
+	prep_for_push();
+}
 
 int	init_stack(t_stack_node **stack_a, char *arg)
 {
@@ -23,7 +60,7 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	while (num[i])
 	{
 		if (!check_errors(num[i]))
-			return (free_split(num), free_stack(stack_a), false); 
+			return (free_split(num), free_stack(stack_a), false);
 		nbr = ft_atol(num[i]);
 		if (nbr > 2147483647 || nbr < -2147483648)
 			return (free_split(num), free_stack(stack_a), false);

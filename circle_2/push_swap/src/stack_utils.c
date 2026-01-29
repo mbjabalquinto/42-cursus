@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:17:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 09:17:19 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 10:26:26 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,22 @@ int	stack_sorted(t_stack_node *stack_a)
 
 int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 {
-	int	len_a;
+	int				len_a;
 
 	len_a = stack_len(*stack_a);
 	if (len_a-- > 3 && !stack_sorted(*stack_a))
 		pb(stack_b, stack_a);
 	if (len_a-- > 3 && !stack_sorted(*stack_a))
 		pb(stack_b, stack_a);
-	set_nodes(stack_a, stack_b);
-	while (len_a > 3)//Actions to do when nodes are more than 3.
+	while (len_a > 3 && !stack_sorted(*stack_a))//Actions to take when there are more than 3 nodes and stack is not yet sorted.
 	{
-		move_cheapest();
+		set_nodes(stack_a, stack_b);
+		move_cheapest(stack_a, stack_b);
 		len_a--;
-		*stack_a = (*stack_a) -> next;
 	}
+	//TODO 
+	//ordernar los 3 ultimos nodos.
+	//moverlos de B a A
 	return (true);
 }
 // set the current position of the node.
