@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/28 17:31:54 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 08:45:09 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	set_cheapest(t_stack_node **stack_a)
 {
-	
+	 
 }
 
-void	calculate_cost(t_stack_node **stack_a, t_stack_node **stack_b)
+void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
 {
 	t_stack_node	*target_node;
 	t_stack_node	*current_node;
@@ -28,17 +28,20 @@ void	calculate_cost(t_stack_node **stack_a, t_stack_node **stack_b)
 	current_node = *stack_a;
 	len_a = stack_len(*stack_a);
 	len_b = stack_len(*stack_b);
-	cost = 0;
 
 	while (current_node)
 	{
+		cost = 0;
 		target_node = current_node -> target_node;
 		if (current_node -> above_median)
-			cost = current_node -> index;
+			cost += current_node -> index;
 		else
-			cost = len_a - current_node -> index;
-		
-		current_node -> push_cost = current_node -> ;
+			cost += len_a - current_node -> index;
+		if (target_node -> above_median)
+			cost += target_node -> index;
+		else
+			cost += len_b - target_node -> index;
+		current_node -> push_cost = cost;
 		current_node = current_node -> next;
 	}
 }
@@ -94,7 +97,7 @@ void	set_nodes(t_stack_node **stack_a, t_stack_node **stack_b)
 	set_current_position(*stack_a);
 	set_current_position(*stack_b);
 	set_target(stack_a, stack_b);
-	calculate_cost(stack_a, stack_b);
+	cost_analysis(stack_a, stack_b);
 	set_cheapest(stack_a);
 }
 
