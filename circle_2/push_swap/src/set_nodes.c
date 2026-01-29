@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:14:38 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 09:15:04 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:06:07 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,25 @@ void	set_target(t_stack_node **stack_a, t_stack_node **stack_b)
 {
 	long			best_match_index;
 	t_stack_node	*current_b;
+	t_stack_node	*current_a;
 	
-	while (*stack_a)
+	current_a = *stack_a;
+	while (current_a)
 	{
 		best_match_index = LONG_MIN;
 		current_b = *stack_b;
 		while (current_b)
 		{
-			if (current_b -> nbr > best_match_index && current_b -> nbr < (*stack_a) -> nbr)
+			if (current_b -> nbr > best_match_index && current_b -> nbr < current_a -> nbr)
 			{	
 				best_match_index = current_b -> nbr;
-				(*stack_a) -> target_node = current_b;
+				current_a -> target_node = current_b;
 			}
 			current_b = current_b -> next;
 		}
 		if (best_match_index == LONG_MIN) // If they are the same its means that there isnt a smaller number. So we take the max.
-			(*stack_a) -> target_node = find_node_max(stack_b);
-		stack_a = (*stack_a) -> next;
+			current_a -> target_node = find_node_max(*stack_b);
+		current_a = current_a -> next;
 	}
 }
 

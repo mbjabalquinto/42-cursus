@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 14:12:36 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:49:46 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name)
 {
 	while (*stack != node)
 	{
-		if(stack_len == 'a')
+		if(stack_name == 'a')
 		{
 			if (node -> above_median)
 				ra(stack);
 			else
 				rra(stack);
 		}
-		if(stack_len == 'b')
+		if(stack_name == 'b')
 		{
 			if (node -> above_median)
 				rb(stack);

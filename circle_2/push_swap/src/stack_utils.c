@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:17:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 14:24:04 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:15:41 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	stack_sorted(t_stack_node *stack_a)
 int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 {
 	int				len_a;
-
+	//MOVE FROM A TO B
 	len_a = stack_len(*stack_a);
 	if (len_a-- > 3 && !stack_sorted(*stack_a))
 		pb(stack_b, stack_a);
@@ -44,13 +44,20 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 		move_cheapest(stack_a, stack_b);
 		len_a--;
 	}
-	//TODO 
-	set_nodes(stack_a, stack_b);//vuelvo a actualizar todo tras el ultimo movimiento del bucle.
 	sort_three(stack_a);
-	//moverlos de B a A
+	//MOVE FROM B TO A
+	while (*stack_b)
+	{
+		set_current_position(*stack_a);
+		set_current_position(*stack_b);
+		set_target_b(stack_a, stack_b);
+		prep_for_push(stack_a, (*stack_b) -> target_node, 'a');
+		pa(stack_a, stack_b);
+	}
+	min_on_top(stack_a);
 	return (true);
 }
-// set the current position of the node.
+// set the current position of each node.
 void	set_current_position(t_stack_node *stack)
 {
 	int	i;
