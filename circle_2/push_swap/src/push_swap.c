@@ -6,15 +6,31 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 12:38:33 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 14:12:36 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	prep_for_push()
+void	prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name)
 {
-	
+	while (*stack != node)
+	{
+		if(stack_len == 'a')
+		{
+			if (node -> above_median)
+				ra(stack);
+			else
+				rra(stack);
+		}
+		if(stack_len == 'b')
+		{
+			if (node -> above_median)
+				rb(stack);
+			else
+				rrb(stack);
+		}
+	}
 }
 
 t_stack_node	*return_cheapest(t_stack_node *stack)
@@ -46,7 +62,9 @@ void	move_cheapest(t_stack_node **stack_a, t_stack_node **stack_b)
 		while (cheapest_node != *stack_a && target_node != *stack_b)//While none of them are at the top.
 			rrr(stack_a, stack_b);
 	}
-	prep_for_push();
+	prep_for_push(stack_a, cheapest_node, 'a');
+	prep_for_push(stack_b, target_node, 'b');
+	pb(stack_b, stack_a);
 }
 
 int	init_stack(t_stack_node **stack_a, char *arg)
