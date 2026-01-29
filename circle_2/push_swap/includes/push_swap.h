@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 19:31:31 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:50:08 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ typedef struct s_stack_node
 
 long			ft_atol(const char *str);
 char			**ft_split(char const *s, char c);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_strdup(const char *s);
+size_t			ft_strlen(const char *str);
+size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 t_stack_node	*find_last_node(t_stack_node *head);
 int				check_nbr(t_stack_node *stack_a, int nbr);
 void			free_split(char **num);

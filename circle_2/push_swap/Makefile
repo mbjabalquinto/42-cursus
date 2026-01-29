@@ -23,7 +23,11 @@ SRC_FILES = main.c \
 			swap_rrotate.c
 
 LIB_FILES = ft_atol.c \
-			ft_split.c
+			ft_split.c \
+			ft_substr.c \
+			ft_strdup.c \
+			ft_strlen.c \
+			ft_strlcpy.c
 
 # --- COMBINACIÓN DE RUTAS Y ARCHIVOS ---
 # addprefix añade "src/" o "libs/" delante de cada archivo
