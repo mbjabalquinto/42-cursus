@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:17:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 10:26:26 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 14:24:04 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
 		len_a--;
 	}
 	//TODO 
-	//ordernar los 3 ultimos nodos.
+	set_nodes(stack_a, stack_b);//vuelvo a actualizar todo tras el ultimo movimiento del bucle.
+	sort_three(stack_a);
 	//moverlos de B a A
 	return (true);
 }
