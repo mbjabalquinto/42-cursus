@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 08:45:09 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/29 09:11:03 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,26 @@
 
 void	set_cheapest(t_stack_node **stack_a)
 {
-	 
+	t_stack_node	*best_node;
+	t_stack_node	*current_node;
+	long			best_cost;
+
+	if (!*stack_a)
+		return ;
+	best_node = NULL;
+	best_cost = LONG_MAX;//to avoid problems with int limits. The value could be INT_MAX. In this case you shouldnt compare with >. LONG_MAX always will be > the first time.
+	current_node = *stack_a;
+	while (current_node)
+	{
+		current_node -> cheapest = false;
+		if (best_cost > current_node -> push_cost)
+		{
+			best_cost = current_node -> push_cost;
+			best_node = current_node;
+		}
+		current_node = current_node -> next;
+	}
+	best_node -> cheapest = true;
 }
 
 void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
