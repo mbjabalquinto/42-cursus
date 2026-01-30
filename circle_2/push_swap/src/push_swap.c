@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 14:09:06 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:07:52 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	char	**num;
 	long	nbr;
 
+	if (is_empty_or_space(arg))
+		return (FALSE);
 	i = 0;
 	num = ft_split(arg, ' ');
 	while (num[i])

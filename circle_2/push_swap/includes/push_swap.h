@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 13:50:36 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:08:30 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void			swap(t_stack_node **stack);
 void			push(t_stack_node **target, t_stack_node **source);
 void			rotate(t_stack_node **stack);
 void			rrotate(t_stack_node **stack);
+int				is_empty_or_space(char *arg);
 
 #endif

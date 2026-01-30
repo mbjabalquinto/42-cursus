@@ -15,7 +15,8 @@ SRC_FILES = main.c \
 			swap.c \
 			swap_push_and_swap.c \
 			swap_rotate.c \
-			swap_rrotate.c
+			swap_rrotate.c \
+			parse_utils.c
 
 LIB_FILES = ft_atol.c \
 			ft_split.c \
