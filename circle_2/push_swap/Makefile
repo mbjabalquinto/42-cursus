@@ -11,7 +11,7 @@ SRC_FILES = main.c \
 			stack_utils.c \
 			set_nodes.c \
 			return_to_stack_a.c \
-			parse_and_node_utils.c \
+			node_utils.c \
 			swap.c \
 			swap_push_and_swap.c \
 			swap_rotate.c \

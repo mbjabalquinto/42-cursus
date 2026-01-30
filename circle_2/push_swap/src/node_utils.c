@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:19:25 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 14:05:53 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:13:37 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,6 @@ t_stack_node	*find_last_node(t_stack_node *head)
 	while (head -> next)
 		head = head -> next;
 	return (head);
-}
-
-int	check_nbr(t_stack_node *stack_a, int nbr)
-{
-	while (stack_a != NULL)
-	{
-		if (stack_a -> nbr == nbr)
-			return (FALSE);
-		stack_a = stack_a -> next;
-	}
-	return (TRUE);
-}
-
-void	free_split(char **num)
-{
-	int	i;
-
-	i = 0;
-	while (num[i])
-	{
-		free(num[i]);
-		i++;
-	}
-	free(num);
 }
 
 int	add_node(t_stack_node **stack_a, int nbr)
@@ -64,23 +40,5 @@ int	add_node(t_stack_node **stack_a, int nbr)
 		*stack_a = new;
 	else
 		last -> next = new;
-	return (TRUE);
-}
-
-int	check_errors(char *num)
-{
-	int	i;
-
-	i = 0;
-	if (num[i] == '+' || num[i] == '-')
-		i++;
-	if (!num[i])
-		return (FALSE);
-	while (num[i])
-	{
-		if (!(num[i] >= '0' && num[i] <= '9'))
-			return (FALSE);
-		i++;
-	}
 	return (TRUE);
 }
