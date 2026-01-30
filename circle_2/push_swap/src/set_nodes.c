@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:14:38 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 18:06:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 12:12:33 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,29 @@ void	set_cheapest(t_stack_node **stack_a)
 
 void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
 {
-	t_stack_node	*target_node;
-	t_stack_node	*current_node;
+	t_stack_node	*a;
+	t_stack_node	*b;
 	int				len_a;
 	int				len_b;
-	int				cost;
 
-	current_node = *stack_a;
+	a = *stack_a;
 	len_a = stack_len(*stack_a);
 	len_b = stack_len(*stack_b);
 
-	while (current_node)
+	while (a)
 	{
-		cost = 0;
-		target_node = current_node -> target_node;
-		if (current_node -> above_median)
-			cost += current_node -> index;
-		else
-			cost += len_a - current_node -> index;
-		if (target_node -> above_median)
-			cost += target_node -> index;
-		else
-			cost += len_b - target_node -> index;
-		current_node -> push_cost = cost;
-		current_node = current_node -> next;
+		b = a -> target_node;
+		a -> push_cost = a -> index;
+		b -> push_cost = b -> index;
+		if (!a -> above_median)
+			a -> push_cost = len_a - (a -> index);
+		if (!b -> above_median)
+			b -> push_cost = len_b - (b -> index);
+		if (a -> above_median != b -> above_median)
+			a -> push_cost += b -> push_cost;
+		else if (a -> push_cost < b -> push_cost)
+				a -> push_cost = b -> push_cost;
+		a = a -> next;
 	}
 }
 
