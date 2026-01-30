@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 10:27:13 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 13:50:36 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@
 # include <unistd.h>
 # include <limits.h>
 
-typedef int bool;
-# define true 1
-# define false 0
+# define FALSE 0
+# define TRUE 1
 
 typedef struct s_stack_node
 {
-	int					nbr; // the number to sort.
-	int					index; // the position of the number in the stack.
-	int					push_cost; // the cost to move the number.
-	bool				above_median; // the number is in the upper median or in the lower median.
-	bool				cheapest; // the number is the cheapest to move.
-	struct s_stack_node	*target_node; // pointer to target node in the other stack.
-	struct s_stack_node	*next; // pointer to the next node.
-	struct s_stack_node	*prev; // pointer to the prev node.
+	int					nbr;
+	int					index;
+	int					push_cost;
+	int					above_median;
+	int					cheapest;
+	struct s_stack_node	*target_node;
+	struct s_stack_node	*next;
+	struct s_stack_node	*prev;
 }	t_stack_node;
 
 long			ft_atol(const char *str);
@@ -44,7 +43,8 @@ int				check_nbr(t_stack_node *stack_a, int nbr);
 void			free_split(char **num);
 int				add_node(t_stack_node **stack_a, int nbr);
 int				check_errors(char *num);
-void			prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name);
+void			prep_for_push(t_stack_node **stack,
+					t_stack_node *node, char stack_name);
 t_stack_node	*return_cheapest(t_stack_node *stack);
 void			move_cheapest(t_stack_node **stack_a, t_stack_node **stack_b);
 int				init_stack(t_stack_node **stack_a, char *arg);

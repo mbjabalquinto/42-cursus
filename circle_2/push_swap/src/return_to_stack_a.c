@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_to_stack_A.c                                :+:      :+:    :+:   */
+/*   return_to_stack_a.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 14:16:21 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 19:37:01 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:03:21 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	min_on_top(t_stack_node **stack_a)
 {
-	t_stack_node *node_min;
+	t_stack_node	*node_min;
 
 	set_current_position(*stack_a);
 	node_min = find_node_min(*stack_a);
@@ -23,7 +23,7 @@ void	min_on_top(t_stack_node **stack_a)
 
 t_stack_node	*find_node_min(t_stack_node *stack_a)
 {
-	long	min;
+	long			min;
 	t_stack_node	*node_min;
 
 	node_min = NULL;
@@ -31,7 +31,7 @@ t_stack_node	*find_node_min(t_stack_node *stack_a)
 	while (stack_a)
 	{
 		if (stack_a -> nbr < min)
-		{	
+		{
 			node_min = stack_a;
 			min = stack_a -> nbr;
 		}
@@ -45,7 +45,7 @@ void	set_target_b(t_stack_node **stack_a, t_stack_node **stack_b)
 	long			best_match_index;
 	t_stack_node	*current_a;
 	t_stack_node	*current_b;
-	
+
 	current_b = *stack_b;
 	while (current_b)
 	{
@@ -53,8 +53,9 @@ void	set_target_b(t_stack_node **stack_a, t_stack_node **stack_b)
 		current_a = *stack_a;
 		while (current_a)
 		{
-			if (current_a -> nbr < best_match_index && current_a -> nbr > current_b -> nbr)
-			{	
+			if (current_a -> nbr < best_match_index
+				&& current_a -> nbr > current_b -> nbr)
+			{
 				best_match_index = current_a -> nbr;
 				current_b -> target_node = current_a;
 			}
@@ -73,8 +74,8 @@ void	sort_three(t_stack_node **stack_a)
 	biggest_node = find_node_max(*stack_a);
 	if (biggest_node == *stack_a)
 		ra(stack_a);
-	else if ((*stack_a) -> next == biggest_node)
+	else if ((*stack_a)-> next == biggest_node)
 		rra(stack_a);
-	if ((*stack_a) -> nbr > (*stack_a)->next->nbr)
+	if ((*stack_a)-> nbr > (*stack_a)->next->nbr)
 		sa(stack_a);
 }

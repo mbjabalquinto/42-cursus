@@ -6,12 +6,13 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:32:34 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/26 13:48:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 13:54:20 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+//max int value without sign: if (num > 2147483648)
+//return a very big num to force the error when i check de result returned.
 long	ft_atol(const char *str)
 {
 	int		i;
@@ -33,8 +34,8 @@ long	ft_atol(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		num = (num * 10) + str[i] - '0';
-		if (num > 2147483648) // max int value without sign.
-			return (2147483649);  //return a very big num to force the error when i check de result returned.
+		if (num > 2147483648)
+			return (2147483649);
 		i++;
 	}
 	return (num * sign);

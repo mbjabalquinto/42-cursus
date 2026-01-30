@@ -6,17 +6,17 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:27:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 10:27:22 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:05:12 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main	(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int i;
-	t_stack_node *stack_a;
-	t_stack_node *stack_b;
+	int				i;
+	t_stack_node	*stack_a;
+	t_stack_node	*stack_b;
 
 	stack_a = NULL;
 	stack_b = NULL;

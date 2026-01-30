@@ -6,12 +6,14 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:14:38 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 12:17:20 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:19:24 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+//To avoid problems with int limits. The value could be INT_MAX. 
+//In this case you shouldnt compare with >. 
+//LONG_MAX always will be > the first time.
 void	set_cheapest(t_stack_node **stack_a)
 {
 	t_stack_node	*best_node;
@@ -21,11 +23,11 @@ void	set_cheapest(t_stack_node **stack_a)
 	if (!*stack_a)
 		return ;
 	best_node = NULL;
-	best_cost = LONG_MAX;//to avoid problems with int limits. The value could be INT_MAX. In this case you shouldnt compare with >. LONG_MAX always will be > the first time.
+	best_cost = LONG_MAX;
 	current_node = *stack_a;
 	while (current_node)
 	{
-		current_node -> cheapest = false;
+		current_node -> cheapest = FALSE;
 		if (best_cost > current_node -> push_cost)
 		{
 			best_cost = current_node -> push_cost;
@@ -33,7 +35,7 @@ void	set_cheapest(t_stack_node **stack_a)
 		}
 		current_node = current_node -> next;
 	}
-	best_node -> cheapest = true;
+	best_node -> cheapest = TRUE;
 }
 
 void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
@@ -46,7 +48,6 @@ void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
 	a = *stack_a;
 	len_a = stack_len(*stack_a);
 	len_b = stack_len(*stack_b);
-
 	while (a)
 	{
 		b = a -> target_node;
@@ -59,7 +60,7 @@ void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
 		if (a -> above_median != b -> above_median)
 			a -> push_cost += b -> push_cost;
 		else if (a -> push_cost < b -> push_cost)
-				a -> push_cost = b -> push_cost;
+			a -> push_cost = b -> push_cost;
 		a = a -> next;
 	}
 }
@@ -67,7 +68,7 @@ void	cost_analysis(t_stack_node **stack_a, t_stack_node **stack_b)
 // To find the max value in stack B.
 t_stack_node	*find_node_max(t_stack_node *stack_b)
 {
-	long	max;
+	long			max;
 	t_stack_node	*node_max;
 
 	node_max = NULL;
@@ -84,14 +85,15 @@ t_stack_node	*find_node_max(t_stack_node *stack_b)
 	return (node_max);
 }
 
-// Looking for the next smaller number or the bigest.
-// Its necessary to use LONG because we have to initialise the variable with a number smaller than INT_MIN. 
+//Looking for the next smaller number or the bigest.
+//Its necessary to use LONG because we have to 
+//initialise the variable with a number smaller than INT_MIN. 
 void	set_target(t_stack_node **stack_a, t_stack_node **stack_b)
 {
 	long			best_match_index;
 	t_stack_node	*current_b;
 	t_stack_node	*current_a;
-	
+
 	current_a = *stack_a;
 	while (current_a)
 	{
@@ -99,14 +101,15 @@ void	set_target(t_stack_node **stack_a, t_stack_node **stack_b)
 		current_b = *stack_b;
 		while (current_b)
 		{
-			if (current_b -> nbr > best_match_index && current_b -> nbr < current_a -> nbr)
-			{	
+			if (current_b -> nbr > best_match_index
+				&& current_b -> nbr < current_a -> nbr)
+			{
 				best_match_index = current_b -> nbr;
 				current_a -> target_node = current_b;
 			}
 			current_b = current_b -> next;
 		}
-		if (best_match_index == LONG_MIN) // If they are the same its means that there isnt a smaller number. So we take the max.
+		if (best_match_index == LONG_MIN)
 			current_a -> target_node = find_node_max(*stack_b);
 		current_a = current_a -> next;
 	}

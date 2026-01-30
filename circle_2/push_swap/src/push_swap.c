@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 10:24:21 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:09:06 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name)
 {
 	while (*stack != node)
 	{
-		if(stack_name == 'a')
+		if (stack_name == 'a')
 		{
 			if (node -> above_median)
 				ra(stack);
 			else
 				rra(stack);
 		}
-		if(stack_name == 'b')
+		if (stack_name == 'b')
 		{
 			if (node -> above_median)
 				rb(stack);
@@ -52,14 +52,14 @@ void	move_cheapest(t_stack_node **stack_a, t_stack_node **stack_b)
 	if (!cheapest_node)
 		return ;
 	target_node = cheapest_node -> target_node;
-	if (cheapest_node -> above_median && target_node -> above_median)//If both nodes are above median.
+	if (cheapest_node -> above_median && target_node -> above_median)
 	{
-		while (cheapest_node != *stack_a && target_node != *stack_b)//While none of them are at the top.
+		while (cheapest_node != *stack_a && target_node != *stack_b)
 			rr(stack_a, stack_b);
 	}
-	else if (!cheapest_node -> above_median && !target_node -> above_median)//If both nodes are not above median.
-	{		
-		while (cheapest_node != *stack_a && target_node != *stack_b)//While none of them are at the top.
+	else if (!cheapest_node -> above_median && !target_node -> above_median)
+	{
+		while (cheapest_node != *stack_a && target_node != *stack_b)
 			rrr(stack_a, stack_b);
 	}
 	prep_for_push(stack_a, cheapest_node, 'a');
@@ -78,22 +78,23 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	while (num[i])
 	{
 		if (!check_errors(num[i]))
-			return (free_split(num), free_stack(stack_a), false);
+			return (free_split(num), free_stack(stack_a), FALSE);
 		nbr = ft_atol(num[i]);
 		if (nbr > 2147483647 || nbr < -2147483648)
-			return (free_split(num), free_stack(stack_a), false);
+			return (free_split(num), free_stack(stack_a), FALSE);
 		if (!check_nbr(*stack_a, nbr))
-			return (free_split(num), free_stack(stack_a), false);
+			return (free_split(num), free_stack(stack_a), FALSE);
 		if (!add_node(stack_a, nbr))
-			return (free_split(num), free_stack(stack_a), false);
+			return (free_split(num), free_stack(stack_a), FALSE);
 		i++;
 	}
 	free_split(num);
-	return (true);
+	return (TRUE);
 }
+
 int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b)
 {
 	if (!sort_stacks(stack_a, stack_b))
-		return (false);
-	return (true);
+		return (FALSE);
+	return (TRUE);
 }
