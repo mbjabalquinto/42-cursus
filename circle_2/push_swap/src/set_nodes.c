@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:14:38 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 12:12:33 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 12:17:20 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_stack_node	*find_node_max(t_stack_node *stack_b)
 	while (stack_b)
 	{
 		if (stack_b -> nbr > max)
-		{	
+		{
 			node_max = stack_b;
 			max = stack_b -> nbr;
 		}
