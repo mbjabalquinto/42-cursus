@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 19:50:08 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 10:27:13 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name);
 t_stack_node	*return_cheapest(t_stack_node *stack);
 void			move_cheapest(t_stack_node **stack_a, t_stack_node **stack_b);
 int				init_stack(t_stack_node **stack_a, char *arg);
-int				push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg);
+int				push_swap(t_stack_node **stack_a, t_stack_node **stack_b);
 void			min_on_top(t_stack_node **stack_a);
 t_stack_node	*find_node_min(t_stack_node *stack_a);
 void			set_target_b(t_stack_node **stack_a, t_stack_node **stack_b);

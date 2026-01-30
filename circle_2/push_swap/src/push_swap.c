@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/29 18:49:46 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/01/30 10:24:21 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 	free_split(num);
 	return (true);
 }
-int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b, char *arg)
+int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b)
 {
-	if (!init_stack(stack_a, arg))
-		return (false);
 	if (!sort_stacks(stack_a, stack_b))
 		return (false);
 	return (true);
