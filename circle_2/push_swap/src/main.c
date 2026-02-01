@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:27:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 14:05:12 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:18:17 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	main(int argc, char **argv)
 {

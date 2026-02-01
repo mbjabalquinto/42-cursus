@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:17:00 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 13:59:44 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:13:46 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 // return TRUE if stack A is ordered.
 int	stack_sorted(t_stack_node *stack_a)
@@ -26,34 +26,6 @@ int	stack_sorted(t_stack_node *stack_a)
 			return (FALSE);
 		stack_a = stack_a -> next;
 	}
-	return (TRUE);
-}
-
-int	sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b)
-{
-	int	len_a;
-
-	len_a = stack_len(*stack_a);
-	if (len_a-- > 3 && !stack_sorted(*stack_a))
-		pb(stack_b, stack_a);
-	if (len_a-- > 3 && !stack_sorted(*stack_a))
-		pb(stack_b, stack_a);
-	while (len_a > 3 && !stack_sorted(*stack_a))
-	{
-		set_nodes(stack_a, stack_b);
-		move_cheapest(stack_a, stack_b);
-		len_a--;
-	}
-	sort_three(stack_a);
-	while (*stack_b)
-	{
-		set_current_position(*stack_a);
-		set_current_position(*stack_b);
-		set_target_b(stack_a, stack_b);
-		prep_for_push(stack_a, (*stack_b)-> target_node, 'a');
-		pa(stack_a, stack_b);
-	}
-	min_on_top(stack_a);
 	return (TRUE);
 }
 

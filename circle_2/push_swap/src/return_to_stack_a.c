@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 14:16:21 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 14:03:21 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:19:56 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	min_on_top(t_stack_node **stack_a)
 {
@@ -65,17 +65,4 @@ void	set_target_b(t_stack_node **stack_a, t_stack_node **stack_b)
 			current_b -> target_node = find_node_min(*stack_a);
 		current_b = current_b -> next;
 	}
-}
-
-void	sort_three(t_stack_node **stack_a)
-{
-	t_stack_node	*biggest_node;
-
-	biggest_node = find_node_max(*stack_a);
-	if (biggest_node == *stack_a)
-		ra(stack_a);
-	else if ((*stack_a)-> next == biggest_node)
-		rra(stack_a);
-	if ((*stack_a)-> nbr > (*stack_a)->next->nbr)
-		sa(stack_a);
 }

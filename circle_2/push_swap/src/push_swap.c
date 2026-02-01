@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 17:07:52 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:19:31 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name)
 {
@@ -19,16 +19,16 @@ void	prep_for_push(t_stack_node **stack, t_stack_node *node, char stack_name)
 		if (stack_name == 'a')
 		{
 			if (node -> above_median)
-				ra(stack);
+				ra(stack, TRUE);
 			else
-				rra(stack);
+				rra(stack, TRUE);
 		}
 		if (stack_name == 'b')
 		{
 			if (node -> above_median)
-				rb(stack);
+				rb(stack, TRUE);
 			else
-				rrb(stack);
+				rrb(stack, TRUE);
 		}
 	}
 }
@@ -55,43 +55,16 @@ void	move_cheapest(t_stack_node **stack_a, t_stack_node **stack_b)
 	if (cheapest_node -> above_median && target_node -> above_median)
 	{
 		while (cheapest_node != *stack_a && target_node != *stack_b)
-			rr(stack_a, stack_b);
+			rr(stack_a, stack_b, TRUE);
 	}
 	else if (!cheapest_node -> above_median && !target_node -> above_median)
 	{
 		while (cheapest_node != *stack_a && target_node != *stack_b)
-			rrr(stack_a, stack_b);
+			rrr(stack_a, stack_b, TRUE);
 	}
 	prep_for_push(stack_a, cheapest_node, 'a');
 	prep_for_push(stack_b, target_node, 'b');
-	pb(stack_b, stack_a);
-}
-
-int	init_stack(t_stack_node **stack_a, char *arg)
-{
-	int		i;
-	char	**num;
-	long	nbr;
-
-	if (is_empty_or_space(arg))
-		return (FALSE);
-	i = 0;
-	num = ft_split(arg, ' ');
-	while (num[i])
-	{
-		if (!check_errors(num[i]))
-			return (free_split(num), free_stack(stack_a), FALSE);
-		nbr = ft_atol(num[i]);
-		if (nbr > 2147483647 || nbr < -2147483648)
-			return (free_split(num), free_stack(stack_a), FALSE);
-		if (!check_nbr(*stack_a, nbr))
-			return (free_split(num), free_stack(stack_a), FALSE);
-		if (!add_node(stack_a, nbr))
-			return (free_split(num), free_stack(stack_a), FALSE);
-		i++;
-	}
-	free_split(num);
-	return (TRUE);
+	pb(stack_b, stack_a, TRUE);
 }
 
 int	push_swap(t_stack_node **stack_a, t_stack_node **stack_b)

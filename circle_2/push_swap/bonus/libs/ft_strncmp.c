@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_rotate.c                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 14:24:49 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/02/01 15:10:06 by mjabalqu         ###   ########.fr       */
+/*   Created: 2025/11/11 15:40:13 by mjabalqu          #+#    #+#             */
+/*   Updated: 2026/02/01 13:36:17 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "checker.h"
 
-void	ra(t_stack_node **stack_a, int print)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	rotate(stack_a);
-	if (print)
-		write(1, "ra\n", 3);
-}
+	size_t	i;
 
-void	rb(t_stack_node **stack_b, int print)
-{
-	rotate(stack_b);
-	if (print)
-		write(1, "rb\n", 3);
-}
-
-void	rr(t_stack_node **stack_a, t_stack_node **stack_b, int print)
-{
-	rotate(stack_a);
-	rotate(stack_b);
-	if (print)
-		write(1, "rr\n", 3);
+	i = 0;
+	while (i < n)
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		if (s1[i] == '\0' || s2[i] == '\0')
+			break ;
+		i++;
+	}
+	return (0);
 }

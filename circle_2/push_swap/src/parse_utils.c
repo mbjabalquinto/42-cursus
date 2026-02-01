@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 16:58:15 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 17:17:18 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 14:04:55 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	free_split(char **num)
 {
@@ -67,5 +67,32 @@ int	check_errors(char *num)
 			return (FALSE);
 		i++;
 	}
+	return (TRUE);
+}
+
+int	init_stack(t_stack_node **stack_a, char *arg)
+{
+	int		i;
+	char	**num;
+	long	nbr;
+
+	if (is_empty_or_space(arg))
+		return (FALSE);
+	i = 0;
+	num = ft_split(arg, ' ');
+	while (num[i])
+	{
+		if (!check_errors(num[i]))
+			return (free_split(num), free_stack(stack_a), FALSE);
+		nbr = ft_atol(num[i]);
+		if (nbr > 2147483647 || nbr < -2147483648)
+			return (free_split(num), free_stack(stack_a), FALSE);
+		if (!check_nbr(*stack_a, nbr))
+			return (free_split(num), free_stack(stack_a), FALSE);
+		if (!add_node(stack_a, nbr))
+			return (free_split(num), free_stack(stack_a), FALSE);
+		i++;
+	}
+	free_split(num);
 	return (TRUE);
 }

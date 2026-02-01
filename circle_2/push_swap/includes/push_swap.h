@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 17:08:30 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:16:09 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ int				sort_stacks(t_stack_node **stack_a, t_stack_node **stack_b);
 void			set_current_position(t_stack_node *stack);
 int				stack_len(t_stack_node *stack);
 void			free_stack(t_stack_node **stack);
-void			pa(t_stack_node **stack_a, t_stack_node **stack_b);
-void			pb(t_stack_node **stack_b, t_stack_node **stack_a);
-void			sa(t_stack_node **stack_a);
-void			sb(t_stack_node **stack_b);
-void			ss(t_stack_node **stack_a, t_stack_node **stack_b);
-void			ra(t_stack_node **stack_a);
-void			rb(t_stack_node **stack_b);
-void			rr(t_stack_node **stack_a, t_stack_node **stack_b);
-void			rra(t_stack_node **stack_a);
-void			rrb(t_stack_node **stack_b);
-void			rrr(t_stack_node **stack_a, t_stack_node **stack_b);
+void			pa(t_stack_node **stack_a, t_stack_node **stack_b, int print);
+void			pb(t_stack_node **stack_b, t_stack_node **stack_a, int print);
+void			sa(t_stack_node **stack_a, int print);
+void			sb(t_stack_node **stack_b, int print);
+void			ss(t_stack_node **stack_a, t_stack_node **stack_b, int print);
+void			ra(t_stack_node **stack_a, int print);
+void			rb(t_stack_node **stack_b, int print);
+void			rr(t_stack_node **stack_a, t_stack_node **stack_b, int print);
+void			rra(t_stack_node **stack_a, int print);
+void			rrb(t_stack_node **stack_b, int print);
+void			rrr(t_stack_node **stack_a, t_stack_node **stack_b, int print);
 void			swap(t_stack_node **stack);
 void			push(t_stack_node **target, t_stack_node **source);
 void			rotate(t_stack_node **stack);

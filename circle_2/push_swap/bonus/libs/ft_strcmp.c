@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_rotate.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 14:24:49 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/02/01 15:10:06 by mjabalqu         ###   ########.fr       */
+/*   Created: 2025/11/11 15:40:13 by mjabalqu          #+#    #+#             */
+/*   Updated: 2026/02/01 16:14:01 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "checker.h"
 
-void	ra(t_stack_node **stack_a, int print)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	rotate(stack_a);
-	if (print)
-		write(1, "ra\n", 3);
-}
+	size_t	i;
 
-void	rb(t_stack_node **stack_b, int print)
-{
-	rotate(stack_b);
-	if (print)
-		write(1, "rb\n", 3);
-}
-
-void	rr(t_stack_node **stack_a, t_stack_node **stack_b, int print)
-{
-	rotate(stack_a);
-	rotate(stack_b);
-	if (print)
-		write(1, "rr\n", 3);
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

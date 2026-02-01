@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:42:53 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 14:13:36 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:21:20 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	swap(t_stack_node **stack)
 {

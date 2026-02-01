@@ -6,11 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:14:38 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/01/30 14:19:24 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:17:07 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 //To avoid problems with int limits. The value could be INT_MAX. 
 //In this case you shouldnt compare with >. 
 //LONG_MAX always will be > the first time.
