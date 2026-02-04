@@ -88,7 +88,7 @@ Esquema del Algoritmo:
                  |
                  v
    +---> [ CALCULAR TARGETS Y COSTES ] <---+
-   |     (Para cada nodo en B, ¿dónde va en A?)    |
+   | (Para cada nodo en B, ¿dónde va en A?)|
    |             |                         |
    |             v                         |
    |    [ SELECCIONAR NODO MÁS BARATO ]    |
