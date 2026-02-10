@@ -85,7 +85,7 @@ int	init_stack(t_stack_node **stack_a, char *arg)
 		if (!check_errors(num[i]))
 			return (free_split(num), free_stack(stack_a), FALSE);
 		nbr = ft_atol(num[i]);
-		if (nbr > 2147483647 || nbr < -2147483648)
+		if (nbr > INT_MAX || nbr < INT_MIN)
 			return (free_split(num), free_stack(stack_a), FALSE);
 		if (!check_nbr(*stack_a, nbr))
 			return (free_split(num), free_stack(stack_a), FALSE);
