@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:13:48 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/02/10 16:09:59 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:25:41 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	rev_wstr(char *str)
 
 	str_len = ft_strlen(str) - 1;
 	str = str + str_len;
-	while (str_len >= 0)
+	while (str_len > 0)
 	{
 		word_len = 0;
 		while (*str && *str != ' ')
@@ -46,8 +46,9 @@ void	rev_wstr(char *str)
 		if (word_len > 0 && str_len > 0)
 		{
 			str = str - word_len - 2;
-			str_len -= word_len;
-			write (1, " ", 1);
+			str_len = word_len;
+			if (str_len > 0)
+				write (1, " ", 1);
 		}
 	}
 }
