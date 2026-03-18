@@ -3,3 +3,5 @@
 *.a
 gnl_test
 a.out
+__pycache__/
+*.pdf
