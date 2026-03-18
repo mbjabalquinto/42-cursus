@@ -7,7 +7,7 @@ class Plant:
     def special_info(self) -> str:
         return ""
 
-class Flower(Plant):
+class FloweringPlant(Plant):
     def __init__(self, name: str, height: int, age: int, color: str) -> None:
         super().__init__(name, height, age)
         self.color = color
@@ -27,7 +27,7 @@ class Flower(Plant):
         return f"{self.name.capitalize()} {self.bloom()}"
 
 
-class Tree(Plant):
+class PrizeFlower(FloweringPlant):
     def __init__(
                 self,
                 name: str,
