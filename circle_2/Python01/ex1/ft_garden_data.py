@@ -4,15 +4,18 @@ class Plant:
         self.height = height
         self.age = age
 
+    def show(self) -> None:
+        print(f"{self.name.capitalize()}: {self.height}cm, {self.age} days old")
 
 def ft_garden_data() -> None:
-    rose = Plant("rose", 25, 30)
-    sunflower = Plant("sunflower", 80, 45)
-    cactus = Plant("cactus", 15, 120)
-    flowers = [rose, sunflower, cactus]
+    flowers = [
+    Plant("rose", 25, 30),
+    Plant("sunflower", 80, 45),
+    Plant("cactus", 15, 120)
+    ]
     print("=== Garden Plant Registry ===")
     for x in flowers:
-        print(f"{x.name.capitalize()}: {x.height}cm, {x.age} days old")
+        x.show()
 
 
 if __name__ == "__main__":
