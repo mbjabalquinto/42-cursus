@@ -1,37 +1,35 @@
 class Plant:
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
         self.height = height
         self.p_age = age
+        self.initial_height = height
 
-    def grow(self, days: int) -> None:
-        self.height += days
+    def grow(self, height: float) -> None:
+        self.height += height
 
-    def age(self, days: int) -> None:
-        self.p_age += days
+    def age(self, day: int) -> None:
+        self.p_age += day
 
-    def get_info(self) -> str:
-        return (f"{self.name.capitalize()}: "
-                f"{self.height}cm, "
-                f"{self.p_age} days old")
+    def show(self) -> None:
+        print(f"{self.name.capitalize()}: "
+              f"{round(self.height, 1)}cm, "
+              f"{self.p_age} days old")
 
 
 def ft_plant_growth() -> None:
-    rose = Plant("rose", 25, 30)
-    sunflower = Plant("sunflower", 80, 45)
-    cactus = Plant("cactus", 15, 120)
-    flowers = [rose, sunflower, cactus]
-    days = 6
-
-    print("=== Day 1  ===")
-    for x in flowers:
-        print(f"{x.get_info()}")
-    print("=== Day 7 ===")
-    for x in flowers:
-        x.grow(days)
-        x.age(days)
-        print(f"{x.get_info()}")
-        print(f"Growth this week: +{days}cm")
+    plant = Plant("rose", 25.0, 30)
+    height = 0.8
+    grow_time = 1
+    print("=== Garden Plant Growth ===")
+    for day in range(1, 8):
+        print(f"=== Day {day}  ===")
+        plant.show()
+        if day < 7:
+            plant.grow(height)
+            plant.age(grow_time)
+    print(f"Growth this week: "
+          f"{round(plant.height - plant.initial_height, 1)}cm")
 
 
 if __name__ == "__main__":
