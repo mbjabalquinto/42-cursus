@@ -1,51 +1,59 @@
-class SecurePlant:
-    def __init__(self, name: str, height: int, age: int) -> None:
+class Plant:
+    def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
         self._height = height
-        self._p_age = age
+        self._age = age
 
-    def get_height(self) -> int:
+    def show(self) -> None:
+        print(
+            f"{self.name.capitalize()}: "
+            f"{self._height}cm, {self._age} days old\n"
+            )
+
+    def get_height(self) -> float:
         return (self._height)
 
     def get_age(self) -> int:
-        return (self._p_age)
+        return (self._age)
 
-    def set_height(self, height: int) -> str:
+    def set_height(self, height: float) -> None:
         if height < 0:
-            return (
-                    f"\nInvalid operation attempted: "
-                    f"height {height}cm [REJECTED]"
-                    f"\nSecurity: Negative height rejected"
+            print(
+                f"{self.name.capitalize()}: "
+                f"Error, height can't be negative\n"
+                f"Height update rejected"
             )
         else:
             self._height = height
-            return f"Height updated: {height}cm [OK]"
+            print(f"Height updated: {round(height, 1)}cm")
 
-    def set_age(self, age: int) -> str:
+    def set_age(self, age: int) -> None:
         if age < 0:
-            return (
-                    f"\nInvalid operation attempted: "
-                    f"age {age} days [REJECTED]"
-                    f"\nSecurity: Negative age rejected"
+            print(
+                f"{self.name.capitalize()}: "
+                f"Error, age can't be negative"
+                f"\nAge update rejected"
             )
         else:
-            self._p_age = age
-            return f"Age updated: {age} days [OK]"
+            self._age = age
+            print(f"Age updated: {self._age} days")
+            print()
 
 
 def ft_garden_security() -> None:
     print("=== Garden Security System  ===")
-    plant = SecurePlant("rose", 25, 30)
-    print(f"Plant created: {plant.name.capitalize()}")
-    print(f"{plant.set_height(25)}")
-    print(f"{plant.set_age(30)}")
-    print(f"{plant.set_height(-5)}")
-    print(f"{plant.set_age(-1)}")
+    plant = Plant("rose", 15.0, 10)
+    print("Plant created: ", end="")
+    plant.show()
+    plant.set_height(25.0)
+    plant.set_age(30)
+    plant.set_height(-5.0)
+    plant.set_age(-1)
     print(
-            f"\nCurrent plant: "
-            f"{plant.name.capitalize()} ("
-            f"{plant.get_height()}cm, "
-            f"{plant.get_age()} days)"
+            f"\nCurrent state: "
+            f"{plant.name.capitalize()}: "
+            f"{round(plant.get_height(), 1)}cm, "
+            f"{plant.get_age()} days old"
     )
 
 
