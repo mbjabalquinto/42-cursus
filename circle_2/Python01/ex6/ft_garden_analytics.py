@@ -1,98 +1,194 @@
 class Plant:
-    def __init__(self, name: str, height: int, age: int) -> None:
+    class Stats:
+        def __init__(self, plant_name: str) -> None:
+            self.plant_name = plant_name
+            self._cont_show = 0
+            self._cont_grow = 0
+            self._cont_age = 0
+
+        def increment_show(self) -> None:
+            self._cont_show += 1
+
+        def increment_age(self) -> None:
+            self._cont_age += 1
+
+        def increment_grow(self) -> None:
+            self._cont_grow += 1
+
+        def display(self) -> None:
+            self.increment_show()
+            print(
+                f"[statistics for {self.plant_name.capitalize()}]\n"
+                f"Stats: {self._cont_grow} grow, "
+                f"{self._cont_age} age, {self._cont_show} show"
+            )
+
+    def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
-        self.height = height
-        self.age = age
+        self._height = height
+        self._age = age
+        self.stats = self.Stats(self.name)
 
-    def special_info(self) -> str:
-        return ""
+    def show(self) -> None:
+        print(
+            f"{self.name.capitalize()}: "
+            f"{round(self._height, 1)}cm, "
+            f"{self._age} days old"
+        )
+        self.Stats.increment_show
 
-class FloweringPlant(Plant):
-    def __init__(self, name: str, height: int, age: int, color: str) -> None:
+    def age(self) -> None:
+        self.Stats.increment_age
+
+    def grow(self) -> None:
+        self.Stats.increment_grow
+
+    @staticmethod
+    def check_age(age: int) -> bool:
+        return age > 365 
+
+    @classmethod
+    def anonymous_plant(cls) -> 'Plant':
+        return cls("anonymous", 0.0, 0)
+
+
+class Flower(Plant):
+    def __init__(self, name: str, height: float, age: int, color: str) -> None:
         super().__init__(name, height, age)
         self.color = color
 
-    def bloom(self) -> str:
-        return "is blooming beautifully!"
+    def grow(self) -> None:
+        self._height += 8
+        self.stats.increment_grow()
 
-    def __str__(self) -> str:
-        return (
-                f"{self.name.capitalize()} (Flower): "
-                f"{self.height}cm, "
-                f"{self.age} days, "
-                f"{self.color}"
+    def bloom(self) -> None:
+        super().show()
+        print(
+            f"Color: {self.color}\n"
+            f"{self.name.capitalize()} is blooming beautifully!"
+        )
+        
+
+    def show(self) -> None:
+        print(
+                f"Color: {self.color}\n"
+                f"{self.name.capitalize()} "
+                f"has not bloomed yet"
         )
 
-    def special_info(self) -> str:
-        return f"{self.name.capitalize()} {self.bloom()}"
+
+class Seed(Flower):
+    def __init__(self, name: str, height: float, age: int, color: str) -> None:
+        super().__init__(name, height, age, color)
+        self.seeds = 0
+
+    def grow(self) -> None:
+        self.stats.increment_grow()
+
+    def age(self) -> None:
+        pass
+
+    def bloom(self) -> None:
+        print(f"[make {self.name} to bloom]")
+        super().show()
+        print(
+            f"Color: {self.color}\n"
+            f"{self.name.capitalize()} is blooming beautifully!"
+        )
+        
+
+    def show(self) -> None:
+        print(
+                f"Color: {self.color}\n"
+                f"{self.name.capitalize()} "
+                f"has not bloomed yet"
+        )
 
 
-class PrizeFlower(FloweringPlant):
+class Tree(Plant):
+    class Stats(Plant.Stats):
+        def __init__(self, plant_name: str) -> None:
+            super().__init__(plant_name)
+            self._cont_shade = 0
+
+        def increment_shade(self) -> None:
+            self._cont_shade += 1
+
+        def display(self) -> None:
+            self.increment_show()
+            print(
+                f"[statistics for {self.plant_name.capitalize()}]\n"
+                f"Stats: {self._cont_grow} grow, "
+                f"{self._cont_age} age, {self._cont_show} show, "
+                f"{self._cont_shade} shade"
+            )
+
     def __init__(
                 self,
                 name: str,
-                height: int,
+                height: float,
                 age: int,
-                trunk_diameter: int
+                trunk_diameter: float
     ) -> None:
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
 
-    def produce_shade(self) -> str:
-        return "provides 78 square meters of shade"
-
-    def __str__(self) -> str:
-        return (
-                f"{self.name.capitalize()} (Tree): "
-                f"{self.height}cm, "
-                f"{self.age} days, "
-                f"{self.trunk_diameter}cm diameter"
+    def produce_shade(self) -> None:
+        self.stats.increment_shade()
+        print(
+            f"Tree {self.name.capitalize()} "
+            f"now produces a shade of "
+            f"{round(self._height, 1)}cm long "
+            f"and {round(self.trunk_diameter, 1)}cm wide."
         )
 
-    def special_info(self) -> str:
-        return f"{self.name.capitalize()} {self.produce_shade()}"
+    def show(self) -> None:
+        print(f"Trunk diameter: {round(self.trunk_diameter, 1)}cm")
 
-class Vegetable(Plant):
-    def __init__(
-                self,
-                name: str,
-                height: int,
-                age: int,
-                harvest_season: str,
-                nutritional_value: str
-    ) -> None:
-        super().__init__(name, height, age)
-        self.harvest_season = harvest_season
-        self.nutritional_value = nutritional_value
-
-    def __str__(self) -> str:
-        return (
-                f"{self.name.capitalize()} (Vegetable): "
-                f"{self.height}cm, "
-                f"{self.age} days, "
-                f"{self.harvest_season}"
-        )
-
-    def special_info(self) -> str:
-        return f"{self.name.capitalize()} is rich in {self.nutritional_value}"
-
-def ft_plant_types() -> None:
-    print("=== Garden Plant Types ===\n")
-    plants: list[Plant]
-    plants = [
-                Flower("rose", 25, 30, "red color"),
-                Flower("sunflower", 80, 45, "yellow"),
-                Tree("oak", 500, 1825, 50),
-                Tree("pine", 400, 1000, 30),
-                Vegetable("tomato", 80, 90, "summer harvest", "vitamin C"),
-                Vegetable("carrot", 15, 60, "spring harvest", "vitamin A")
-              ]
-    for x in plants:
-        print(f"{x}")
-        info = x.special_info()
-        if info:
-            print(f"{info}\n")
+def ft_garden_analytics() -> None:
+    flowers: Flower = [
+        Flower("rose", 15.0, 10, "red"),
+        Flower("tulip", 10.0, 5, "yellow")
+    ]
+    trees: Tree = [
+        Tree("oak", 200.0, 365, 5.0),
+        Tree("pine", 250.0, 400, 4.5)
+    ]
+    seeds: Seed = [
+        Seed("sunflower", 80.0, 45, "yellow"),
+        Seed("lily", 50.0, 80, "purple")
+    ]
+    print("=== Garden statistics ===\n")
+    print("Check year-old")
+    print(f"Is 30 days more than a year? -> {Plant.check_age(30)}")
+    print(f"Is 400 days more than a year? -> {Plant.check_age(400)}")
+    print()
+    for flower in flowers:
+        print("=== Flower")
+        flower.show()
+        flower.stats.display()
+        print(f"[asking the {flower.name} to grow and bloom]")
+        flower.grow()
+        flower.bloom()
+        flower.stats.display()
+        print()
+    for tree in trees:
+        print("=== Tree")
+        tree.show()
+        tree.stats.display()
+        print(f"[asking the {tree.name} to produce shade]")
+        tree.produce_shade()
+        tree.stats.display()
+        print()
+    for seed in seeds:
+        print("=== Seed")
+        seed.show()
+        seed.stats.display()
+        print(f"[make {seed.name} grow, age and bloom]")
+        seed.bloom()
+        seed.stats.display()
+        print()
 
 
 if __name__ == "__main__":
-    ft_plant_types()
+    ft_garden_analytics()
