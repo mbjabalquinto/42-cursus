@@ -16,7 +16,6 @@ class Plant:
             self._cont_grow += 1
 
         def display(self) -> None:
-            self.increment_show()
             print(
                 f"[statistics for {self.plant_name.capitalize()}]\n"
                 f"Stats: {self._cont_grow} grow, "
@@ -35,13 +34,13 @@ class Plant:
             f"{round(self._height, 1)}cm, "
             f"{self._age} days old"
         )
-        self.Stats.increment_show
+        self.stats.increment_show()
 
     def age(self) -> None:
-        self.Stats.increment_age
+        self.stats.increment_age()
 
     def grow(self) -> None:
-        self.Stats.increment_grow
+        self.stats.increment_grow()
 
     @staticmethod
     def check_age(age: int) -> bool:
@@ -70,6 +69,7 @@ class Flower(Plant):
         
 
     def show(self) -> None:
+        super().show()
         print(
                 f"Color: {self.color}\n"
                 f"{self.name.capitalize()} "
@@ -98,6 +98,7 @@ class Seed(Flower):
         
 
     def show(self) -> None:
+        super().show()
         print(
                 f"Color: {self.color}\n"
                 f"{self.name.capitalize()} "
@@ -143,6 +144,7 @@ class Tree(Plant):
         )
 
     def show(self) -> None:
+        super().show()
         print(f"Trunk diameter: {round(self.trunk_diameter, 1)}cm")
 
 def ft_garden_analytics() -> None:
