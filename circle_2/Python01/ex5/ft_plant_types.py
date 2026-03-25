@@ -17,6 +17,7 @@ class Plant:
             f"{self._age} days old"
         )
 
+
 class Flower(Plant):
     def __init__(self, name: str, height: float, age: int, color: str) -> None:
         super().__init__(name, height, age)
@@ -81,7 +82,7 @@ class Vegetable(Plant):
 
     def _update_nutritional_value(self) -> None:
         self.nutritional_value += 1
-    
+
     def age(self, days: int) -> None:
         super().age(days)
         self._update_nutritional_value()
@@ -89,8 +90,7 @@ class Vegetable(Plant):
     def grow(self, amount: float) -> None:
         super().grow(amount)
         self._update_nutritional_value()
-        
-    
+
     def show(self) -> None:
         print(
                 f"{self.name.capitalize()}: "
@@ -134,7 +134,6 @@ def ft_plant_types() -> None:
         vegetable.grow(42.0)
         vegetable.show()
         print()
-
 
 
 if __name__ == "__main__":

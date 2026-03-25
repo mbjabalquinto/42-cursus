@@ -44,7 +44,7 @@ class Plant:
 
     @staticmethod
     def check_age(age: int) -> bool:
-        return age > 365 
+        return age > 365
 
     @classmethod
     def anonymous_plant(cls) -> 'Plant':
@@ -57,8 +57,8 @@ class Flower(Plant):
         self.color = color
 
     def grow(self) -> None:
+        super().grow()
         self._height += 8
-        self.stats.increment_grow()
 
     def bloom(self) -> None:
         super().show()
@@ -66,7 +66,6 @@ class Flower(Plant):
             f"Color: {self.color}\n"
             f"{self.name.capitalize()} is blooming beautifully!"
         )
-        
 
     def show(self) -> None:
         super().show()
@@ -83,21 +82,20 @@ class Seed(Flower):
         self._seeds = 0
 
     def grow(self) -> None:
-        self.stats.increment_grow()
+        super().grow()
+        self._height += 12.0
 
     def age(self) -> None:
-        self.stats.increment_age()
+        super().age()
+        self._age += 20
 
     def seed(self) -> None:
         self._seeds = 42
 
     def bloom(self) -> None:
         super().bloom()
-        self.grow()
-        self.age()
-        self.seed()
         print(f"Seeds: {self._seeds}")
-        
+
     def show(self) -> None:
         super().show()
         print(f"Seeds: {self._seeds}")
@@ -113,7 +111,6 @@ class Tree(Plant):
             self._cont_shade += 1
 
         def display(self) -> None:
-            self.increment_show()
             print(
                 f"[statistics for {self.plant_name.capitalize()}]\n"
                 f"Stats: {self._cont_grow} grow, "
@@ -129,8 +126,8 @@ class Tree(Plant):
                 trunk_diameter: float
     ) -> None:
         super().__init__(name, height, age)
-        self.trunk_diameter: float = trunk_diameter
-        self.stats = self.Stats(self.name)
+        self.trunk_diameter = trunk_diameter
+        self.stats: Tree.Stats = self.Stats(self.name)
 
     def produce_shade(self) -> None:
         self.stats.increment_shade()
@@ -144,6 +141,7 @@ class Tree(Plant):
     def show(self) -> None:
         super().show()
         print(f"Trunk diameter: {round(self.trunk_diameter, 1)}cm")
+
 
 def ft_garden_analytics() -> None:
     flowers: list[Flower] = [
@@ -162,8 +160,8 @@ def ft_garden_analytics() -> None:
         Plant.anonymous_plant(),
         Plant.anonymous_plant()
     ]
-    print("=== Garden statistics ===\n")
-    print("Check year-old")
+    print("=== Garden statistics ===")
+    print("=== Check year-old")
     print(f"Is 30 days more than a year? -> {Plant.check_age(30)}")
     print(f"Is 400 days more than a year? -> {Plant.check_age(400)}")
     print()
@@ -189,6 +187,9 @@ def ft_garden_analytics() -> None:
         seed.show()
         print(f"[make {seed.name} grow, age and bloom]")
         seed.bloom()
+        seed.grow()
+        seed.age()
+        seed.seed()
         seed.stats.display()
         print()
     for u in unknown:
