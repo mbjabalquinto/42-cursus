@@ -48,7 +48,7 @@ class Plant:
 
     @classmethod
     def anonymous_plant(cls) -> 'Plant':
-        return cls("anonymous", 0.0, 0)
+        return cls("unknown plant", 0.0, 0)
 
 
 class Flower(Plant):
@@ -80,30 +80,27 @@ class Flower(Plant):
 class Seed(Flower):
     def __init__(self, name: str, height: float, age: int, color: str) -> None:
         super().__init__(name, height, age, color)
-        self.seeds = 0
+        self._seeds = 0
 
     def grow(self) -> None:
         self.stats.increment_grow()
 
     def age(self) -> None:
-        pass
+        self.stats.increment_age()
+
+    def seed(self) -> None:
+        self._seeds = 42
 
     def bloom(self) -> None:
-        print(f"[make {self.name} to bloom]")
-        super().show()
-        print(
-            f"Color: {self.color}\n"
-            f"{self.name.capitalize()} is blooming beautifully!"
-        )
+        super().bloom()
+        self.grow()
+        self.age()
+        self.seed()
+        print(f"Seeds: {self._seeds}")
         
-
     def show(self) -> None:
         super().show()
-        print(
-                f"Color: {self.color}\n"
-                f"{self.name.capitalize()} "
-                f"has not bloomed yet"
-        )
+        print(f"Seeds: {self._seeds}")
 
 
 class Tree(Plant):
@@ -132,7 +129,8 @@ class Tree(Plant):
                 trunk_diameter: float
     ) -> None:
         super().__init__(name, height, age)
-        self.trunk_diameter = trunk_diameter
+        self.trunk_diameter: float = trunk_diameter
+        self.stats = self.Stats(self.name)
 
     def produce_shade(self) -> None:
         self.stats.increment_shade()
@@ -148,17 +146,21 @@ class Tree(Plant):
         print(f"Trunk diameter: {round(self.trunk_diameter, 1)}cm")
 
 def ft_garden_analytics() -> None:
-    flowers: Flower = [
+    flowers: list[Flower] = [
         Flower("rose", 15.0, 10, "red"),
         Flower("tulip", 10.0, 5, "yellow")
     ]
-    trees: Tree = [
+    trees: list[Tree] = [
         Tree("oak", 200.0, 365, 5.0),
         Tree("pine", 250.0, 400, 4.5)
     ]
-    seeds: Seed = [
+    seeds: list[Seed] = [
         Seed("sunflower", 80.0, 45, "yellow"),
         Seed("lily", 50.0, 80, "purple")
+    ]
+    unknown: list[Plant] = [
+        Plant.anonymous_plant(),
+        Plant.anonymous_plant()
     ]
     print("=== Garden statistics ===\n")
     print("Check year-old")
@@ -185,10 +187,14 @@ def ft_garden_analytics() -> None:
     for seed in seeds:
         print("=== Seed")
         seed.show()
-        seed.stats.display()
         print(f"[make {seed.name} grow, age and bloom]")
         seed.bloom()
         seed.stats.display()
+        print()
+    for u in unknown:
+        print("=== Anonymous")
+        u.show()
+        u.stats.display()
         print()
 
 
