@@ -24,7 +24,7 @@ def test_watering_system() -> None:
     finally:
         print("Closing watering system")
     print()
-    print("Testing valid plants...")
+    print("Testing invalid plants...")
     print("Opening watering system")
     try:
         water_plant("tomato".capitalize())
@@ -33,15 +33,15 @@ def test_watering_system() -> None:
     except PlantError as e:
         print(f"Caught PlantError: {e}")
         print(".. ending tests and returning to main")
+        return
     finally:
         print("Closing watering system")
         print()
-        print("Cleanup always happens, even with errors!")
-        return
 
 
 def main() -> None:
     test_watering_system()
+    print("Cleanup always happens, even with errors!")
 
 
 if __name__ == "__main__":
