@@ -8,7 +8,7 @@ def get_player_pos() -> tuple:
     while True:
         coords_str = input(
             "Enter new coordinates as floats in format 'x, y ,z': "
-            ).split(',')
+        ).split(',')
         if len(coords_str) != 3:
             print("Invalid syntax")
             continue
