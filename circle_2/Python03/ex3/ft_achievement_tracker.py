@@ -12,6 +12,7 @@ def gen_player_achievements(players: list[str],
 
 def main() -> None:
     players_achievements: list[set[str]] = []
+    unlocked_achievements: set[str] = set()
     players: list[str] = ["Alice", "Bob", "Charlie", "Dylan"]
     achievements: list[str] = [
         "Crafting Genius", "Strategist", "World Savior",
@@ -27,7 +28,9 @@ def main() -> None:
         print(f"{players[i]}: {player}")
         i += 1
     print()
-    print(f"All distinct achievements: {achievements}")
+    for player in players_achievements:
+        unlocked_achievements = unlocked_achievements.union(player)
+    print(f"All distinct achievements: {unlocked_achievements}")
     temp: set[str] = players_achievements[0]
     for player in players_achievements[1:]:
         temp = temp.intersection(player)
