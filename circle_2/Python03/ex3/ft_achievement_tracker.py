@@ -1,7 +1,7 @@
 import random
 
 
-def gen_player_achievements(players: list[str], 
+def gen_player_achievements(players: list[str],
                             achievements: list[str]) -> list[set[str]]:
     players_achievements: list[set[str]] = []
     for _ in players:
