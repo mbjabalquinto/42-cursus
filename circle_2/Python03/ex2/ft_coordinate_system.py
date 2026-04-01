@@ -1,8 +1,8 @@
 import math
 
 
-def get_player_pos() -> tuple:
-    coords: tuple = ()
+def get_player_pos() -> tuple[float, ...]:
+    coords: tuple[float, ...] = ()
     coords_str: list[str] = []
     coords_float: list[float] = []
     while True:
@@ -27,8 +27,8 @@ def get_player_pos() -> tuple:
 
 
 def main() -> None:
-    coords1: tuple = ()
-    coords2: tuple = ()
+    coords1: tuple[float, ...] = ()
+    coords2: tuple[float, ...] = ()
     print("=== Game Coordinate System ===")
     print()
     print("Get a first set of coordinates")
@@ -36,7 +36,7 @@ def main() -> None:
     print(f"Got a first tuple: {coords1}")
     print(f"It includes: X={coords1[0]}, Y={coords1[1]}, Z={coords1[2]}")
     x1, y1, z1 = coords1
-    x2, y2, z2 = 0, 0, 0
+    x2, y2, z2 = 0.0, 0.0, 0.0
     print(
         "Distance to center: "
         f"{round(math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2), 4)}"
