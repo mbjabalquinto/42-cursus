@@ -15,11 +15,11 @@ def main() -> None:
     try:
         file = open(file_name, "r")
         text: str = file.read()
-        print("##############################################################")
+        print("==============================================================")
         print()
         print(text)
         print()
-        print("##############################################################")
+        print("==============================================================")
     except FileNotFoundError as e:
         print(f"Error opening file '{file_name}' {e}")
     except PermissionError as e:
