@@ -14,9 +14,11 @@ def read_file(file_name: str) -> str | None:
         print()
         print("==============================================================")
     except FileNotFoundError as e:
-        print(f"Error opening file '{file_name}' {e}")
+        print(f"[STDERR] Error opening file '{file_name}' {e}",
+              file=sys.stderr)
     except PermissionError as e:
-        print(f"Error opening file '{file_name}' {e}")
+        print(f"[STDERR] Error opening file '{file_name}' {e}",
+              file=sys.stderr)
     finally:
         if file is not None:
             file.close()
@@ -43,7 +45,7 @@ def save_file(new_file: str, new_text: str) -> bool:
         file.write(new_text)
         result = True
     except PermissionError as e:
-        print(f"Error saving file: {e}")
+        print(f"[STDERR] Error saving file: {e}", file=sys.stderr)
     finally:
         if file is not None:
             file.close()
@@ -61,6 +63,8 @@ def main() -> None:
     print("=== Cyber Archives Recovery & Preservation ===")
     print(f"Accessing file '{file_name}'")
     text = read_file(file_name)
+    if not text:
+        return
     print()
     print("Transform data:")
     print("===============")
@@ -71,7 +75,9 @@ def main() -> None:
     new_text = transform_text(text)
     print(f"{new_text}")
     print("===============")
-    new_file: str = input("Enter new file name (or empty):")
+    print("Enter new file name (or empty):", end="", flush=True)
+    new_file: str = sys.stdin.readline()
+    new_file = new_file.strip()
     if new_file == "":
         print("Not saving data.")
         return
