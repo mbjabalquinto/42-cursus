@@ -21,6 +21,12 @@ class DataProcessor(ABC):
         else:
             return self._storage.pop(0)
 
+    def get_total_processed(self) -> int:
+        return self._process_rank
+
+    def get_remaining(self) -> int:
+        return len(self._storage)
+
 
 class NumericProcessor(DataProcessor):
     def __init__(self) -> None:
@@ -123,15 +129,31 @@ class DataStream():
                 for proc in self.processors:
                     if proc.validate(item):
                         proc.ingest(item)
-                        continue
-                print(f"DataStream error - "
-                      f"Can't process element in stream: {item}")
+                        break
+                else:
+                    print(f"DataStream error - "
+                          f"Can't process element in stream: {item}")
 
     def print_processors_stats(self) -> None:
         if not self.processors:
             print("No processor found, no data")
         else:
-            pass
+            print("== DataStream statistics ==")
+            for proc in self.processors:
+                if isinstance(proc, NumericProcessor):
+                    print(f"Numeric Processor: total "
+                          f"{proc.get_total_processed()} "
+                          f"items processed, remaining "
+                          f"{proc.get_remaining()} on processor")
+                elif isinstance(proc, TextProcessor):
+                    print(f"Text Processor: total "
+                          f"{proc.get_total_processed()} "
+                          f"items processed, remaining "
+                          f"{proc.get_remaining()} on processor")
+                elif isinstance(proc, LogProcessor):
+                    print(f"Log Processor: total {proc.get_total_processed()} "
+                          f"items processed, remaining "
+                          f"{proc.get_remaining()} on processor")
 
 
 def main() -> None:
@@ -143,6 +165,7 @@ def main() -> None:
     stream.print_processors_stats()
     print()
     print("Registering Numeric Processor")
+    print()
     num_proc = NumericProcessor()
     stream.register_processor(num_proc)
     data_list: list[Any] = [
@@ -154,6 +177,25 @@ def main() -> None:
     ]
     print(f"send first batch of data on stream: {data_list}")
     stream.process_stream(data_list)
+    stream.print_processors_stats()
+    print()
+    print("Registering other data processors")
+    print("Send the same batch again")
+    text_proc = TextProcessor()
+    log_proc = LogProcessor()
+    stream.register_processor(text_proc)
+    stream.register_processor(log_proc)
+    stream.process_stream(data_list)
+    stream.print_processors_stats()
+    print()
+    print("Consume some elements from the data "
+          "processors: Numeric 3, Text 2, Log 1")
+    for _ in range(0, 3):
+        num_proc.output()
+    for _ in range(0, 2):
+        text_proc.output()
+    log_proc.output()
+    stream.print_processors_stats()
 
 
 if __name__ == "__main__":
