@@ -1,7 +1,9 @@
 from ex0 import FlameFactory, AquaFactory, CreatureFactory
 
 
-def test_battle(factory_flame: CreatureFactory, factory_aqua: CreatureFactory) -> None:
+def test_battle(
+    factory_flame: CreatureFactory, factory_aqua: CreatureFactory
+) -> None:
     creature1_base = factory_flame.create_base()
     creature2_base = factory_aqua.create_base()
     print("Testing battle")
