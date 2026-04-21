@@ -1,7 +1,5 @@
-from .capability import (
-    HealingCreatureFactory, TransformCreatureFactory, HealCapability,
-    TransformCapability
-)
+from .creature import HealCapability, TransformCapability
+from .factory import HealingCreatureFactory, TransformCreatureFactory
 
 __all__ = [
     "HealingCreatureFactory", "TransformCreatureFactory", "HealCapability",

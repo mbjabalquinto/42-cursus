@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ex0 import Creature, CreatureFactory
+from ex0 import Creature
 
 
 class HealCapability(ABC):
@@ -43,14 +43,6 @@ class Bloomelle(Creature, HealCapability):
         return f"{self.name} heals itself and others for a large amount"
 
 
-class HealingCreatureFactory(CreatureFactory):
-    def create_base(self) -> Creature:
-        return Sproutling()
-
-    def create_evolved(self) -> Creature:
-        return Bloomelle()
-
-
 class Shiftling(Creature, TransformCapability):
     def __init__(self) -> None:
         Creature.__init__(self, "Shiftling", "Normal")
@@ -87,11 +79,3 @@ class Morphagon(Creature, TransformCapability):
     def revert(self) -> str:
         self.state = False
         return f"{self.name} stabilizes its form."
-
-
-class TransformCreatureFactory(CreatureFactory):
-    def create_base(self) -> Creature:
-        return Shiftling()
-
-    def create_evolved(self) -> Creature:
-        return Morphagon()
