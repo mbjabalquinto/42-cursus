@@ -1,4 +1,4 @@
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 import os
 
 
@@ -31,8 +31,12 @@ def check_config() -> None:
         messages = prod_msgs
     env_valid: bool = True
     for key, value in config.items():
-        if value is None:
+        if not value:
             print(f"{key}: is missing!")
+            env_valid = False
+        elif key == "Mode" and value not in ["development", "production"]:
+            print(f"{key}: invalid value '{value}'. "
+                  f"Must be development or production!")
             env_valid = False
         else:
             print(f"{key}: {messages[key]}")
