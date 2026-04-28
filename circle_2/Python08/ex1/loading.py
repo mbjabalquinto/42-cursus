@@ -34,18 +34,20 @@ import numpy as np  # type: ignore # noqa: E402
 import matplotlib.pyplot as plt  # type: ignore # noqa: E402
 
 
-def processing_data(x: np.ndarray, y: np.ndarray) -> pd.DataFrame:
-    z: np.ndarray = x + y
+def processing_data(x: np.ndarray, y_raw: np.ndarray, y_smooth: np.ndarray
+) -> pd.DataFrame:
     data: dict[str, np.ndarray] = {
-        "Time": x, "Activity": y, "Sum": z
+        "Time": x, "Activity_Raw": y_raw, "Activity_Smooth": y_smooth
     }
     return pd.DataFrame(data)
 
 
 def create_graphic(df: pd.DataFrame) -> None:
     plt.plot(
-        df["Time"], df["Activity"], color="green", label="Matrix Activity"
+        df["Time"], df["Activity_Raw"], color="grey", label="Raw data"
     )
+    plt.plot(
+        df["Time"], df["Activity_Smooth"], color="green", label="Smooth data")
     plt.title("The Matrix simulation analysis")
     plt.xlabel("Time")
     plt.ylabel("Activity level")
@@ -57,9 +59,10 @@ def main() -> None:
     print()
     print("Analyzing Matrix data...")
     print("Processing 1000 data points...")
-    x: np.ndarray = np.linspace(1, 2000, 1000)
-    y: np.ndarray = x ** 2
-    dataframe: pd.DataFrame = processing_data(x, y)
+    x: np.ndarray = np.linspace(1, 10, 1000)
+    y_raw: np.ndarray = np.sin(x) + np.random.randn(1000)
+    y_smooth: np.ndarray = np.sin(x) + np.random.randn(1000) * 0.2
+    dataframe: pd.DataFrame = processing_data(x, y_raw, y_smooth)
     print("Generating visualization...")
     create_graphic(dataframe)
     print()
