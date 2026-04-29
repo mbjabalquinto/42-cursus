@@ -34,7 +34,10 @@ import numpy as np  # type: ignore # noqa: E402
 import matplotlib.pyplot as plt  # type: ignore # noqa: E402
 
 
-def processing_data(x: np.ndarray, y_raw: np.ndarray, y_smooth: np.ndarray
+def processing_data(
+        x: np.ndarray,
+        y_raw: np.ndarray,
+        y_smooth: np.ndarray
 ) -> pd.DataFrame:
     data: dict[str, np.ndarray] = {
         "Time": x, "Activity_Raw": y_raw, "Activity_Smooth": y_smooth
