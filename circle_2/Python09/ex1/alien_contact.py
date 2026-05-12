@@ -23,14 +23,18 @@ class AlienContact(BaseModel):
     is_verified: bool = False
 
     @model_validator(mode='after')
-    def custom_validation(self) -> AlienContact:
+    def custom_validation(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
             raise ValueError("Contact ID must start with 'AC'")
-        if (self.contact_type == ContactType.PHYSICAL and
-                not self.is_verified):
+        if (
+            self.contact_type == ContactType.PHYSICAL
+            and not self.is_verified
+        ):
             raise ValueError("Physical contact reports must be verified")
-        if (self.contact_type == ContactType.TELEPATHIC and
-                self.witness_count < 3):
+        if (
+            self.contact_type == ContactType.TELEPATHIC
+            and self.witness_count < 3
+        ):
             msg = "Telepathic contact requires at least 3 witnesses"
             raise ValueError(msg)
         if self.signal_strength > 7.0 and not self.message_received:
@@ -74,6 +78,7 @@ def main() -> None:
             print(f"Witnesses: {new_contact.witness_count}")
             print(f"Message: '{new_contact.message_received}'")
             print("=" * 38)
+            print()
         except ValidationError as e:
             print("Expected validation error:")
             for error in e.errors():

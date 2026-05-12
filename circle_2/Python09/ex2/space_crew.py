@@ -34,7 +34,7 @@ class SpaceMission(BaseModel):
     budget_millions: float = Field(..., ge=1.0, le=10000.0)
 
     @model_validator(mode='after')
-    def custom_validations(self) -> SpaceMission:
+    def custom_validations(self) -> "SpaceMission":
         if not self.mission_id.startswith("M"):
             raise ValueError("Mission ID must start with 'M'")
         high_rank_present: bool = False

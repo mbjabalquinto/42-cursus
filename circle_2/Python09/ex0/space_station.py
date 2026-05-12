@@ -41,6 +41,7 @@ def main() -> None:
             status = "Operational" if station.is_operational else "Not"
             print(f"Status: {status}")
             print("=" * 40)
+            print()
         except ValidationError as e:
             print("Expected validation error:")
             for error in e.errors():
