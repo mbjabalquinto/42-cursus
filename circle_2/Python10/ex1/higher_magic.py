@@ -15,7 +15,11 @@ def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
 
 def conditional_caster(condition: Callable, spell: Callable) -> Callable:
     def conditional(target: str, power: int) -> str:
-        return f"{spell(target, power) if condition(target, power) else 'Spell fizzled'}"
+        if condition(target, power):
+            result: str = spell(target, power)
+        else:
+            result = "Spell fizzled"
+        return result
     return conditional
 
 
