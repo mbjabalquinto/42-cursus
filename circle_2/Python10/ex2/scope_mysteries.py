@@ -23,9 +23,9 @@ def spell_accumulator(initial_power: int) -> Callable[[int], int]:
 
 
 def enchantment_factory(enchantment_type: str) -> Callable[[str], str]:
-    def enchantmen_item(item_name: str) -> str:
+    def enchantment_item(item_name: str) -> str:
         return f"{enchantment_type} {item_name}"
-    return enchantmen_item
+    return enchantment_item
 
 
 def memory_vault() -> dict[str, Callable[..., str]]:
@@ -33,12 +33,10 @@ def memory_vault() -> dict[str, Callable[..., str]]:
 
     def store(key: str, value: int) -> str:
         mem[key] = value
-        return f"Store '{key}' = {value}"
+        return f"{value}"
 
     def recall(key: str) -> str:
-        if key not in mem:
-            return f"Recall '{key}': Memory not found"
-        return f"Recall '{key}': {mem[key]}"
+        return f"{mem.get(key, "Memory not found")}"
     return {"store": store, "recall": recall}
 
 
@@ -51,21 +49,21 @@ def main() -> None:
     print(f"Counter_a call 2: {count_a()}")
     print()
     add_power = spell_accumulator(100)
-    print("Testing spell acumulator...")
+    print("Testing spell accumulator...")
     print(f"Base 100, add 20: {add_power(20)}")
     print(f"Base 100, add 20: {add_power(30)}")
     print()
     frozen_enchantment = enchantment_factory("Frozen")
     flaming_enchantment = enchantment_factory("Flaming")
-    print("Testing enchartment factory...")
+    print("Testing enchantment factory...")
     print(f"{frozen_enchantment('Shield')}")
     print(f"{flaming_enchantment('Sword')}")
     print()
     print("Testing memory vault...")
     memory = memory_vault()
-    print(f"{memory['store']('secret', 42)}")
-    print(f"{memory['recall']('secret')}")
-    print(f"{memory['recall']('unknown')}")
+    print(f"Store 'secret' = {memory['store']('secret', 42)}")
+    print(f"Recall 'secret': {memory['recall']('secret')}")
+    print(f"Recall 'unknown': {memory['recall']('unknown')}")
 
 
 if __name__ == "__main__":
