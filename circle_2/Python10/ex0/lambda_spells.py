@@ -1,4 +1,7 @@
-def artifact_sorter(artifacts: list[dict]) -> list[dict]:
+from typing import Any
+
+
+def artifact_sorter(artifacts: list[dict[str, Any]]) -> list[dict[str, Any]]:
     try:
         artifacts = sorted(
             artifacts, key=lambda artifact: artifact["power"], reverse=True
@@ -8,7 +11,9 @@ def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     return artifacts
 
 
-def power_filter(mages: list[dict], min_power: int) -> list[dict]:
+def power_filter(
+    mages: list[dict[str, Any]], min_power: int
+) -> list[dict[str, Any]]:
     try:
         mages = list(filter(lambda mage: mage["power"] >= min_power, mages))
     except Exception as e:
@@ -24,9 +29,9 @@ def spell_transformer(spells: list[str]) -> list[str]:
     return spells
 
 
-def mage_stats(mages: list[dict]) -> dict:
+def mage_stats(mages: list[dict[str, Any]]) -> dict[str, int | float]:
+    stats: dict[str, int | float] = {}
     try:
-        stats: dict = {}
         stats["max_power"] = max(
             mages, key=lambda mage: mage["power"])["power"]
         stats["min_power"] = min(
@@ -40,13 +45,13 @@ def mage_stats(mages: list[dict]) -> dict:
 
 
 def main() -> None:
-    artifacts: list[dict] = [
+    artifacts: list[dict[str, Any]] = [
         {'name': 'Storm Crown', 'power': 72, 'type': 'relic'},
         {'name': 'Light Prism', 'power': 109, 'type': 'accessory'},
         {'name': 'Light Prism', 'power': 60, 'type': 'focus'},
         {'name': 'Storm Crown', 'power': 99, 'type': 'relic'}
     ]
-    mages: list[dict] = [
+    mages: list[dict[str, Any]] = [
         {'name': 'Luna', 'power': 71, 'element': 'ice'},
         {'name': 'Liam', 'power': 84, 'element': 'wind'},
         {'name': 'Sage', 'power': 68, 'element': 'water'},

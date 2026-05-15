@@ -1,19 +1,25 @@
-from typing import Callable
+from collections.abc import Callable
 
 
-def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
-    def combined(power: int, target: str) -> tuple:
+def spell_combiner(
+    spell1: Callable[[str, int], str], spell2: Callable[[str, int], str]
+) -> Callable[[str, int], tuple[str, str]]:
+    def combined(target: str, power: int) -> tuple[str, str]:
         return (spell1(target, power), spell2(target, power))
     return combined
 
 
-def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
+def power_amplifier(
+    base_spell: Callable[[str, int], str], multiplier: int
+) -> Callable[[str, int], str]:
     def amplifier(target: str, power: int) -> str:
         return base_spell(target, power * multiplier)
     return amplifier
 
 
-def conditional_caster(condition: Callable, spell: Callable) -> Callable:
+def conditional_caster(
+    condition: Callable[[str, int], bool], spell: Callable[[str, int], str]
+) -> Callable[[str, int], str]:
     def conditional(target: str, power: int) -> str:
         if condition(target, power):
             result: str = spell(target, power)
@@ -23,7 +29,9 @@ def conditional_caster(condition: Callable, spell: Callable) -> Callable:
     return conditional
 
 
-def spell_sequence(spells: list[Callable]) -> Callable:
+def spell_sequence(
+    spells: list[Callable[[str, int], str]]
+) -> Callable[[str, int], list[str]]:
     def sequence(target: str, power: int) -> list[str]:
         return [spell(target, power) for spell in spells]
     return sequence
@@ -50,9 +58,8 @@ def main() -> None:
     targets: list[str] = ['Dragon', 'Goblin', 'Wizard', 'Knight']
     combined = spell_combiner(fireball, heal)
     print("Testing spell combiner...")
-    print(f"Combined spell result: "
-          f"{combined(power, targets[0])[0]}, "
-          f"{combined(power, targets[0])[1]}")
+    res = combined(targets[0], power)
+    print(f"Combined spell result: {res[0]}, {res[1]}")
     print()
     mega_meteor = power_amplifier(meteor, 3)
     print("Testing power amplifier...")
