@@ -76,7 +76,7 @@ Cache_fib3("
 "):::cachehit
 EqTop -.->|Recuperado| Cache_fib3
 ```
-## Otro esquema:
+## Esquema en formato ASCII:
 ```text
 Llamada inicial: fib(5)
 │
