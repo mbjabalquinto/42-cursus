@@ -1,4 +1,31 @@
-## Esquema función recursiva fibonacci:
+# Ejercicio 03: Ancient Library (functools)
+
+Este ejercicio explora el poder del módulo `functools` y `operator` en Python para realizar manipulaciones avanzadas de funciones y datos siguiendo el paradigma funcional.
+
+## Conceptos Aplicados
+
+### 1. Reducción de Datos (`functools.reduce`)
+Utilizamos `reduce` para combinar todos los elementos de una lista en un único valor acumulado.
+*   **Implementación**: En lugar de usar bucles `for`, aplicamos funciones del módulo `operator` (como `add` o `mul`) de forma acumulativa.
+*   **Mejora de Diseño**: Se aplicó un **mapeo de operaciones** mediante un diccionario para evitar estructuras condicionales (`if-elif`) complejas, haciendo el código más extensible y limpio.
+
+### 2. Aplicación Parcial de Funciones (`functools.partial`)
+Permite "pre-cargar" argumentos en una función existente, creando nuevas funciones más especializadas.
+*   **Uso**: Creamos encantamientos de aire, fuego y agua fijando los parámetros de `power` y `element` en una función base, devolviendo un diccionario de funciones listas para usar con un solo argumento (`target`).
+
+### 3. Memorización (`functools.lru_cache`)
+Optimización mediante el almacenamiento de resultados de funciones costosas para evitar cálculos redundantes.
+*   **Caso de Uso**: La secuencia de Fibonacci. Gracias al decorador `@lru_cache`, convertimos un algoritmo exponencial ($O(2^n)$) en uno lineal ($O(n)$) al reutilizar los valores ya calculados.
+
+### 4. Despacho Simple (`functools.singledispatch`)
+Implementación de **Polimorfismo** o sobrecarga de funciones basada en el tipo del primer argumento.
+*   **Funcionamiento**: Una única función de entrada (`dispatcher`) redirige la ejecución a diferentes funciones internas dependiendo de si recibe un `int`, `str` o `list`, permitiendo manejar diferentes "tipos de hechizos" de forma elegante.
+
+---
+
+## Análisis de Recursividad y Caché
+
+### Esquema función recursiva fibonacci:
 ```mermaid
 graph TD
 %% Definición de estilos para los colores
@@ -76,7 +103,7 @@ Cache_fib3("
 "):::cachehit
 EqTop -.->|Recuperado| Cache_fib3
 ```
-## Esquema en formato ASCII:
+### Esquema en formato ASCII:
 ```text
 Llamada inicial: fib(5)
 │
@@ -97,5 +124,5 @@ Llamada inicial: fib(5)
 
 * Resultado final: 5
 ```
-## Esquema original en pizarra:
+### Esquema original en pizarra:
 ![Mi pizarra de Fibonacci](./images/pizarra.jpeg)

@@ -7,20 +7,19 @@ from typing import Any
 def spell_reducer(spells: list[int], operation: str) -> int:
     if not spells:
         return 0
-    if operation == "add":
-        return reduce(add, spells)
-    elif operation == "multiply":
-        return reduce(mul, spells)
-    elif operation == "max":
-        return reduce(max, spells)
-    elif operation == "min":
-        return reduce(min, spells)
-    else:
+    ops: dict[str, Callable[[int, int], int]] = {
+        "add": add,
+        "multiply": mul,
+        "max": max,
+        "min": min
+    }
+    if operation not in ops:
         raise ValueError(f"Unknown operation: {operation}")
+    return reduce(ops[operation], spells)
 
 
-def enchanter(power: int, type: str, target: str) -> str:
-    return f"{type} enchantment to {target} hit for {power}"
+def enchanter(power: int, element: str, target: str) -> str:
+    return f"{element} enchantment to {target} hit for {power}"
 
 
 def partial_enchanter(
@@ -79,7 +78,7 @@ def main() -> None:
     for _, value in enchanters.items():
         print(value("troll"))
     print()
-    print("Testing memorized fibonacci...")
+    print("Testing memoized fibonacci...")
     print(f"Fib(0): {memoized_fibonacci(0)}")
     print(f"Fib(1): {memoized_fibonacci(1)}")
     print(f"Fib(10): {memoized_fibonacci(10)}")
