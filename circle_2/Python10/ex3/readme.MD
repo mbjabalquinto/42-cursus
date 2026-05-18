@@ -1,4 +1,4 @@
-** Esquema función recursiva fibonacci:
+## Esquema función recursiva fibonacci:
 ```mermaid
 graph TD
 %% Definición de estilos para los colores
@@ -76,7 +76,7 @@ Cache_fib3("
 "):::cachehit
 EqTop -.->|Recuperado| Cache_fib3
 ```
-** Otro esquema:
+## Otro esquema:
 ```text
 Llamada inicial: fib(5)
 │
