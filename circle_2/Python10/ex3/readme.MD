@@ -23,6 +23,16 @@ Implementación de **Polimorfismo** o sobrecarga de funciones basada en el tipo 
 
 ---
 
+## Preguntas de Reflexión
+
+### ¿Cómo permite `functools.reduce` una agregación de datos potente?
+`reduce` permite abstraer la lógica de acumulación. En lugar de escribir la mecánica de un bucle (inicializar variable, iterar, actualizar), nos centramos en la **operación binaria** que combina dos elementos. Es potente porque puede reducir cualquier colección a un solo valor (suma, producto, valor máximo, concatenación) de forma declarativa, facilitando el procesamiento de flujos de datos complejos con un código mínimo y altamente legible.
+
+### ¿Cuáles son los beneficios de rendimiento de la memorización con `lru_cache`?
+El beneficio principal es la **reducción drástica de la complejidad temporal**. En algoritmos recursivos con subproblemas solapados (como Fibonacci), `lru_cache` evita que la misma función se ejecute miles de veces con los mismos parámetros. Intercambia un poco de memoria (para guardar el historial de resultados) por una velocidad de ejecución casi instantánea en llamadas subsiguientes, transformando procesos que tardarían años en completarse en tareas de milisegundos.
+
+---
+
 ## Análisis de Recursividad y Caché
 
 ### Esquema función recursiva fibonacci:
