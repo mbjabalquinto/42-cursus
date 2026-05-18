@@ -77,7 +77,7 @@ Cache_fib3("
 EqTop -.->|Recuperado| Cache_fib3
 ```
 ** Otro esquema:
-
+```text
 Llamada inicial: fib(5)
 │
 ├── [Baja por la izquierda]
@@ -96,3 +96,4 @@ Llamada inicial: fib(5)
 
 
 * Resultado final: 5
+```
