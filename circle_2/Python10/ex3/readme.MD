@@ -97,4 +97,5 @@ Llamada inicial: fib(5)
 
 * Resultado final: 5
 ```
+## Esquema original en pizarra:
 ![Mi pizarra de Fibonacci](./images/pizarra.jpeg)
