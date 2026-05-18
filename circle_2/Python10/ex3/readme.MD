@@ -97,3 +97,4 @@ Llamada inicial: fib(5)
 
 * Resultado final: 5
 ```
+![Mi pizarra de Fibonacci](./images/pizarra.jpg)
