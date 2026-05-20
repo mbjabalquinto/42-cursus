@@ -19,18 +19,11 @@ def spell_timer(func: Callable) -> Callable:
 def power_validator(min_power: int) -> Callable:
     def decorator_factory(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> str:
-            if not args and not kwargs:
-                raise ValueError("No argument found")
-            power = kwargs.get("power")
-            if power is None:
-                if len(args) > 0 and isinstance(args[0], int):
-                    power = args[0]
-                elif len(args) >= 3:
-                    power = args[2]
-            if power is not None and power < min_power:
-                return "Insufficient power for this spell"
-            return func(*args, **kwargs)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            power: Any = kwargs.get('power')
+            if int(power) >= min_power:
+                return func(*args, **kwargs)
+            return "Insufficient power for this spell"
         return wrapper
     return decorator_factory
 
@@ -73,11 +66,6 @@ def fireball() -> str:
     return "Result: Fireball cast!"
 
 
-@power_validator(10)
-def icepunch(power: int) -> str:
-    return f"Icepunch hits with {power} power"
-
-
 @retry_spell(3)
 def bad_spell() -> str:
     raise Exception("Spell failed..")
@@ -91,7 +79,8 @@ def good_spell() -> str:
 def main() -> None:
     print("Testing spell timer...")
     print(fireball())
-    print(icepunch(22))
+    print()
+    print("Testing retrying spell...")
     print(bad_spell())
     print(good_spell())
     print()
@@ -100,8 +89,8 @@ def main() -> None:
     print(mage.validate_mage_name("Harry Potter"))
     print(mage.validate_mage_name("Snape8"))
     print(mage.validate_mage_name("HP"))
-    print(mage.cast_spell("Lightning", 20))
-    print(mage.cast_spell("Lightning", 14))
+    print(mage.cast_spell("Lightning", power=20))
+    print(mage.cast_spell("Lightning", power=4))
 
 
 if __name__ == "__main__":

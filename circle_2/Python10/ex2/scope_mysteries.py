@@ -51,7 +51,7 @@ def main() -> None:
     add_power = spell_accumulator(100)
     print("Testing spell accumulator...")
     print(f"Base 100, add 20: {add_power(20)}")
-    print(f"Base 100, add 20: {add_power(30)}")
+    print(f"Base 100, add 30: {add_power(30)}")
     print()
     frozen_enchantment = enchantment_factory("Frozen")
     flaming_enchantment = enchantment_factory("Flaming")

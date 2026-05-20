@@ -11,9 +11,7 @@ def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     return artifacts
 
 
-def power_filter(
-    mages: list[dict], min_power: int
-) -> list[dict]:
+def power_filter(mages: list[dict], min_power: int) -> list[dict]:
     try:
         mages = list(filter(lambda mage: mage["power"] >= min_power, mages))
     except Exception as e:
