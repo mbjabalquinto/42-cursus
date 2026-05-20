@@ -22,9 +22,7 @@ def enchanter(power: int, element: str, target: str) -> str:
     return f"{element} enchantment to {target} hit for {power}"
 
 
-def partial_enchanter(
-    base_enchantment: Callable[[int, str, str], str]
-) -> dict[str, Callable[[str], str]]:
+def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
     air_enchantment = partial(base_enchantment, 50, "air")
     fire_enchantment = partial(base_enchantment, 50, "fire")
     water_enchantment = partial(base_enchantment, 50, "water")

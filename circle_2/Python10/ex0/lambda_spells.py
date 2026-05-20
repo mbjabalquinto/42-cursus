@@ -1,7 +1,7 @@
 from typing import Any
 
 
-def artifact_sorter(artifacts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     try:
         artifacts = sorted(
             artifacts, key=lambda artifact: artifact["power"], reverse=True
@@ -12,8 +12,8 @@ def artifact_sorter(artifacts: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def power_filter(
-    mages: list[dict[str, Any]], min_power: int
-) -> list[dict[str, Any]]:
+    mages: list[dict], min_power: int
+) -> list[dict]:
     try:
         mages = list(filter(lambda mage: mage["power"] >= min_power, mages))
     except Exception as e:
@@ -29,7 +29,7 @@ def spell_transformer(spells: list[str]) -> list[str]:
     return spells
 
 
-def mage_stats(mages: list[dict[str, Any]]) -> dict[str, int | float]:
+def mage_stats(mages: list[dict]) -> dict:
     stats: dict[str, int | float] = {}
     try:
         stats["max_power"] = max(
@@ -38,7 +38,7 @@ def mage_stats(mages: list[dict[str, Any]]) -> dict[str, int | float]:
             mages, key=lambda mage: mage["power"])["power"]
         stats["avg_power"] = round(
             sum(mage["power"] for mage in mages) / len(mages), 2
-            )
+        )
     except Exception as e:
         print(f"Error calculating stats: {e}")
     return stats
