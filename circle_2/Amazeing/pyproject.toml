@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "mazegen"
+version = "1.0.0"
+description = "A-Maze-ing maze generator and renderer"
+authors = ["jcascale", "mjabalqu"]
+# readme = "README.md"
+packages = [
+    { include = "mazegen" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
