@@ -11,6 +11,10 @@ def cryptic_sorter(tlist: list) -> list:
 
 def main() -> None:
     print(cryptic_sorter(["apple", "bat", "car", "ae", "b"]))
+    print(cryptic_sorter(["dog", "cat", "hi", "a"]))
+    print(cryptic_sorter(["bat", "cat", "ant"]))
+    print(cryptic_sorter(["bbb", "ccc", "ddd"]))
+    print([])
 
 if __name__ == "__main__":
     main()
