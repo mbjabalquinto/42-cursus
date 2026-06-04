@@ -27,7 +27,7 @@ int parse_errors(char **argv)
 
 int main(int argc, char **argv)
 {
-    arguments args;
+    t_data args;
 
     if (argc != 9)
     {
@@ -43,7 +43,10 @@ int main(int argc, char **argv)
         args.time_to_refactor = atoi(argv[5]);
         args.number_of_compiles_required = atoi(argv[6]);
         args.dongle_cooldown = atoi(argv[7]);
-        args.scheduler = argv[8];
+        if (strcmp(argv[8], "fifo") == 0)
+            args.scheduler = 0;
+        else
+            args.scheduler = 1;
         codexion(&args);
     }
     else

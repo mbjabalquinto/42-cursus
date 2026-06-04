@@ -1,4 +1,7 @@
-typedef struct
+#include <pthread.h>
+
+// General structure
+typedef struct s_data
 {
     int number_of_coders;
     int time_to_burnout;
@@ -7,18 +10,23 @@ typedef struct
     int time_to_refactor;
     int number_of_compiles_required;
     int dongle_cooldown;
-    char scheduler;
-}arguments;
+    int is_edf;  // fifo = 0 | edf = 1
+    int global_start_time
 
-typedef struct
+
+}t_data;
+
+// Programmer structure
+typedef struct s_coder
 {
-    int number;
+    int id;
     int priority_value;
-    int pthread_t;
+    pthread_t thread_id;
     int burnout;
-    int compile_success;
-    void *left_dongle;
-    void *right_dongle;
-}Min_Heap;
+    int compile_count;
+    pthread_mutex_t *left_dongle;
+    pthread_mutex_t *right_dongle;
+    struct s_data *data
+}t_coder;
 
-void    codexion(arguments *args);
+void    codexion(t_data *args);
