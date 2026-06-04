@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int parse_errors(char **argv)
+static int parse_errors(char **argv)
 {
     int i;
     int j;
@@ -14,7 +14,7 @@ int parse_errors(char **argv)
         while (argv[i][j])
         {
             if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
-                return(0);
+                return (0);
             j++;
         }
         i++;
@@ -25,6 +25,21 @@ int parse_errors(char **argv)
     return (1);
 }
 
+static void asig_data(t_data *args, char **argv)
+{
+    args->number_of_coders = atoi(argv[1]);
+    args->time_to_burnout = atoi(argv[2]);
+    args->time_to_compile = atoi(argv[3]);
+    args->time_to_debug = atoi(argv[4]);
+    args->time_to_refactor = atoi(argv[5]);
+    args->number_of_compiles_required = atoi(argv[6]);
+    args->dongle_cooldown = atoi(argv[7]);
+    if (strcmp(argv[8], "fifo") == 0)
+        args->is_edf = 0;
+    else
+        args->is_edf = 1;
+}
+
 int main(int argc, char **argv)
 {
     t_data args;
@@ -32,27 +47,23 @@ int main(int argc, char **argv)
     if (argc != 9)
     {
         printf("Incorrect amount of parameters..");
-        return(1);
+        return (1);
     }
     if (parse_errors(argv))
     {    
-        args.number_of_coders = atoi(argv[1]);
-        args.time_to_burnout = atoi(argv[2]);
-        args.time_to_compile = atoi(argv[3]);
-        args.time_to_debug = atoi(argv[4]);
-        args.time_to_refactor = atoi(argv[5]);
-        args.number_of_compiles_required = atoi(argv[6]);
-        args.dongle_cooldown = atoi(argv[7]);
-        if (strcmp(argv[8], "fifo") == 0)
-            args.is_edf = 0;
-        else
-            args.is_edf = 1;
-        codexion(&args);
+        asig_data(&args, argv);
+        if (pthread_mutex_init(&args.log_mutex, NULL) != 0)
+            return (1);
+        if (create_coders(&args) != 0)
+        {
+            pthread_mutex_destroy(&args.log_mutex);
+            return (1);
+        }
     }
     else
     {
         printf("Argument error: one or more arguments are invalid..");
-        return(1);
+        return (1);
     }
     return (0);
 }
