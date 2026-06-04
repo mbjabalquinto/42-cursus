@@ -44,9 +44,9 @@ int main(int argc, char **argv)
         args.number_of_compiles_required = atoi(argv[6]);
         args.dongle_cooldown = atoi(argv[7]);
         if (strcmp(argv[8], "fifo") == 0)
-            args.scheduler = 0;
+            args.is_edf = 0;
         else
-            args.scheduler = 1;
+            args.is_edf = 1;
         codexion(&args);
     }
     else
