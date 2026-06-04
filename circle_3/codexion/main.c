@@ -1,6 +1,19 @@
 #include "codexion.h"
 #include <stdio.h>
 #include <string.h>
+#include <sys/time.h>
+
+static int  get_start_time(t_data *args)
+{
+    struct timeval tv;
+
+    if (gettimeofday(&tv, NULL) == 0)
+    {
+        args->global_start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+        return (1);
+    }
+    return (0);
+}
 
 static int parse_errors(char **argv)
 {
@@ -40,6 +53,21 @@ static void asig_data(t_data *args, char **argv)
         args->is_edf = 1;
 }
 
+int codexion(t_data *args, char **argv)
+{
+    asig_data(args, argv);
+    if (pthread_mutex_init(&args->log_mutex, NULL) != 0)
+        return (1);
+    if (create_coders(args) != 0)
+    {
+        pthread_mutex_destroy(&args->log_mutex);
+        return (1);
+    }
+    get_start_time(args);
+    start_simulation(args);
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_data args;
@@ -50,16 +78,7 @@ int main(int argc, char **argv)
         return (1);
     }
     if (parse_errors(argv))
-    {    
-        asig_data(&args, argv);
-        if (pthread_mutex_init(&args.log_mutex, NULL) != 0)
-            return (1);
-        if (create_coders(&args) != 0)
-        {
-            pthread_mutex_destroy(&args.log_mutex);
-            return (1);
-        }
-    }
+        return (codexion(&args, argv));
     else
     {
         printf("Argument error: one or more arguments are invalid..");

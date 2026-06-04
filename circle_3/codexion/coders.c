@@ -37,7 +37,3 @@ int create_coders(t_data *args)
     }
     return (0);
 }
-int launch_threads()
-{
-
-}
