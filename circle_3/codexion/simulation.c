@@ -48,8 +48,11 @@ void *coder_routine(void *arg)
     {
     // comprobar si puede usar los dongles. Pueden estar bloqueados o enfriándose.
     // caso afirmativo los bloquea y también bloquea el printf
-        // caso negativo se va a dormir con pthread_cond_t
-    // una vez a terminado de compilar libera los candados o los pone a enfriar.
+        pthread_mutex_lock(coder->left_dongle);
+        pthread_mutex_lock(coder->right_dongle);
+        pthread_mutex_lock(&coder->data->log_mutex);
+        
+    // una vez ha terminado de compilar libera los candados o los pone a enfriar.
     // Desconozco si tiene que avisar de que ha finalizado.
     // depura y refactoriza
     // comprueba si debe iniciar un nuevo ciclo con la flag. Si está bloqueada espera.
