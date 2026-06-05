@@ -1,5 +1,6 @@
 #include <pthread.h>
 
+typedef struct s_coder t_coder; //fordward declaration.
 // General structure
 typedef struct s_data
 {
@@ -14,7 +15,9 @@ typedef struct s_data
     size_t global_start_time;
     t_coder *coders;
     pthread_mutex_t *mutexes;
-    pthread_mutex_t *log_mutex;
+    pthread_mutex_t log_mutex;
+    pthread_mutex_t flag_end;
+    int simulation_end;
 }t_data;
 
 // Programmer structure

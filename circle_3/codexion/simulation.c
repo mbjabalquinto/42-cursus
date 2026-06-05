@@ -28,9 +28,33 @@ int start_simulation(t_data *args)
     return (0);
 }
 
+int simulation_should_stop(t_data *data)
+{
+    int stop;
+
+    pthread_mutex_lock(&data->flag_end);
+    stop = data->simulation_end;
+    pthread_mutex_unlock(&data->flag_end);
+    return (stop);
+}
+
+
 void *coder_routine(void *arg)
 {
     t_coder *coder;
 
     coder = (t_coder *)arg;
+    while (1)
+    {
+    // comprobar si puede usar los dongles. Pueden estar bloqueados o enfriándose.
+    // caso afirmativo los bloquea y también bloquea el printf
+        // caso negativo se va a dormir con pthread_cond_t
+    // una vez a terminado de compilar libera los candados o los pone a enfriar.
+    // Desconozco si tiene que avisar de que ha finalizado.
+    // depura y refactoriza
+    // comprueba si debe iniciar un nuevo ciclo con la flag. Si está bloqueada espera.
+    if (simulation_should_stop(coder->data))
+        break;
+    }
+    return (NULL);
 }
