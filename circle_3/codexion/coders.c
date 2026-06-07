@@ -1,4 +1,17 @@
 #include "codexion.h"
+#include <sys/time.h>
+
+int get_current_time(t_data *args)
+{
+    struct timeval tv;
+
+    if (gettimeofday(&tv, NULL) == 0)
+    {
+        args->current_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+        return (1);
+    }
+    return (0);
+}
 
 int free_mem(int i, pthread_mutex_t *mutexes, t_coder *coders)
 {

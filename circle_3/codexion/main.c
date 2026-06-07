@@ -63,8 +63,8 @@ int codexion(t_data *args, char **argv)
         pthread_mutex_destroy(&args->log_mutex);
         return (1);
     }
-    get_start_time(args);
-    start_simulation(args);
+    if (get_start_time(args))
+        start_simulation(args);
     return (0);
 }
 
