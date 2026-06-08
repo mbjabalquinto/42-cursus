@@ -44,3 +44,4 @@ int free_mem(int i, pthread_mutex_t *mutexes, t_coder *coders);
 int start_simulation(t_data *args);
 int get_current_time(t_data *args);
 void *coder_routine(void *arg);
+void ft_usleep(size_t time_to_check, t_data *data);

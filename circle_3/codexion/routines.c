@@ -5,12 +5,13 @@ void *coder_routine(void *arg)
     t_coder *coder;
 
     coder = (t_coder *)arg;
+    coder->last_compile_time = get_current_time(coder->data);
+    if (coder->id % 2 == 0)
+            ft_usleep(10, coder->data);
     while (1)
     {
         if (simulation_should_stop(coder->data))
             break;
-        if (coder->data->number_of_coders % 2 == 0)
-            upsleep(5);
         coder_cycle(coder);
     }
     return (NULL);
