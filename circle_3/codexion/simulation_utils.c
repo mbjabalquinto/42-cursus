@@ -1,14 +1,11 @@
 #include "codexion.h"
 
-int get_current_time(t_data *args)
+size_t get_current_time(t_data *args)
 {
     struct timeval tv;
 
     if (gettimeofday(&tv, NULL) == 0)
-    {
-        args->current_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-        return (1);
-    }
+        return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
     return (0);
 }
 

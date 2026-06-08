@@ -55,9 +55,15 @@ int codexion(t_data *args, char **argv)
     asig_data(args, argv);
     if (pthread_mutex_init(&args->log_mutex, NULL) != 0)
         return (1);
+    if (pthread_mutex_init(&args->flag_end, NULL) != 0)
+    {
+        pthread_mutex_destroy(&args->log_mutex);
+        return (1);
+    }
     if (create_coders(args) != 0)
     {
         pthread_mutex_destroy(&args->log_mutex);
+        pthread_mutex_destroy(&args->flag_end);
         return (1);
     }
     if (get_start_time(args))
