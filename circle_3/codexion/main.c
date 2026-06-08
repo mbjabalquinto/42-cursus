@@ -1,7 +1,4 @@
 #include "codexion.h"
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
 
 static int  get_start_time(t_data *args)
 {

@@ -1,4 +1,8 @@
 #include <pthread.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
 
 typedef struct s_coder t_coder; //fordward declaration.
 // General structure
@@ -39,3 +43,4 @@ int create_coders(t_data *args);
 int free_mem(int i, pthread_mutex_t *mutexes, t_coder *coders);
 int start_simulation(t_data *args);
 int get_current_time(t_data *args);
+void *coder_routine(void *arg);
