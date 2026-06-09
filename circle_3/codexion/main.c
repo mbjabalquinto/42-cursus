@@ -53,6 +53,13 @@ static int init_global_mutexes(t_data *args)
         pthread_mutex_destroy(&args->flag_end);
         return (1);
     }
+    if (pthread_mutex_init(&args->cond_var, NULL) != 0)
+    {
+        pthread_mutex_destroy(&args->queue_mutex);
+        pthread_mutex_destroy(&args->log_mutex);
+        pthread_mutex_destroy(&args->flag_end);
+        return (1);
+    }
     return (0);
 }
 
