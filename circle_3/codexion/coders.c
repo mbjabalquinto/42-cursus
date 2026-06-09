@@ -12,6 +12,21 @@ int free_mem(int i, pthread_mutex_t *mutexes, t_coder *coders)
     return (1);
 }
 
+int    init_queue(t_data *args)
+{
+    args->queue = malloc(sizeof(t_priority_queue));
+    if (!args->queue)
+        return (1);
+    args->queue->array = malloc(args->number_of_coders * sizeof(t_heap_node));
+    if (!args->queue->array)
+    {
+        free(args->queue);
+        return (1);
+    }
+    args->queue->size = 0;
+    return (0);
+}
+
 int create_coders(t_data *args)
 {
     int i;

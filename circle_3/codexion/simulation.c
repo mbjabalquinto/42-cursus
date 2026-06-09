@@ -37,13 +37,13 @@ void monitor_routine(t_data *data)
         i = 0;
         while (i < data->number_of_coders)
         {
-            if (get_current_time(data) - data->coders[i].last_compile_time >= data->time_to_burnout)
+            if (get_current_time() - data->coders[i].last_compile_time >= data->time_to_burnout)
             {
                 pthread_mutex_lock(&data->flag_end);
                 data->simulation_end = 1;
                 pthread_mutex_unlock(&data->flag_end);
                 pthread_mutex_lock(&data->log_mutex);
-                printf("%zu %d burned out", get_current_time(data) - data->global_start_time, data->coders[i].id);
+                printf("%zu %d burned out", get_current_time() - data->global_start_time, data->coders[i].id);
                 return ;
             }
             i++;

@@ -1,11 +1,11 @@
 #include "codexion.h"
 
-void *coder_routine(void *arg)
+void    *coder_routine(void *arg)
 {
     t_coder *coder;
 
     coder = (t_coder *)arg;
-    coder->last_compile_time = get_current_time(coder->data);
+    coder->last_compile_time = get_current_time(); // A valid 'last compile time' for the first cycle.
     if (coder->id % 2 == 0)
             ft_usleep(10, coder->data);
     while (1)
@@ -17,14 +17,53 @@ void *coder_routine(void *arg)
     return (NULL);
 }
 
-void coder_cycle(t_coder *coder)
+void    bubble_up(t_priority_queue *queue, int i)
 {
+    int father_pos;
+    t_heap_node temp;
+
+    while (i > 0)
+    {
+        father_pos = (i - 1) / 2;
+        if (queue->array[i].priority < queue->array[father_pos].priority)
+        {
+            temp = queue->array[i];
+            queue->array[i] = queue->array[father_pos];
+            queue->array[father_pos] = temp;
+        }
+        else
+            break;
+        i = father_pos;
+    }
+}
+
+void    queue_routine(t_coder *coder)
+{
+    t_priority_queue *queue;
+    int insert_index;
+
+    queue = coder->data->queue;
+    insert_index = queue->size;
+    pthread_mutex_lock(&coder->data->queue_mutex);
+    queue->array[insert_index].coder = coder;
+    if (coder->data->is_edf)
+        queue->array[insert_index].priority = coder->last_compile_time + coder->data->time_to_burnout;
+    else
+        queue->array[insert_index].priority = get_current_time();
+    queue->size++;
+    bubble_up(queue, insert_index);
+    pthread_mutex_unlock(&coder->data->queue_mutex);
+}
+
+void    coder_cycle(t_coder *coder)
+{
+    queue_routine(coder);
     pthread_mutex_lock(coder->left_dongle);
     print_status(coder, "has taken a dongle");
     pthread_mutex_lock(coder->right_dongle);
     print_status(coder, "has taken a dongle");
     print_status(coder, "is compiling");
-    coder->last_compile_time = get_current_time(coder->data);
+    coder->last_compile_time = get_current_time();
     ft_usleep(coder->data->time_to_compile, coder->data);
     pthread_mutex_unlock(coder->right_dongle);
     phtread_mutex_unlock(coder->left_dongle);

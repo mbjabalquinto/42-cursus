@@ -1,17 +1,5 @@
 #include "codexion.h"
 
-static int  get_start_time(t_data *args)
-{
-    struct timeval tv;
-
-    if (gettimeofday(&tv, NULL) == 0)
-    {
-        args->global_start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-        return (1);
-    }
-    return (0);
-}
-
 static int parse_errors(char **argv)
 {
     int i;
@@ -50,9 +38,8 @@ static void asig_data(t_data *args, char **argv)
         args->is_edf = 1;
 }
 
-int codexion(t_data *args, char **argv)
+static int init_global_mutexes(t_data *args)
 {
-    asig_data(args, argv);
     if (pthread_mutex_init(&args->log_mutex, NULL) != 0)
         return (1);
     if (pthread_mutex_init(&args->flag_end, NULL) != 0)
@@ -60,10 +47,32 @@ int codexion(t_data *args, char **argv)
         pthread_mutex_destroy(&args->log_mutex);
         return (1);
     }
+    if (pthread_mutex_init(&args->queue_mutex, NULL) != 0)
+    {
+        pthread_mutex_destroy(&args->log_mutex);
+        pthread_mutex_destroy(&args->flag_end);
+        return (1);
+    }
+    return (0);
+}
+
+int codexion(t_data *args, char **argv)
+{
+    asig_data(args, argv);
+    if (init_global_mutexes(args) != 0)
+        return (1);
     if (create_coders(args) != 0)
     {
         pthread_mutex_destroy(&args->log_mutex);
         pthread_mutex_destroy(&args->flag_end);
+        pthread_mutex_destroy(&args->queue_mutex);
+        return (1);
+    }
+    if (init_queue(args) != 0)
+    {
+        pthread_mutex_destroy(&args->log_mutex);
+        pthread_mutex_destroy(&args->flag_end);
+        pthread_mutex_destroy(&args->queue_mutex);
         return (1);
     }
     if (get_start_time(args))
