@@ -26,13 +26,13 @@ typedef struct s_data
     int                 simulation_end;
     t_priority_queue    *queue;
     pthread_cond_t      cond_var;
+    pthread_t           monitor_thread;
 }t_data;
 
 // Programmer structure
 typedef struct s_coder
 {
     int             id;
-    int             priority_value;
     pthread_t       thread_id;
     int             burnout;
     int             compile_count;
@@ -40,6 +40,7 @@ typedef struct s_coder
     t_dongle        *right_dongle;
     struct s_data   *data;
     size_t          last_compile_time;
+    pthread_mutex_t mon_mutex;
 }t_coder;
 
 // Node to insert into the queue
@@ -62,11 +63,12 @@ typedef struct s_dongle
     size_t          last_use_time;
 }t_dongle;
 
-int create_coders(t_data *args);
-int free_mem(int i, pthread_mutex_t *mutexes, t_coder *coders);
-int start_simulation(t_data *args);
-int get_current_time();
-void *coder_routine(void *arg);
-void ft_usleep(size_t time_to_check, t_data *data);
-int get_start_time(t_data *args);
-int init_queue(t_data *args);
+int     create_coders(t_data *args);
+int     free_mem(int i, pthread_mutex_t *mutexes, t_coder *coders);
+int     start_simulation(t_data *args);
+int     get_current_time();
+void    *coder_routine(void *arg);
+void    ft_usleep(size_t time_to_check, t_data *data);
+int     get_start_time(t_data *args);
+int     init_queue(t_data *args);
+void    ft_swap(t_priority_queue *queue, int i, int father_pos);
