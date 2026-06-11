@@ -6,17 +6,20 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:13 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/10 18:55:16 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:27:41 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
 
 typedef struct s_coder	t_coder;
+typedef struct s_dongle	t_dongle;
+typedef struct s_priority_queue	t_priority_queue;
 
 typedef struct s_data
 {
@@ -26,10 +29,9 @@ typedef struct s_data
 	size_t				time_to_debug;
 	size_t				time_to_refactor;
 	int					number_of_compiles_required;
-	int					dongle_cooldown;
+	size_t				dongle_cooldown;
 	int					is_edf;// fifo = 0 | edf = 1
 	size_t				global_start_time;
-	size_t				current_time;
 	t_coder				*coders;
 	t_dongle			*dongles;
 	pthread_mutex_t		log_mutex;
@@ -78,9 +80,15 @@ typedef struct s_dongle
 int		create_coders(t_data *args);
 int		free_mem(int i, t_dongle *dongles, t_coder *coders);
 int		start_simulation(t_data *args);
-int		get_current_time(void);
+size_t	get_current_time(void);
 void	*coder_routine(void *arg);
 void	ft_usleep(size_t time_to_check, t_data *data);
 int		get_start_time(t_data *args);
 int		init_queue(t_data *args);
-void	ft_swap(t_priority_queue *queue, int i, int father_pos);
+void	bubble_up(t_priority_queue *queue, int i);
+void	pop_queue(t_priority_queue *queue);
+void	ft_swap(t_priority_queue *queue, int i, int smallest);
+void	clean_teardown(t_data *data);
+int		simulation_should_stop(t_data *data);
+void	print_status(t_coder *coder, char *status);
+

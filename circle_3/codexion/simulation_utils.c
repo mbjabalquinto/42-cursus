@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:47 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/10 19:09:16 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/11 16:01:47 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ void	print_status(t_coder *coder, char *status)
 	size_t time;
 
 	pthread_mutex_lock(&coder->data->log_mutex);
-	if(!simulation_should_stop(coder->data) && get_current_time())
-	{
-		time = coder->data->current_time - coder->data->global_start_time;
-		printf("%zu %d %s\n", time, coder->id, status);
-	}
+	time = get_current_time();
+	if(time != 0 && !simulation_should_stop(coder->data))
+		printf("%zu %d %s\n", time - coder->data->global_start_time, coder->id, status);
 	pthread_mutex_unlock(&coder->data->log_mutex);
 }
 
