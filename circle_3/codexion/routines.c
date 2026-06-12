@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 09:47:23 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 13:11:25 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ void	coder_compile(t_coder *coder)
 	pthread_mutex_unlock(&coder->data->queue_mutex);
 	pthread_mutex_unlock(&coder->right_dongle->mutex);
 	pthread_mutex_unlock(&coder->left_dongle->mutex);
-}
-
-int	check_cooldown(t_coder *coder)
-{
-	return (get_current_time() - coder->left_dongle->last_use_time >= coder->data->dongle_cooldown && \
-	get_current_time() - coder->right_dongle->last_use_time >= coder->data->dongle_cooldown);
 }
 
 static int	get_dongles(t_coder *coder)
@@ -107,7 +101,16 @@ void	*coder_routine(void *arg)
 	t_coder *coder;
 
 	coder = (t_coder *)arg;
-	if (coder->id % 2 == 0)
+	if (coder->data->number_of_coders == 1)
+	{
+		pthread_mutex_lock(&coder->left_dongle->mutex);
+		print_status(coder, "has taken a dongle");
+		while (!simulation_should_stop(coder->data))
+			ft_usleep(1, coder->data);
+		pthread_mutex_unlock(&coder->left_dongle->mutex);
+		return (NULL); // Muere aquí mismo. Nunca entra al ciclo.
+	}
+	else if (coder->id % 2 == 0)
 		ft_usleep(10, coder->data);
 	while (1)
 	{

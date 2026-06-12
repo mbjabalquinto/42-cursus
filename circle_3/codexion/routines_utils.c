@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:57 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/11 13:55:30 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 13:09:29 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,10 @@ void	pop_queue(t_priority_queue *queue)
 		ft_swap(queue, i, smallest);
 		i = smallest;// cambio a la nueva posición para seguir bajando por el árbol.
 	}
+}
+
+int	check_cooldown(t_coder *coder)
+{
+	return (get_current_time() - coder->left_dongle->last_use_time >= coder->data->dongle_cooldown && \
+	get_current_time() - coder->right_dongle->last_use_time >= coder->data->dongle_cooldown);
 }

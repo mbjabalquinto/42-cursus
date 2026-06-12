@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:13 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 10:13:24 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 13:09:47 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void	clean_teardown(t_data *data);
 int		simulation_should_stop(t_data *data);
 void	print_status(t_coder *coder, char *status);
 long	ft_atol(const char *str);
+int		check_cooldown(t_coder *coder);
 
