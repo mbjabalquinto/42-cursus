@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:13 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/11 15:27:41 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/11 19:41:18 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_dongle
 {
 	pthread_mutex_t	mutex;
 	size_t			last_use_time;
+	int				in_use;
 }	t_dongle;
 
 int		create_coders(t_data *args);

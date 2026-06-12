@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/11 15:22:46 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 09:20:39 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,51 @@ void	coder_compile(t_coder *coder)
 	coder->compile_count++;
 	pthread_mutex_unlock(&coder->mon_mutex);
 	ft_usleep(coder->data->time_to_compile, coder->data);
+	pthread_mutex_lock(&coder->data->queue_mutex);
 	coder->left_dongle->last_use_time = get_current_time();
 	coder->right_dongle->last_use_time = get_current_time();
+	coder->left_dongle->in_use = 0;
+	coder->right_dongle->in_use = 0;
+	pthread_mutex_unlock(&coder->data->queue_mutex);
 	pthread_mutex_unlock(&coder->right_dongle->mutex);
 	pthread_mutex_unlock(&coder->left_dongle->mutex);
+}
+
+int	check_cooldown(t_coder *coder)
+{
+	return (get_current_time() - coder->left_dongle->last_use_time >= coder->data->dongle_cooldown && \
+	get_current_time() - coder->right_dongle->last_use_time >= coder->data->dongle_cooldown);
 }
 
 void	coder_cycle(t_coder *coder)
 {
 	queue_routine(coder); // Me llega un coder y lo paso por la rutina para insertarlo en el array y ordenarlo.
 	pthread_mutex_lock(&coder->data->queue_mutex);
-	while (coder != coder->data->queue->array[0].coder || \
-		get_current_time() - coder->left_dongle->last_use_time < coder->data->dongle_cooldown || \
-		get_current_time() - coder->right_dongle->last_use_time < coder->data->dongle_cooldown)
+	while (1)
+	{
+		if (simulation_should_stop(coder->data))
+		{
+			pthread_mutex_unlock(&coder->data->queue_mutex);
+			return ;
+		}
+		if (coder == coder->data->queue->array[0].coder && \
+		coder->left_dongle->in_use == 0 && coder->right_dongle->in_use == 0)
+		{
+			coder->left_dongle->in_use = 1;
+			coder->right_dongle->in_use = 1;
+			break ;
+		}
 		pthread_cond_wait(&coder->data->cond_var, &coder->data->queue_mutex);
+	}
 	pop_queue(coder->data->queue);
+	pthread_cond_broadcast(&coder->data->cond_var);
 	pthread_mutex_unlock(&coder->data->queue_mutex);
+	while (!check_cooldown(coder))
+	{
+		if (simulation_should_stop(coder->data))
+			return ;
+		ft_usleep(1, coder->data);
+	}
 	coder_compile(coder);
 	pthread_cond_broadcast(&coder->data->cond_var);// aviso a los demás hilos de que he terminado.
 	print_status(coder, "is debugging");
@@ -71,7 +100,6 @@ void	*coder_routine(void *arg)
 	t_coder *coder;
 
 	coder = (t_coder *)arg;
-	coder->last_compile_time = get_current_time(); // A valid 'last compile time' for the first cycle.
 	if (coder->id % 2 == 0)
 		ft_usleep(10, coder->data);
 	while (1)
