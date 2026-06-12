@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 20:26:36 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/11 15:23:48 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 10:13:07 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,32 @@ void	clean_teardown(t_data *data)
 	free(data->queue);
 	free(data->coders);
 	free(data->dongles);
+}
+
+long	ft_atol(const char *str)
+{
+	int		i;
+	long	num;
+	char	sign;
+
+	sign = '+';
+	i = 0;
+	num = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+	{
+		sign = '-';
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = (num * 10) + str[i] - '0';
+		i++;
+	}
+	if (sign == '-')
+		num = -num;
+	return (num);
 }

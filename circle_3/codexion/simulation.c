@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:42 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 09:09:24 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:09:17 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ int	start_simulation(t_data *args)
 		}
 		i++;
 	}
+	pthread_create(&args->monitor_thread, NULL, monitor_routine, args);
+	pthread_join(args->monitor_thread, NULL);
+	i = 0;
 	while (i < args->number_of_coders)
 	{
 		pthread_join(args->coders[i].thread_id, NULL);
 		i++;
 	}
-	pthread_create(&args->monitor_thread, NULL, monitor_routine, args);
-	pthread_join(args->monitor_thread, NULL);
-	i = 0;
 	return (1);
 }
 

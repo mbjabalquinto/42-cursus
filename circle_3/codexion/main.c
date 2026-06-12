@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:27 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/11 13:45:09 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 10:22:10 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	parse_errors(char **argv)
 	j = 0;
 	while (i < 8)
 	{
+		if (argv[i][0] == '\0')
+			return (0);
 		while (argv[i][j])
 		{
 			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
@@ -37,15 +39,23 @@ static int	parse_errors(char **argv)
 
 static int	asig_data(t_data *args, char **argv)
 {
-	args->number_of_coders = atoi(argv[1]);
+	args->number_of_coders = ft_atol(argv[1]);
 	if (args->number_of_coders <= 0)
 		return (1);
-	args->time_to_burnout = atoi(argv[2]);
-	args->time_to_compile = atoi(argv[3]);
-	args->time_to_debug = atoi(argv[4]);
-	args->time_to_refactor = atoi(argv[5]);
-	args->number_of_compiles_required = atoi(argv[6]);
-	args->dongle_cooldown = atoi(argv[7]);
+	args->time_to_burnout = ft_atol(argv[2]);
+	if (args->time_to_burnout <= 0)
+		return (1);
+	args->time_to_compile = ft_atol(argv[3]);
+	if (args->time_to_compile <= 0)
+		return (1);
+	args->time_to_debug = ft_atol(argv[4]);
+	if (args->time_to_debug <= 0)
+		return (1);
+	args->time_to_refactor = ft_atol(argv[5]);
+	if (args->time_to_refactor <= 0)
+		return (1);
+	args->number_of_compiles_required = ft_atol(argv[6]);
+	args->dongle_cooldown = ft_atol(argv[7]);
 	if (strcmp(argv[8], "fifo") == 0)
 		args->is_edf = 0;
 	else
@@ -81,26 +91,27 @@ static int	init_global_mutexes(t_data *args)
 int	codexion(t_data *args, char **argv)
 {
 	if (asig_data(args, argv) != 0)
-		return (1);
+		return (0);
 	if (init_global_mutexes(args) != 0)
-		return (1);
+		return (0);
 	if (create_coders(args) != 0)
 	{
 		pthread_mutex_destroy(&args->log_mutex);
 		pthread_mutex_destroy(&args->flag_end);
 		pthread_mutex_destroy(&args->queue_mutex);
-		return (1);
+		return (0);
 	}
 	if (init_queue(args) != 0)
 	{
 		pthread_mutex_destroy(&args->log_mutex);
 		pthread_mutex_destroy(&args->flag_end);
 		pthread_mutex_destroy(&args->queue_mutex);
-		return (1);
+		free_mem(args->number_of_coders, args->dongles, args->coders);
+		return (0);
 	}
 	if (get_start_time(args))
 		return (start_simulation(args));
-	return (0);
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -119,7 +130,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("Argument error: one or more arguments are invalid..");
+		printf("Argument error: one or more arguments are invalid..\n");
 		return (1);
 	}
 	return (0);
