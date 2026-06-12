@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 09:20:39 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 09:47:23 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,12 @@ int	check_cooldown(t_coder *coder)
 	get_current_time() - coder->right_dongle->last_use_time >= coder->data->dongle_cooldown);
 }
 
-void	coder_cycle(t_coder *coder)
+static int	get_dongles(t_coder *coder)
 {
-	queue_routine(coder); // Me llega un coder y lo paso por la rutina para insertarlo en el array y ordenarlo.
-	pthread_mutex_lock(&coder->data->queue_mutex);
 	while (1)
 	{
 		if (simulation_should_stop(coder->data))
-		{
-			pthread_mutex_unlock(&coder->data->queue_mutex);
-			return ;
-		}
+			return (1);
 		if (coder == coder->data->queue->array[0].coder && \
 		coder->left_dongle->in_use == 0 && coder->right_dongle->in_use == 0)
 		{
@@ -77,6 +72,18 @@ void	coder_cycle(t_coder *coder)
 			break ;
 		}
 		pthread_cond_wait(&coder->data->cond_var, &coder->data->queue_mutex);
+	}
+	return (0);
+}
+
+void	coder_cycle(t_coder *coder)
+{
+	queue_routine(coder); // Me llega un coder y lo paso por la rutina para insertarlo en el array y ordenarlo.
+	pthread_mutex_lock(&coder->data->queue_mutex);
+	if (get_dongles(coder) != 0)
+	{
+		pthread_mutex_unlock(&coder->data->queue_mutex);
+		return ;
 	}
 	pop_queue(coder->data->queue);
 	pthread_cond_broadcast(&coder->data->cond_var);
