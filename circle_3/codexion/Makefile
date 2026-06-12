@@ -1,19 +1,8 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/06/12 14:00:00 by mjabalqu          #+#    #+#              #
-#    Updated: 2026/06/12 14:00:00 by mjabalqu         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME        = codexion
-CC          = gcc
+CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -pthread
-RM          = rm -f
+RM          = rm -rf
+OBJ_DIR     = obj
 
 # Source files
 SRCS        = main.c \
@@ -24,36 +13,28 @@ SRCS        = main.c \
               simulation.c \
               simulation_utils.c
 
-# Object files
-OBJS        = $(SRCS:.c=.o)
-
-# Colors for output
-GREEN       = \033[0;32m
-YELLOW      = \033[0;33m
-RESET       = \033[0m
+# Object files in separate directory
+OBJS        = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 # Rules
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(YELLOW)Linking $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)Compilation successful: $(NAME) ready.$(RESET)"
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c
-	@echo "$(YELLOW)Compiling $<...$(RESET)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "$(YELLOW)Cleaning object files...$(RESET)"
-	@$(RM) $(OBJS)
-	@echo "$(GREEN)Object files removed.$(RESET)"
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	@echo "$(YELLOW)Removing $(NAME)...$(RESET)"
-	@$(RM) $(NAME)
-	@echo "$(GREEN)Cleanup complete.$(RESET)"
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+run: all
+	./$(NAME) 5 800 200 200 200 10 10 fifo
+
+.PHONY: all clean fclean re run

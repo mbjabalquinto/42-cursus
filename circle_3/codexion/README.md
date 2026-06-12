@@ -36,12 +36,19 @@ El programa recibe 8 argumentos obligatorios:
 *   `dongle_cooldown`: Tiempo (ms) de enfriamiento de un dongle tras ser liberado.
 *   `scheduler`: Política de arbitraje (`fifo` o `edf`).
 
-## Recursos
+## Recursos empleados
 Para el desarrollo de este proyecto se han utilizado:
 - **Hilos (pthreads):** Para representar a cada programador y al monitor de salud.
 - **Mutexes:** Para la protección de recursos compartidos (dongles) y la serialización de la salida por terminal.
 - **Variables de Condición:** Para gestionar la cola de espera de forma eficiente sin espera activa (*busy-waiting*).
 - **Cola de Prioridad (Min-Heap):** Implementación manual para el soporte de planificadores FIFO y EDF.
+
+## Recursos consultados
+- https://www.geeksforgeeks.org/c/c-program-to-implement-min-heap/
+- Documentación de C sobre pthread y sus métodos y variables.
+- Youtube: vídeos sobre métodos de ordenación de un árbol binario.
+- Consultas en google sobre la gestión de los hilos en c.
+- I.A: Gemini Pro. Consultas varias sobre el funcionamiento de los hilos en C y los métodos pthread. También como ayudante para testing, ejecución de batería de pruebas y corrección de bugs. 
 
 ## Blocking cases handled
 
