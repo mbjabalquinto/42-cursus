@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:27 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 10:22:10 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/13 10:21:27 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	codexion(t_data *args, char **argv)
 		return (0);
 	}
 	if (get_start_time(args))
-		return (start_simulation(args));
+		return (args->number_of_compiles_required == 0 || start_simulation(args));
 	return (1);
 }
 
@@ -131,6 +131,10 @@ int	main(int argc, char **argv)
 	else
 	{
 		printf("Argument error: one or more arguments are invalid..\n");
+		printf("Usage:\n");
+		printf("./codexion <number_of_coders> <time_to_burnout> ");
+		printf("<time_to_compile> <time_to_debug> <time_to_refactor> ");
+		printf("<number_of_compiles_required> <dongle_cooldown> <scheduler>\n");
 		return (1);
 	}
 	return (0);

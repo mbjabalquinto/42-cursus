@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/11 19:42:44 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/12 17:50:22 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ int	create_coders(t_data *args)
 	args->coders = malloc(args->number_of_coders * sizeof(t_coder));
 	args->dongles = malloc(args->number_of_coders * sizeof(t_dongle));
 	if (!args->coders || !args->dongles)
-		return (free_mem(0, args->dongles, args->coders));
+	{	
+		free_mem(0, args->dongles, args->coders);
+		return (1);
+	}
 	while (i < args->number_of_coders)
 	{
 		if (init_single_coder(args, i) != 0)

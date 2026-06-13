@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 13:11:25 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/13 10:39:17 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ void	coder_compile(t_coder *coder)
 	print_status(coder, "is compiling");
 	pthread_mutex_lock(&coder->mon_mutex);
 	coder->last_compile_time = get_current_time();
-	coder->compile_count++;
 	pthread_mutex_unlock(&coder->mon_mutex);
 	ft_usleep(coder->data->time_to_compile, coder->data);
+	if (!simulation_should_stop(coder->data))
+	{
+		pthread_mutex_lock(&coder->mon_mutex);
+		coder->compile_count++;
+		pthread_mutex_unlock(&coder->mon_mutex);
+	}
 	pthread_mutex_lock(&coder->data->queue_mutex);
 	coder->left_dongle->last_use_time = get_current_time();
 	coder->right_dongle->last_use_time = get_current_time();
