@@ -110,7 +110,8 @@ int	codexion(t_data *args, char **argv)
 		return (0);
 	}
 	if (get_start_time(args))
-		return (args->number_of_compiles_required == 0 || start_simulation(args));
+		return (args->number_of_compiles_required == 0
+			||start_simulation(args));
 	return (1);
 }
 

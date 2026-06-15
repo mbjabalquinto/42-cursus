@@ -56,10 +56,10 @@ static int	init_single_coder(t_data *args, int i)
 	args->coders[i].id = i + 1;
 	args->coders[i].compile_count = 0;
 	args->coders[i].data = args;
-	args->coders[i].left_dongle = &args->dongles[i];
-	args->coders[i].right_dongle = &args->dongles[(i + 1) % args->number_of_coders];
-	args->coders[i].left_dongle->in_use = 0;
-	args->coders[i].right_dongle->in_use = 0;
+	args->coders[i].left_d = &args->dongles[i];
+	args->coders[i].right_d = &args->dongles[(i + 1) % args->number_of_coders];
+	args->coders[i].left_d->in_use = 0;
+	args->coders[i].right_d->in_use = 0;
 	args->coders[i].last_compile_time = get_current_time();
 	args->dongles[i].last_use_time = 0;
 	args->simulation_end = 0;
@@ -74,7 +74,7 @@ int	create_coders(t_data *args)
 	args->coders = malloc(args->number_of_coders * sizeof(t_coder));
 	args->dongles = malloc(args->number_of_coders * sizeof(t_dongle));
 	if (!args->coders || !args->dongles)
-	{	
+	{
 		free_mem(0, args->dongles, args->coders);
 		return (1);
 	}

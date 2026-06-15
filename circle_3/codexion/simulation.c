@@ -15,14 +15,16 @@
 int	check_death(t_data *data, int i)
 {
 	pthread_mutex_lock(&data->coders[i].mon_mutex);
-	if (get_current_time() - data->coders[i].last_compile_time >= data->time_to_burnout)
+	if (get_current_time() - data->coders[i].last_compile_time
+		>= data->time_to_burnout)
 	{
 		pthread_mutex_lock(&data->flag_end);
 		data->simulation_end = 1;
 		pthread_cond_broadcast(&data->cond_var);
 		pthread_mutex_unlock(&data->flag_end);
 		pthread_mutex_lock(&data->log_mutex);
-		printf("%zu %d burned out\n", get_current_time() - data->global_start_time, data->coders[i].id);
+		printf("%zu %d burned out\n", get_current_time()
+			- data->global_start_time, data->coders[i].id);
 		pthread_mutex_unlock(&data->log_mutex);
 		pthread_mutex_unlock(&data->coders[i].mon_mutex);
 		return (1);
@@ -31,16 +33,16 @@ int	check_death(t_data *data, int i)
 	return (0);
 }
 
-int check_all_compiled(t_data *data)
+int	check_all_compiled(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (data->number_of_compiles_required < 0)
 		return (0);
 	while (i < data->number_of_coders)
 	{
-		pthread_mutex_lock(&data->coders[i].mon_mutex);//si cualquiera está por debajo ya nos podemos salir.
+		pthread_mutex_lock(&data->coders[i].mon_mutex);
 		if (data->coders[i].compile_count < data->number_of_compiles_required)
 		{
 			pthread_mutex_unlock(&data->coders[i].mon_mutex);
@@ -58,8 +60,8 @@ int check_all_compiled(t_data *data)
 
 void	*monitor_routine(void *args)
 {
-	int i;
-	t_data *data;
+	int		i;
+	t_data	*data;
 
 	data = (t_data *)args;
 	while (1)
@@ -84,7 +86,8 @@ int	start_simulation(t_data *args)
 	i = 0;
 	while (i < args->number_of_coders)
 	{
-		if (pthread_create(&args->coders[i].thread_id, NULL, coder_routine, &args->coders[i]) != 0)
+		if (pthread_create(&args->coders[i].thread_id, NULL,
+				coder_routine, &args->coders[i]) != 0)
 		{
 			while (i > 0)
 			{
@@ -99,10 +102,6 @@ int	start_simulation(t_data *args)
 	pthread_join(args->monitor_thread, NULL);
 	i = 0;
 	while (i < args->number_of_coders)
-	{
-		pthread_join(args->coders[i].thread_id, NULL);
-		i++;
-	}
+		pthread_join(args->coders[i++].thread_id, NULL);
 	return (1);
 }
-

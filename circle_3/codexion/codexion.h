@@ -13,15 +13,15 @@
 #ifndef CODEXION_H
 # define CODEXION_H
 
-#include <pthread.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <sys/time.h>
 
-typedef struct s_coder	t_coder;
-typedef struct s_dongle	t_dongle;
+typedef struct s_coder			t_coder;
+typedef struct s_dongle			t_dongle;
 typedef struct s_priority_queue	t_priority_queue;
 
 typedef struct s_data
@@ -53,8 +53,8 @@ typedef struct s_coder
 	pthread_t		thread_id;
 	int				burnout;
 	int				compile_count;
-	t_dongle		*left_dongle;
-	t_dongle		*right_dongle;
+	t_dongle		*left_d;
+	t_dongle		*right_d;
 	struct s_data	*data;
 	size_t			last_compile_time;
 	pthread_mutex_t	mon_mutex;
