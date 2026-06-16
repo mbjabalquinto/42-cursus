@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:27 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/15 17:35:57 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/16 16:50:07 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,12 @@ static int	parse_errors(char **argv)
 static int	asig_data(t_data *args, char **argv)
 {
 	args->number_of_coders = ft_atol(argv[1]);
-	if (args->number_of_coders <= 0)
+	if (args->number_of_coders == 0)
 		return (1);
 	args->time_to_burnout = ft_atol(argv[2]);
 	args->time_to_compile = ft_atol(argv[3]);
-	if (args->time_to_compile <= 0)
-		return (1);
 	args->time_to_debug = ft_atol(argv[4]);
-	if (args->time_to_debug <= 0)
-		return (1);
 	args->time_to_refactor = ft_atol(argv[5]);
-	if (args->time_to_refactor <= 0)
-		return (1);
 	args->number_of_compiles_required = ft_atol(argv[6]);
 	args->dongle_cooldown = ft_atol(argv[7]);
 	if (strcmp(argv[8], "fifo") == 0)
@@ -109,7 +103,7 @@ int	codexion(t_data *args, char **argv)
 	}
 	if (get_start_time(args))
 		return (args->number_of_compiles_required == 0
-			||start_simulation(args));
+			|| start_simulation(args));
 	return (1);
 }
 
