@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/16 15:29:01 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/16 15:53:34 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ void	queue_routine(t_coder *coder)
 
 void	coder_compile(t_coder *coder)
 {
-	pthread_mutex_lock(&coder->left_d->mutex);
-	print_status(coder, "has taken a dongle");
-	pthread_mutex_lock(&coder->right_d->mutex);
-	print_status(coder, "has taken a dongle");
+	take_dongles(coder);
 	print_status(coder, "is compiling");
 	pthread_mutex_lock(&coder->mon_mutex);
 	coder->last_compile_time = get_current_time();

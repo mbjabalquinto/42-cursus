@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:57 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 13:09:29 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/16 15:52:33 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,25 @@ int	check_cooldown(t_coder *coder)
 		>= coder->data->dongle_cooldown
 		&& get_current_time() - coder->right_d->last_use_time
 		>= coder->data->dongle_cooldown);
+}
+
+void	take_dongles(t_coder *coder)
+{
+	t_dongle	*first;
+	t_dongle	*second;
+
+	if (coder->left_d < coder->right_d)
+	{
+		first = coder->left_d;
+		second = coder->right_d;
+	}
+	else
+	{
+		first = coder->right_d;
+		second = coder->left_d;
+	}
+	pthread_mutex_lock(&first->mutex);
+	print_status(coder, "has taken a dongle");
+	pthread_mutex_unlock(&second->mutex);
+	print_status(coder, "has taken a dongle");
 }
