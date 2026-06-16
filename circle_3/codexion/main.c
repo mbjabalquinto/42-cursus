@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:27 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/13 10:21:27 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/15 17:35:57 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static int	asig_data(t_data *args, char **argv)
 	if (args->number_of_coders <= 0)
 		return (1);
 	args->time_to_burnout = ft_atol(argv[2]);
-	if (args->time_to_burnout <= 0)
-		return (1);
 	args->time_to_compile = ft_atol(argv[3]);
 	if (args->time_to_compile <= 0)
 		return (1);

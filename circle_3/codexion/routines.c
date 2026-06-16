@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/13 10:39:17 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/16 15:29:01 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ void	coder_cycle(t_coder *coder)
 		ft_usleep(1, coder->data);
 	}
 	coder_compile(coder);
+	pthread_mutex_lock(&coder->data->queue_mutex);
 	pthread_cond_broadcast(&coder->data->cond_var);
+	pthread_mutex_unlock(&coder->data->queue_mutex);
 	print_status(coder, "is debugging");
 	ft_usleep(coder->data->time_to_debug, coder->data);
 	print_status(coder, "is refactoring");

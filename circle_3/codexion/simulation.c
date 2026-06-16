@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:42 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 11:17:04 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/16 15:29:35 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	check_death(t_data *data, int i)
 	{
 		pthread_mutex_lock(&data->flag_end);
 		data->simulation_end = 1;
-		pthread_cond_broadcast(&data->cond_var);
 		pthread_mutex_unlock(&data->flag_end);
+		pthread_mutex_lock(&data->queue_mutex);
+		pthread_cond_broadcast(&data->cond_var);
+		pthread_mutex_unlock(&data->queue_mutex);
 		pthread_mutex_lock(&data->log_mutex);
 		printf("%zu %d burned out\n", get_current_time()
 			- data->global_start_time, data->coders[i].id);
@@ -53,8 +55,11 @@ int	check_all_compiled(t_data *data)
 	}
 	pthread_mutex_lock(&data->flag_end);
 	data->simulation_end = 1;
-	pthread_cond_broadcast(&data->cond_var);
 	pthread_mutex_unlock(&data->flag_end);
+	pthread_mutex_lock(&data->queue_mutex);
+	pthread_cond_broadcast(&data->cond_var);
+	pthread_mutex_unlock(&data->queue_mutex);
+	
 	return (1);
 }
 
