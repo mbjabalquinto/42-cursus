@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:57 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/16 15:52:33 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/16 16:07:44 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void	take_dongles(t_coder *coder)
 	}
 	pthread_mutex_lock(&first->mutex);
 	print_status(coder, "has taken a dongle");
-	pthread_mutex_unlock(&second->mutex);
+	pthread_mutex_lock(&second->mutex);
 	print_status(coder, "has taken a dongle");
 }
