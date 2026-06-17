@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:13 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/16 15:54:48 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/17 18:20:43 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ void	print_status(t_coder *coder, char *status);
 long	ft_atol(const char *str);
 int		check_cooldown(t_coder *coder);
 void	take_dongles(t_coder *coder);
+int		can_take_dongles(t_coder *coder);
+int		get_dongles(t_coder *coder);
 
 #endif

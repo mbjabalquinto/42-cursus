@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/16 15:53:34 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/17 18:19:13 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,6 @@ void	coder_compile(t_coder *coder)
 	pthread_mutex_unlock(&coder->left_d->mutex);
 }
 
-static int	get_dongles(t_coder *coder)
-{
-	while (1)
-	{
-		if (simulation_should_stop(coder->data))
-			return (1);
-		if (coder == coder->data->queue->array[0].coder
-			&& coder->left_d->in_use == 0 && coder->right_d->in_use == 0)
-		{
-			coder->left_d->in_use = 1;
-			coder->right_d->in_use = 1;
-			break ;
-		}
-		pthread_cond_wait(&coder->data->cond_var, &coder->data->queue_mutex);
-	}
-	return (0);
-}
-
 void	coder_cycle(t_coder *coder)
 {
 	queue_routine(coder);
@@ -81,12 +63,6 @@ void	coder_cycle(t_coder *coder)
 	{
 		pthread_mutex_unlock(&coder->data->queue_mutex);
 		return ;
-	}
-	int i = 0;
-	while (i < coder->data->number_of_coders)
-	{
-		printf("coder id: %d left_d: %d right_d: %d\n", coder->data->coders[i].id, coder->data->coders[i].left_d->in_use, coder->data->coders[i].right_d->in_use);
-		i++;
 	}
 	pop_queue(coder->data->queue);
 	pthread_cond_broadcast(&coder->data->cond_var);
