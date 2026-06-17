@@ -35,6 +35,6 @@ fclean: clean
 re: fclean all
 
 run: all
-	./$(NAME) 5 800 200 200 200 10 10 fifo
+	./$(NAME) 4 800 200 200 200 10 10 fifo
 
 .PHONY: all clean fclean re run

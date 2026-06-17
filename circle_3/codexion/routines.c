@@ -82,6 +82,12 @@ void	coder_cycle(t_coder *coder)
 		pthread_mutex_unlock(&coder->data->queue_mutex);
 		return ;
 	}
+	int i = 0;
+	while (i < coder->data->number_of_coders)
+	{
+		printf("coder id: %d left_d: %d right_d: %d\n", coder->data->coders[i].id, coder->data->coders[i].left_d->in_use, coder->data->coders[i].right_d->in_use);
+		i++;
+	}
 	pop_queue(coder->data->queue);
 	pthread_cond_broadcast(&coder->data->cond_var);
 	pthread_mutex_unlock(&coder->data->queue_mutex);
