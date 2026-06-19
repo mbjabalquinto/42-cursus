@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:13 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/17 18:20:43 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/18 21:21:18 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_coder
 	struct s_data	*data;
 	size_t			last_compile_time;
 	pthread_mutex_t	mon_mutex;
+	int				index;
 }	t_coder;
 
 // Node to insert into the queue
@@ -90,7 +91,7 @@ void	ft_usleep(size_t time_to_check, t_data *data);
 int		get_start_time(t_data *args);
 int		init_queue(t_data *args);
 void	bubble_up(t_priority_queue *queue, int i);
-void	pop_queue(t_priority_queue *queue);
+void	remove_coder(t_priority_queue *queue, t_coder *coder);
 void	ft_swap(t_priority_queue *queue, int i, int smallest);
 void	clean_teardown(t_data *data);
 int		simulation_should_stop(t_data *data);
@@ -100,5 +101,6 @@ int		check_cooldown(t_coder *coder);
 void	take_dongles(t_coder *coder);
 int		can_take_dongles(t_coder *coder);
 int		get_dongles(t_coder *coder);
+void	insert_coder(t_coder *coder);
 
 #endif

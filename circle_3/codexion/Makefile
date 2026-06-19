@@ -9,9 +9,10 @@ SRCS        = main.c \
               main_utils.c \
               coders.c \
               routines.c \
-              routines_utils.c \
+              dongles.c \
               simulation.c \
-              simulation_utils.c
+              simulation_utils.c \
+			  scheduler.c
 
 # Object files in separate directory
 OBJS        = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -35,6 +36,6 @@ fclean: clean
 re: fclean all
 
 run: all
-	./$(NAME) 4 800 200 200 200 10 10 fifo
+	./$(NAME) 3 800 200 200 200 10 10 edf
 
 .PHONY: all clean fclean re run

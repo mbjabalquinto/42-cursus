@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:27 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/16 16:50:07 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/19 12:33:58 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int	codexion(t_data *args, char **argv)
 		free_mem(args->number_of_coders, args->dongles, args->coders);
 		return (0);
 	}
-	if (get_start_time(args))
-		return (args->number_of_compiles_required == 0
-			|| start_simulation(args));
+	if (get_start_time(args) && args->number_of_compiles_required > 0)
+		start_simulation(args);
+	clean_teardown(args);
 	return (1);
 }
 
@@ -117,10 +117,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	else if (parse_errors(argv) && codexion(&args, argv))
-	{
-		clean_teardown(&args);
 		return (0);
-	}
 	else
 	{
 		printf("Argument error: one or more arguments are invalid..\n");

@@ -6,30 +6,11 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:52 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/17 18:19:13 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/19 13:13:36 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-void	queue_routine(t_coder *coder)
-{
-	t_priority_queue	*queue;
-	int					insert_index;
-
-	queue = coder->data->queue;
-	pthread_mutex_lock(&coder->data->queue_mutex);
-	insert_index = queue->size;
-	queue->array[insert_index].coder = coder;
-	if (coder->data->is_edf)
-		queue->array[insert_index].priority
-			= coder->last_compile_time + coder->data->time_to_burnout;
-	else
-		queue->array[insert_index].priority = get_current_time();
-	queue->size++;
-	bubble_up(queue, insert_index);
-	pthread_mutex_unlock(&coder->data->queue_mutex);
-}
 
 void	coder_compile(t_coder *coder)
 {
@@ -57,14 +38,14 @@ void	coder_compile(t_coder *coder)
 
 void	coder_cycle(t_coder *coder)
 {
-	queue_routine(coder);
 	pthread_mutex_lock(&coder->data->queue_mutex);
+	insert_coder(coder);
 	if (get_dongles(coder) != 0)
 	{
 		pthread_mutex_unlock(&coder->data->queue_mutex);
 		return ;
 	}
-	pop_queue(coder->data->queue);
+	remove_coder(coder->data->queue, coder);
 	pthread_cond_broadcast(&coder->data->cond_var);
 	pthread_mutex_unlock(&coder->data->queue_mutex);
 	while (!check_cooldown(coder))

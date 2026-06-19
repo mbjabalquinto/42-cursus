@@ -6,7 +6,7 @@
 /*   By: mjabalqu <mjabalqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:52:37 by mjabalqu          #+#    #+#             */
-/*   Updated: 2026/06/12 17:50:22 by mjabalqu         ###   ########.fr       */
+/*   Updated: 2026/06/18 21:24:17 by mjabalqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	init_single_coder(t_data *args, int i)
 	args->coders[i].right_d = &args->dongles[(i + 1) % args->number_of_coders];
 	args->coders[i].left_d->in_use = 0;
 	args->coders[i].right_d->in_use = 0;
+	args->coders[i].index = -1;
 	args->coders[i].last_compile_time = get_current_time();
 	args->dongles[i].last_use_time = 0;
 	args->simulation_end = 0;
