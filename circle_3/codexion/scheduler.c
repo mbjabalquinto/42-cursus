@@ -92,7 +92,8 @@ void	remove_coder(t_priority_queue *queue, t_coder *coder)
 	if (i > 0)
 	{
 		father = (i - 1) / 2;
-		if (father >= 0 && queue->array[i].priority < queue->array[father].priority)
+		if (father >= 0
+			&& queue->array[i].priority < queue->array[father].priority)
 		{
 			bubble_up(queue, i);
 			return ;
@@ -100,4 +101,3 @@ void	remove_coder(t_priority_queue *queue, t_coder *coder)
 	}
 	bubble_down(queue, i);
 }
-

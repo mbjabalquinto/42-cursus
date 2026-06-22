@@ -14,7 +14,7 @@
 
 void	clean_teardown(t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	pthread_mutex_destroy(&data->log_mutex);
@@ -35,7 +35,7 @@ void	clean_teardown(t_data *data)
 long	ft_atol(const char *str)
 {
 	int		i;
-	long	num;
+	size_t	num;
 	char	sign;
 
 	sign = '+';

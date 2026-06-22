@@ -26,12 +26,12 @@ typedef struct s_priority_queue	t_priority_queue;
 
 typedef struct s_data
 {
-	int					number_of_coders;
+	size_t				number_of_coders;
 	size_t				time_to_burnout;
 	size_t				time_to_compile;
 	size_t				time_to_debug;
 	size_t				time_to_refactor;
-	int					number_of_compiles_required;
+	size_t				number_of_compiles_required;
 	size_t				dongle_cooldown;
 	int					is_edf;// fifo = 0 | edf = 1
 	size_t				global_start_time;

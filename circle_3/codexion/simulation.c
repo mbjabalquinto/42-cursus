@@ -37,7 +37,7 @@ int	check_death(t_data *data, int i)
 
 int	check_all_compiled(t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (data->number_of_compiles_required < 0)
@@ -64,7 +64,7 @@ int	check_all_compiled(t_data *data)
 
 void	*monitor_routine(void *args)
 {
-	int		i;
+	size_t	i;
 	t_data	*data;
 
 	data = (t_data *)args;
@@ -85,7 +85,7 @@ void	*monitor_routine(void *args)
 
 int	start_simulation(t_data *args)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < args->number_of_coders)

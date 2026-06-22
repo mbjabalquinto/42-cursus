@@ -12,14 +12,19 @@
 
 #include "codexion.h"
 
+int	check_neighbors(t_coder *neighbor, size_t coder_p, t_heap_node *array)
+{
+	if (neighbor->index != -1 && array[neighbor->index].priority < coder_p)
+		if (neighbor->left_d->in_use == 0 && neighbor->right_d->in_use == 0)
+			return (1);
+	return (0);
+}
+
 int	can_take_dongles(t_coder *coder)
 {
 	int			left_pos;
 	int			right_pos;
 	int			total_coders;
-	t_coder		*left_c;
-	t_coder 	*right_c;
-	size_t		coder_p;
 	t_heap_node	*array;
 	int			my_pos;
 
@@ -27,18 +32,15 @@ int	can_take_dongles(t_coder *coder)
 		return (0);
 	my_pos = coder->id - 1;
 	array = coder->data->queue->array;
-	coder_p = array[coder->index].priority;
 	total_coders = coder->data->number_of_coders;
 	left_pos = (my_pos - 1 + total_coders) % total_coders;
 	right_pos = (my_pos + 1) % total_coders;
-	left_c = &coder->data->coders[left_pos];
-	right_c = &coder->data->coders[right_pos];
-	if (left_c->index != - 1 && array[left_c->index].priority < coder_p)
-		if (left_c->left_d->in_use == 0 && left_c->right_d->in_use == 0)
-			return (0);
-	if (right_c->index != - 1 && array[right_c->index].priority < coder_p)
-		if (right_c->left_d->in_use == 0 && right_c->right_d->in_use == 0)
-			return (0);
+	if (check_neighbors(&coder->data->coders[left_pos]
+			, array[coder->index].priority, array))
+		return (0);
+	if (check_neighbors(&coder->data->coders[right_pos]
+			, array[coder->index].priority, array))
+		return (0);
 	return (1);
 }
 
