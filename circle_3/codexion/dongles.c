@@ -12,11 +12,14 @@
 
 #include "codexion.h"
 
-int	check_neighbors(t_coder *neighbor, size_t coder_p, t_heap_node *array)
+int	check_neighbors(t_coder *neighbor, size_t coder_p,
+	t_heap_node *array)
 {
-	if (neighbor->index != -1 && array[neighbor->index].priority < coder_p)
-		if (neighbor->left_d->in_use == 0 && neighbor->right_d->in_use == 0)
+	if (neighbor->left_d->in_use == 0 && neighbor->right_d->in_use == 0)
+	{
+		if (neighbor->index != -1 && array[neighbor->index].priority < coder_p)
 			return (1);
+	}
 	return (0);
 }
 

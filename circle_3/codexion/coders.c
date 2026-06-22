@@ -69,7 +69,7 @@ static int	init_single_coder(t_data *args, int i)
 
 int	create_coders(t_data *args)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	args->coders = malloc(args->number_of_coders * sizeof(t_coder));

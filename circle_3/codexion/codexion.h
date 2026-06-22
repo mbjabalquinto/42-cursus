@@ -52,7 +52,7 @@ typedef struct s_coder
 	int				id;
 	pthread_t		thread_id;
 	int				burnout;
-	int				compile_count;
+	size_t			compile_count;
 	t_dongle		*left_d;
 	t_dongle		*right_d;
 	struct s_data	*data;
@@ -72,7 +72,7 @@ typedef struct s_heap_node
 typedef struct s_priority_queue
 {
 	t_heap_node	*array;
-	int			size;// How much coders are there on the queue right now.
+	size_t		size;// How much coders are there on the queue right now.
 }	t_priority_queue;
 
 typedef struct s_dongle

@@ -58,11 +58,11 @@ void	bubble_up(t_priority_queue *queue, int i)
 
 void	bubble_down(t_priority_queue *queue, int i)
 {
-	int			smallest;
+	size_t		smallest;
 	t_heap_node	*arr;
 
 	arr = queue->array;
-	while (2 * i + 1 < queue->size)
+	while ((size_t)2 * i + 1 < queue->size)
 	{
 		smallest = 2 * i + 1;
 		if (smallest + 1 < queue->size
@@ -77,8 +77,8 @@ void	bubble_down(t_priority_queue *queue, int i)
 
 void	remove_coder(t_priority_queue *queue, t_coder *coder)
 {
-	int	i;
-	int	father;
+	size_t	i;
+	size_t	father;
 
 	if (queue->size == 0)
 		return ;
